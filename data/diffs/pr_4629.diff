@@ -1,0 +1,1130 @@
+diff --git a/webapp/package-lock.json b/webapp/package-lock.json
+index 65f21b94be6..385d8a79e71 100644
+--- a/webapp/package-lock.json
++++ b/webapp/package-lock.json
+@@ -48,6 +48,9 @@
+ 				"react-redux": "^7.2.0",
+ 				"react-router-dom": "^5.2.0",
+ 				"react-select": "^5.2.2",
++				"react-virtualized-auto-sizer": "^1.0.7",
++				"react-vtree": "^2.0.4",
++				"react-window": "^1.8.8",
+ 				"trim-newlines": "^4.0.2"
+ 			},
+ 			"devDependencies": {
+@@ -72,6 +75,8 @@
+ 				"@types/react-redux": "^7.1.23",
+ 				"@types/react-router-dom": "^5.3.3",
+ 				"@types/react-select": "^5.0.0",
++				"@types/react-virtualized-auto-sizer": "^1.0.1",
++				"@types/react-window": "^1.8.5",
+ 				"@types/redux-mock-store": "^1.0.3",
+ 				"@typescript-eslint/eslint-plugin": "^5.16.0",
+ 				"@typescript-eslint/parser": "^5.16.0",
+@@ -2795,6 +2800,23 @@
+ 				"@types/react": "*"
+ 			}
+ 		},
++		"node_modules/@types/react-virtualized-auto-sizer": {
++			"version": "1.0.1",
++			"resolved": "https://registry.npmjs.org/@types/react-virtualized-auto-sizer/-/react-virtualized-auto-sizer-1.0.1.tgz",
++			"integrity": "sha512-GH8sAnBEM5GV9LTeiz56r4ZhMOUSrP43tAQNSRVxNexDjcNKLCEtnxusAItg1owFUFE6k0NslV26gqVClVvong==",
++			"dev": true,
++			"dependencies": {
++				"@types/react": "*"
++			}
++		},
++		"node_modules/@types/react-window": {
++			"version": "1.8.5",
++			"resolved": "https://registry.npmjs.org/@types/react-window/-/react-window-1.8.5.tgz",
++			"integrity": "sha512-V9q3CvhC9Jk9bWBOysPGaWy/Z0lxYcTXLtLipkt2cnRj1JOSFNF7wqGpkScSXMgBwC+fnVRg/7shwgddBG5ICw==",
++			"dependencies": {
++				"@types/react": "*"
++			}
++		},
+ 		"node_modules/@types/redux-mock-store": {
+ 			"version": "1.0.3",
+ 			"resolved": "https://registry.npmjs.org/@types/redux-mock-store/-/redux-mock-store-1.0.3.tgz",
+@@ -14075,6 +14097,48 @@
+ 				"react-dom": ">=16.6.0"
+ 			}
+ 		},
++		"node_modules/react-virtualized-auto-sizer": {
++			"version": "1.0.7",
++			"resolved": "https://registry.npmjs.org/react-virtualized-auto-sizer/-/react-virtualized-auto-sizer-1.0.7.tgz",
++			"integrity": "sha512-Mxi6lwOmjwIjC1X4gABXMJcKHsOo0xWl3E3ugOgufB8GJU+MqrtY35aBuvCYv/razQ1Vbp7h1gWJjGjoNN5pmA==",
++			"engines": {
++				"node": ">8.0.0"
++			},
++			"peerDependencies": {
++				"react": "^15.3.0 || ^16.0.0-alpha || ^17.0.0 || ^18.0.0-rc",
++				"react-dom": "^15.3.0 || ^16.0.0-alpha || ^17.0.0 || ^18.0.0-rc"
++			}
++		},
++		"node_modules/react-vtree": {
++			"version": "2.0.4",
++			"resolved": "https://registry.npmjs.org/react-vtree/-/react-vtree-2.0.4.tgz",
++			"integrity": "sha512-UOld0VqyAZrryF06K753X4bcEVN6/wW831exvVlMZeZAVHk9KXnlHs4rpqDAeoiBgUwJqoW/rtn0hwsokRRxPA==",
++			"dependencies": {
++				"@babel/runtime": "^7.11.0"
++			},
++			"peerDependencies": {
++				"@types/react-window": "^1.8.2",
++				"react": "^16.13.1",
++				"react-dom": "^16.13.1",
++				"react-window": "^1.8.5"
++			}
++		},
++		"node_modules/react-window": {
++			"version": "1.8.8",
++			"resolved": "https://registry.npmjs.org/react-window/-/react-window-1.8.8.tgz",
++			"integrity": "sha512-D4IiBeRtGXziZ1n0XklnFGu7h9gU684zepqyKzgPNzrsrk7xOCxni+TCckjg2Nr/DiaEEGVVmnhYSlT2rB47dQ==",
++			"dependencies": {
++				"@babel/runtime": "^7.0.0",
++				"memoize-one": ">=3.1.1 <6"
++			},
++			"engines": {
++				"node": ">8.0.0"
++			},
++			"peerDependencies": {
++				"react": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0",
++				"react-dom": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0"
++			}
++		},
+ 		"node_modules/read-pkg": {
+ 			"version": "5.2.0",
+ 			"resolved": "https://registry.npmjs.org/read-pkg/-/read-pkg-5.2.0.tgz",
+@@ -19590,6 +19654,23 @@
+ 				"@types/react": "*"
+ 			}
+ 		},
++		"@types/react-virtualized-auto-sizer": {
++			"version": "1.0.1",
++			"resolved": "https://registry.npmjs.org/@types/react-virtualized-auto-sizer/-/react-virtualized-auto-sizer-1.0.1.tgz",
++			"integrity": "sha512-GH8sAnBEM5GV9LTeiz56r4ZhMOUSrP43tAQNSRVxNexDjcNKLCEtnxusAItg1owFUFE6k0NslV26gqVClVvong==",
++			"dev": true,
++			"requires": {
++				"@types/react": "*"
++			}
++		},
++		"@types/react-window": {
++			"version": "1.8.5",
++			"resolved": "https://registry.npmjs.org/@types/react-window/-/react-window-1.8.5.tgz",
++			"integrity": "sha512-V9q3CvhC9Jk9bWBOysPGaWy/Z0lxYcTXLtLipkt2cnRj1JOSFNF7wqGpkScSXMgBwC+fnVRg/7shwgddBG5ICw==",
++			"requires": {
++				"@types/react": "*"
++			}
++		},
+ 		"@types/redux-mock-store": {
+ 			"version": "1.0.3",
+ 			"resolved": "https://registry.npmjs.org/@types/redux-mock-store/-/redux-mock-store-1.0.3.tgz",
+@@ -28118,6 +28199,29 @@
+ 				"prop-types": "^15.6.2"
+ 			}
+ 		},
++		"react-virtualized-auto-sizer": {
++			"version": "1.0.7",
++			"resolved": "https://registry.npmjs.org/react-virtualized-auto-sizer/-/react-virtualized-auto-sizer-1.0.7.tgz",
++			"integrity": "sha512-Mxi6lwOmjwIjC1X4gABXMJcKHsOo0xWl3E3ugOgufB8GJU+MqrtY35aBuvCYv/razQ1Vbp7h1gWJjGjoNN5pmA==",
++			"requires": {}
++		},
++		"react-vtree": {
++			"version": "2.0.4",
++			"resolved": "https://registry.npmjs.org/react-vtree/-/react-vtree-2.0.4.tgz",
++			"integrity": "sha512-UOld0VqyAZrryF06K753X4bcEVN6/wW831exvVlMZeZAVHk9KXnlHs4rpqDAeoiBgUwJqoW/rtn0hwsokRRxPA==",
++			"requires": {
++				"@babel/runtime": "^7.11.0"
++			}
++		},
++		"react-window": {
++			"version": "1.8.8",
++			"resolved": "https://registry.npmjs.org/react-window/-/react-window-1.8.8.tgz",
++			"integrity": "sha512-D4IiBeRtGXziZ1n0XklnFGu7h9gU684zepqyKzgPNzrsrk7xOCxni+TCckjg2Nr/DiaEEGVVmnhYSlT2rB47dQ==",
++			"requires": {
++				"@babel/runtime": "^7.0.0",
++				"memoize-one": ">=3.1.1 <6"
++			}
++		},
+ 		"read-pkg": {
+ 			"version": "5.2.0",
+ 			"resolved": "https://registry.npmjs.org/read-pkg/-/read-pkg-5.2.0.tgz",
+diff --git a/webapp/package.json b/webapp/package.json
+index d26d1e3ae1c..befe469f069 100644
+--- a/webapp/package.json
++++ b/webapp/package.json
+@@ -65,6 +65,9 @@
+ 		"react-redux": "^7.2.0",
+ 		"react-router-dom": "^5.2.0",
+ 		"react-select": "^5.2.2",
++		"react-virtualized-auto-sizer": "^1.0.7",
++		"react-vtree": "^2.0.4",
++		"react-window": "^1.8.8",
+ 		"trim-newlines": "^4.0.2"
+ 	},
+ 	"jest": {
+@@ -113,6 +116,8 @@
+ 		"@types/react-redux": "^7.1.23",
+ 		"@types/react-router-dom": "^5.3.3",
+ 		"@types/react-select": "^5.0.0",
++		"@types/react-virtualized-auto-sizer": "^1.0.1",
++		"@types/react-window": "^1.8.5",
+ 		"@types/redux-mock-store": "^1.0.3",
+ 		"@typescript-eslint/eslint-plugin": "^5.16.0",
+ 		"@typescript-eslint/parser": "^5.16.0",
+diff --git a/webapp/src/components/cardBadges.tsx b/webapp/src/components/cardBadges.tsx
+index 69a97cd477b..ef61f66a112 100644
+--- a/webapp/src/components/cardBadges.tsx
++++ b/webapp/src/components/cardBadges.tsx
+@@ -4,6 +4,7 @@ import React, {useMemo} from 'react'
+ import {useIntl} from 'react-intl'
+ 
+ import {Card} from '../blocks/card'
++import {RootState} from '../store'
+ import {useAppSelector} from '../store/hooks'
+ import {getCardContents} from '../store/contents'
+ import {getCardComments} from '../store/comments'
+@@ -76,8 +77,8 @@ const calculateBadges = (contents: ContentsType, comments: CommentBlock[]): Badg
+ 
+ const CardBadges = (props: Props) => {
+     const {card, className} = props
+-    const contents = useAppSelector(getCardContents(card.id))
+-    const comments = useAppSelector(getCardComments(card.id))
++    const contents = useAppSelector((state: RootState) => getCardContents(state, card.id))
++    const comments = useAppSelector((state: RootState) => getCardComments(state, card.id))
+     const badges = useMemo(() => calculateBadges(contents, comments), [contents, comments])
+     if (!hasBadges(badges)) {
+         return null
+diff --git a/webapp/src/components/cardDialog.tsx b/webapp/src/components/cardDialog.tsx
+index da13e035db2..6cfd49b82b0 100644
+--- a/webapp/src/components/cardDialog.tsx
++++ b/webapp/src/components/cardDialog.tsx
+@@ -27,6 +27,7 @@ import {getUserBlockSubscriptionList} from '../store/initialLoad'
+ import {getClientConfig} from '../store/clientConfig'
+ 
+ import {IUser} from '../user'
++import {RootState} from '../store'
+ import {getMe} from '../store/users'
+ import {Permission} from '../constants'
+ import {Block, createBlock} from '../blocks/block'
+@@ -53,10 +54,10 @@ type Props = {
+ 
+ const CardDialog = (props: Props): JSX.Element => {
+     const {board, activeView, cards, views} = props
+-    const card = useAppSelector(getCard(props.cardId))
+-    const contents = useAppSelector(getCardContents(props.cardId))
+-    const comments = useAppSelector(getCardComments(props.cardId))
+-    const attachments = useAppSelector(getCardAttachments(props.cardId))
++    const card = useAppSelector((state: RootState) => getCard(state, props.cardId))
++    const contents = useAppSelector((state: RootState) => getCardContents(state, props.cardId))
++    const comments = useAppSelector((state: RootState) => getCardComments(state, props.cardId))
++    const attachments = useAppSelector((state: RootState) => getCardAttachments(state, props.cardId))
+     const clientConfig = useAppSelector(getClientConfig)
+     const intl = useIntl()
+     const dispatch = useAppDispatch()
+diff --git a/webapp/src/components/centerPanel.tsx b/webapp/src/components/centerPanel.tsx
+index 7fa7006262f..8433816e550 100644
+--- a/webapp/src/components/centerPanel.tsx
++++ b/webapp/src/components/centerPanel.tsx
+@@ -396,6 +396,14 @@ const CenterPanel = (props: Props) => {
+         return {visible: vg, hidden: hg}
+     }, [cards, activeView.fields.visibleOptionIds, activeView.fields.hiddenOptionIds, groupByProperty, boardUsers])
+ 
++    const onDialogClose = useCallback(() => {
++        showCard(undefined)
++    }, [])
++
++    const dialogShowCard = useCallback((cardId?: string | undefined) => {
++        showCard(cardId)
++    }, [showCard])
++
+     return (
+         <div
+             className='BoardComponent'
+@@ -410,8 +418,8 @@ const CenterPanel = (props: Props) => {
+                         cards={cards}
+                         key={props.shownCardId}
+                         cardId={props.shownCardId}
+-                        onClose={() => showCard(undefined)}
+-                        showCard={(cardId) => showCard(cardId)}
++                        onClose={onDialogClose}
++                        showCard={dialogShowCard}
+                         readonly={props.readonly}
+                     />
+                 </RootPortal>}
+diff --git a/webapp/src/components/gallery/galleryCard.tsx b/webapp/src/components/gallery/galleryCard.tsx
+index 76e295f3824..fd9466763d4 100644
+--- a/webapp/src/components/gallery/galleryCard.tsx
++++ b/webapp/src/components/gallery/galleryCard.tsx
+@@ -8,6 +8,7 @@ import {Card} from '../../blocks/card'
+ import {ContentBlock} from '../../blocks/contentBlock'
+ import {useSortable} from '../../hooks/sortable'
+ import mutator from '../../mutator'
++import {RootState} from '../../store'
+ import {getCardContents} from '../../store/contents'
+ import {useAppSelector} from '../../store/hooks'
+ import TelemetryClient, {TelemetryActions, TelemetryCategory} from '../../telemetry/telemetryClient'
+@@ -40,7 +41,7 @@ const GalleryCard = (props: Props) => {
+     const intl = useIntl()
+     const {card, board} = props
+     const [isDragging, isOver, cardRef] = useSortable('card', card, props.isManualSort && !props.readonly, props.onDrop)
+-    const contents = useAppSelector(getCardContents(card.id))
++    const contents = useAppSelector((state: RootState) => getCardContents(state, card.id))
+     const [showConfirmationDialogBox, setShowConfirmationDialogBox] = useState<boolean>(false)
+ 
+     const visiblePropertyTemplates = props.visiblePropertyTemplates || []
+diff --git a/webapp/src/components/table/table.scss b/webapp/src/components/table/table.scss
+index bbc9ef118e7..aec364e2bda 100644
+--- a/webapp/src/components/table/table.scss
++++ b/webapp/src/components/table/table.scss
+@@ -11,9 +11,9 @@
+         display: flex;
+         flex-shrink: 0;
+         align-items: center;
+-        height: 50px;
++        height: 44px;
+         margin-right: 15px;
+-        margin-top: 15px;
++        // margin-top: 15px;
+         vertical-align: middle;
+         border-bottom: solid 1px rgba(var(--center-channel-color-rgb), 0.08);
+ 
+@@ -212,7 +212,8 @@
+     .octo-table-body {
+         display: flex;
+         flex-direction: column;
+-        width: fit-content;
++        width: 100%;
++        height: 100%;
+     }
+ 
+     .octo-table-header,
+@@ -250,7 +251,8 @@
+     }
+ 
+     .table-row-container {
+-        width: fit-content;
++        width: 100%;
++        height: 100%;
+ 
+         .octo-table-cell {
+             align-items: center;
+diff --git a/webapp/src/components/table/table.tsx b/webapp/src/components/table/table.tsx
+index 25d5f38c270..5eff42e008c 100644
+--- a/webapp/src/components/table/table.tsx
++++ b/webapp/src/components/table/table.tsx
+@@ -1,18 +1,25 @@
+ // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
+ // See LICENSE.txt for license information.
+-import React, {useCallback} from 'react'
+-
+-import {FormattedMessage} from 'react-intl'
+-
+-import {IPropertyOption, IPropertyTemplate, Board, BoardGroup} from '../../blocks/board'
+-import {createBoardView, BoardView} from '../../blocks/boardView'
+-import {Card} from '../../blocks/card'
+-import {Constants, Permission} from '../../constants'
++import React, { useCallback } from 'react'
++
++import { FormattedMessage } from 'react-intl'
++import {
++    FixedSizeTree,
++    FixedSizeNodeData,
++    FixedSizeNodeComponentProps,
++} from 'react-vtree';
++import { FixedSizeList, ListChildComponentProps } from 'react-window'
++import AutoSizer from 'react-virtualized-auto-sizer'
++
++import { IPropertyOption, IPropertyTemplate, Board, BoardGroup } from '../../blocks/board'
++import { createBoardView, BoardView } from '../../blocks/boardView'
++import { Card } from '../../blocks/card'
++import { Constants, Permission } from '../../constants'
+ import mutator from '../../mutator'
+-import {Utils} from '../../utils'
+-import {useAppDispatch} from '../../store/hooks'
+-import {updateView} from '../../store/views'
+-import {useHasCurrentBoardPermissions} from '../../hooks/permissions'
++import { Utils } from '../../utils'
++import { useAppDispatch } from '../../store/hooks'
++import { updateView } from '../../store/views'
++import { useHasCurrentBoardPermissions } from '../../hooks/permissions'
+ 
+ import BoardPermissionGate from '../permissions/boardPermissionGate'
+ 
+@@ -22,7 +29,8 @@ import HiddenCardCount from '../../components/hiddenCardCount/hiddenCardCount'
+ 
+ import TableHeaders from './tableHeaders'
+ import TableRows from './tableRows'
+-import TableGroup from './tableGroup'
++import TableRow from './tableRow'
++import TableGroupHeaderRow from './tableGroupHeaderRow'
+ import CalculationRow from './calculation/calculationRow'
+ import {ColumnResizeProvider} from './tableColumnResizeContext'
+ 
+@@ -43,15 +51,29 @@ type Props = {
+     showHiddenCardCountNotification: (show: boolean) => void
+ }
+ 
++type TreeData = FixedSizeNodeData &
++{
++    isCard: boolean;
++    isLeaf: boolean;
++    node: BoardGroup | Card;
++};
++
++type StackElement = {
++    nestingLevel: number;
++    node: Card | BoardGroup;
++    isLastCard: boolean;
++    groupId: string;
++};
++
+ const Table = (props: Props): JSX.Element => {
+-    const {board, cards, activeView, visibleGroups, groupByProperty, views, hiddenCardsCount} = props
++    const { board, cards, activeView, visibleGroups, groupByProperty, views, hiddenCardsCount } = props
+     const isManualSort = activeView.fields.sortOptions?.length === 0
+     const canEditBoardProperties = useHasCurrentBoardPermissions([Permission.ManageBoardProperties])
+     const canEditCards = useHasCurrentBoardPermissions([Permission.ManageBoardCards])
+     const dispatch = useAppDispatch()
+ 
+     const resizeColumn = useCallback(async (columnId: string, width: number) => {
+-        const columnWidths = {...activeView.fields.columnWidths}
++        const columnWidths = { ...activeView.fields.columnWidths }
+         const newWidth = Math.max(Constants.minColumnWidth, width)
+         if (newWidth !== columnWidths[columnId]) {
+             Utils.log(`Resize of column finished: prev=${columnWidths[columnId]}, new=${newWidth}`)
+@@ -108,7 +130,7 @@ const Table = (props: Props): JSX.Element => {
+ 
+     const onDropToGroup = useCallback((srcCard: Card, groupID: string, dstCardID: string) => {
+         Utils.log(`onDropToGroup: ${srcCard.title}`)
+-        const {selectedCardIds} = props
++        const { selectedCardIds } = props
+ 
+         const draggedCardIds = Array.from(new Set(selectedCardIds).add(srcCard.id))
+         const description = draggedCardIds.length > 1 ? `drag ${draggedCardIds.length} cards` : 'drag card'
+@@ -170,6 +192,126 @@ const Table = (props: Props): JSX.Element => {
+         await mutator.changePropertyOptionValue(board.id, board.cardProperties, groupByProperty!, option, text)
+     }, [board, groupByProperty])
+ 
++    const onClickRow = useCallback((e: React.MouseEvent<HTMLDivElement>, card: Card) => {
++        props.onCardClicked(e, card)
++    }, [props.onCardClicked])
++
++    const Node = ({data: {node, isCard, isLeaf}, style, toggle, isOpen}: FixedSizeNodeComponentProps<TreeData>) => {
++        if (isCard) {
++            const card = node as Card;
++
++            return (
++                <div
++                    style={style}
++                >
++                    <TableRow
++                        key={card.id + card.updateAt}
++                        board={board}
++                        columnWidths={activeView.fields.columnWidths}
++                        isManualSort={activeView.fields.sortOptions.length === 0}
++                        groupById={activeView.fields.groupById}
++                        visiblePropertyIds={activeView.fields.visiblePropertyIds}
++                        collapsedOptionIds={activeView.fields.collapsedOptionIds}
++                        card={card}
++                        addCard={props.addCard}
++                        isSelected={props.selectedCardIds.includes(card.id)}
++                        focusOnMount={props.cardIdToFocusOnRender === card.id}
++                        isLastCard={isLeaf}
++                        onClick={onClickRow}
++                        showCard={props.showCard}
++                        readonly={props.readonly}
++                        onDrop={onDropToCard}
++                    />
++                </div>
++                
++            )
++        }
++        const group = node as BoardGroup;
++        return (
++            <div
++                style={style}
++            >
++                <TableGroupHeaderRow
++                    group={group}
++                    board={board}
++                    activeView={activeView}
++                    groupByProperty={groupByProperty}
++                    hideGroup={hideGroup}
++                    addCard={props.addCard}
++                    readonly={props.readonly}
++                    propertyNameChanged={propertyNameChanged}
++                    onDrop={onDropToGroupHeader}
++                    key={group.option.id}
++                    onDropToGroup={onDropToGroup}
++                    groupToggle={toggle}
++                />
++            </div>
++        )
++    }
++
++    const treeWalker = useCallback(
++        function* treeWalker(
++            refresh: boolean,
++        ): Generator<TreeData | string | symbol, void, boolean> {
++            const stack: StackElement[] = [];
++    
++            for (let i = 0; i < visibleGroups.length; i++) {
++                stack.push({
++                    nestingLevel: 0,
++                    node: visibleGroups[i],
++                    groupId: visibleGroups[i].option.id,
++                    isLastCard: false,
++                });
++            }
++    
++            while (stack.length !== 0) {
++                const {node, nestingLevel, isLastCard, groupId} = stack.pop()!;
++                let isOpened = null
++                let group = null
++                let card = null
++                const isVisible = activeView.fields.collapsedOptionIds?.indexOf(groupId) === -1
++    
++                if (nestingLevel === 0) {
++                    group = node as BoardGroup
++                    const id = group.option.id;
++                    isOpened = yield refresh ?
++                        {
++                            id,
++                            isLeaf: group.cards.length === 0,
++                            isOpenByDefault: isVisible,
++                            node,
++                            isCard: false,
++                        }
++                        : id;
++                } else {
++                    card = node as Card
++                    const id = card.id;
++                    isOpened = yield refresh
++                        ? {
++                            id: card.id+card.updateAt,
++                            isCard: true,
++                            isOpenByDefault: isVisible,
++                            node,
++                            isLeaf: isLastCard,
++                        }
++                        : id;
++                }
++    
++                if (group && group.cards.length !== 0 && isOpened) {
++                    for (let i = group.cards.length - 1; i >= 0; i--) {
++                        stack.push({
++                            nestingLevel: nestingLevel + 1,
++                            node: group.cards[i],
++                            groupId: group.option.id,
++                            isLastCard: i === (group.cards.length - 1)
++                        });
++                    }
++                }
++            }
++        }
++    , [visibleGroups, activeView.fields.collapsedOptionIds])
++    
++
+     return (
+         <div className='Table'>
+             <ColumnResizeProvider
+@@ -188,62 +330,54 @@ const Table = (props: Props): JSX.Element => {
+                     {/* Table rows */}
+                     <div className='table-row-container'>
+                         {activeView.fields.groupById &&
+-                    visibleGroups.map((group) => {
+-                        return (
+-                            <TableGroup
+-                                key={group.option.id}
++                            <AutoSizer disableWidth>
++                                {({ height }) => (
++                                    <FixedSizeTree
++                                        height={height}
++                                        treeWalker={treeWalker}
++                                        itemSize={44}
++                                        width={'100%'}
++                                    >
++                                        {Node}
++                                    </FixedSizeTree>
++                                )}
++                            </AutoSizer>
++                        }
++
++                        {/* No Grouping, Rows, one per card */}
++                        {!activeView.fields.groupById &&
++                            <TableRows
+                                 board={board}
+                                 activeView={activeView}
+-                                groupByProperty={groupByProperty}
+-                                group={group}
+-                                readonly={props.readonly || !canEditCards}
++                                cards={cards}
+                                 selectedCardIds={props.selectedCardIds}
++                                readonly={props.readonly || !canEditCards}
+                                 cardIdToFocusOnRender={props.cardIdToFocusOnRender}
+-                                hideGroup={hideGroup}
+-                                addCard={props.addCard}
+                                 showCard={props.showCard}
+-                                propertyNameChanged={propertyNameChanged}
++                                addCard={props.addCard}
+                                 onCardClicked={props.onCardClicked}
+-                                onDropToGroupHeader={onDropToGroupHeader}
+-                                onDropToCard={onDropToCard}
+-                                onDropToGroup={onDropToGroup}
+-                            />)
+-                    })
+-                        }
+-
+-                        {/* No Grouping, Rows, one per card */}
+-                        {!activeView.fields.groupById &&
+-                        <TableRows
+-                            board={board}
+-                            activeView={activeView}
+-                            cards={cards}
+-                            selectedCardIds={props.selectedCardIds}
+-                            readonly={props.readonly || !canEditCards}
+-                            cardIdToFocusOnRender={props.cardIdToFocusOnRender}
+-                            showCard={props.showCard}
+-                            addCard={props.addCard}
+-                            onCardClicked={props.onCardClicked}
+-                            onDrop={onDropToCard}
+-                        />
++                                onDrop={onDropToCard}
++                                useVirtualizedList={true}
++                            />
+                         }
+                     </div>
+ 
+                     {/* Add New row */}
+                     <div className='octo-table-footer'>
+                         {!props.readonly && !activeView.fields.groupById &&
+-                        <BoardPermissionGate permissions={[Permission.ManageBoardCards]}>
+-                            <div
+-                                className='octo-table-cell'
+-                                onClick={() => {
+-                                    props.addCard('')
+-                                }}
+-                            >
+-                                <FormattedMessage
+-                                    id='TableComponent.plus-new'
+-                                    defaultMessage='+ New'
+-                                />
+-                            </div>
+-                        </BoardPermissionGate>
++                            <BoardPermissionGate permissions={[Permission.ManageBoardCards]}>
++                                <div
++                                    className='octo-table-cell'
++                                    onClick={() => {
++                                        props.addCard('')
++                                    }}
++                                >
++                                    <FormattedMessage
++                                        id='TableComponent.plus-new'
++                                        defaultMessage='+ New'
++                                    />
++                                </div>
++                            </BoardPermissionGate>
+                         }
+                     </div>
+ 
+@@ -257,10 +391,10 @@ const Table = (props: Props): JSX.Element => {
+             </ColumnResizeProvider>
+ 
+             {hiddenCardsCount > 0 &&
+-            <HiddenCardCount
+-                showHiddenCardNotification={props.showHiddenCardCountNotification}
+-                hiddenCardsCount={hiddenCardsCount}
+-            />}
++                <HiddenCardCount
++                    showHiddenCardNotification={props.showHiddenCardCountNotification}
++                    hiddenCardsCount={hiddenCardsCount}
++                />}
+         </div>
+     )
+ }
+diff --git a/webapp/src/components/table/tableGroup.tsx b/webapp/src/components/table/tableGroup.tsx
+index 1da01a442fc..62e4802fd50 100644
+--- a/webapp/src/components/table/tableGroup.tsx
++++ b/webapp/src/components/table/tableGroup.tsx
+@@ -32,31 +32,9 @@ type Props = {
+ 
+ const TableGroup = (props: Props): JSX.Element => {
+     const {board, activeView, group, onDropToGroup, groupByProperty} = props
+-    const groupId = group.option.id
+-
+-    const [{isOver}, drop] = useDrop(() => ({
+-        accept: 'card',
+-        collect: (monitor) => ({
+-            isOver: monitor.isOver(),
+-        }),
+-        drop: (item: Card, monitor) => {
+-            if (monitor.isOver({shallow: true})) {
+-                onDropToGroup(item, groupId, '')
+-            }
+-        },
+-    }), [onDropToGroup, groupId])
+-
+-    let className = 'octo-table-group'
+-    if (isOver) {
+-        className += ' dragover'
+-    }
+ 
+     return (
+-        <div
+-            ref={drop}
+-            className={className}
+-            key={group.option.id}
+-        >
++        <>
+             <TableGroupHeaderRow
+                 group={group}
+                 board={board}
+@@ -67,6 +45,9 @@ const TableGroup = (props: Props): JSX.Element => {
+                 readonly={props.readonly}
+                 propertyNameChanged={props.propertyNameChanged}
+                 onDrop={props.onDropToGroupHeader}
++                key={group.option.id}
++                onDropToGroup={onDropToGroup}
++                groupToggle={() => {}}
+             />
+ 
+             {(group.cards.length > 0) &&
+@@ -81,8 +62,9 @@ const TableGroup = (props: Props): JSX.Element => {
+                 addCard={props.addCard}
+                 onCardClicked={props.onCardClicked}
+                 onDrop={props.onDropToCard}
++                useVirtualizedList={false}
+             />}
+-        </div>
++        </>    
+     )
+ }
+ 
+diff --git a/webapp/src/components/table/tableGroupHeaderRow.test.tsx b/webapp/src/components/table/tableGroupHeaderRow.test.tsx
+index 94330a20dbc..348b6d8f902 100644
+--- a/webapp/src/components/table/tableGroupHeaderRow.test.tsx
++++ b/webapp/src/components/table/tableGroupHeaderRow.test.tsx
+@@ -71,6 +71,8 @@ test('should match snapshot, no groups', async () => {
+                     type: 'text',
+                     options: [{id: 'property1', value: 'Property 1', color: ''}],
+                 }}
++                onDropToGroup={jest.fn()}
++                groupToggle={jest.fn()}
+             />
+         </Wrapper>,
+     )
+@@ -89,6 +91,8 @@ test('should match snapshot with Group', async () => {
+                 addCard={jest.fn()}
+                 propertyNameChanged={jest.fn()}
+                 onDrop={jest.fn()}
++                onDropToGroup={jest.fn()}
++                groupToggle={jest.fn()}
+             />
+         </Wrapper>,
+     )
+@@ -107,6 +111,8 @@ test('should match snapshot on read only', async () => {
+                 addCard={jest.fn()}
+                 propertyNameChanged={jest.fn()}
+                 onDrop={jest.fn()}
++                onDropToGroup={jest.fn()}
++                groupToggle={jest.fn()}
+             />
+         </Wrapper>,
+     )
+@@ -130,6 +136,8 @@ test('should match snapshot, hide group', async () => {
+                 addCard={jest.fn()}
+                 propertyNameChanged={jest.fn()}
+                 onDrop={jest.fn()}
++                onDropToGroup={jest.fn()}
++                groupToggle={jest.fn()}
+             />
+         </Wrapper>,
+     )
+@@ -158,6 +166,8 @@ test('should match snapshot, add new', async () => {
+                 addCard={addNew}
+                 propertyNameChanged={jest.fn()}
+                 onDrop={jest.fn()}
++                onDropToGroup={jest.fn()}
++                groupToggle={jest.fn()}
+             />
+         </Wrapper>,
+     )
+@@ -184,6 +194,8 @@ test('should match snapshot, edit title', async () => {
+                 addCard={jest.fn()}
+                 propertyNameChanged={jest.fn()}
+                 onDrop={jest.fn()}
++                onDropToGroup={jest.fn()}
++                groupToggle={jest.fn()}
+             />
+         </Wrapper>,
+     )
+diff --git a/webapp/src/components/table/tableGroupHeaderRow.tsx b/webapp/src/components/table/tableGroupHeaderRow.tsx
+index 7d46d87abfa..55588a61166 100644
+--- a/webapp/src/components/table/tableGroupHeaderRow.tsx
++++ b/webapp/src/components/table/tableGroupHeaderRow.tsx
+@@ -1,13 +1,14 @@
+ // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
+ // See LICENSE.txt for license information.
+ /* eslint-disable max-lines */
+-import React, {useState, useEffect} from 'react'
++import React, {useState, useEffect, useRef, useCallback} from 'react'
+ import {FormattedMessage, useIntl} from 'react-intl'
++import {useDrag, useDrop} from 'react-dnd'
+ 
+ import {Constants} from '../../constants'
+ import {IPropertyOption, Board, IPropertyTemplate, BoardGroup} from '../../blocks/board'
+ import {BoardView} from '../../blocks/boardView'
+-import {useSortable} from '../../hooks/sortable'
++import {Card} from '../../blocks/card'
+ import mutator from '../../mutator'
+ import Button from '../../widgets/buttons/button'
+ import IconButton from '../../widgets/buttons/iconButton'
+@@ -33,13 +34,43 @@ type Props = {
+     addCard: (groupByOptionId?: string) => Promise<void>
+     propertyNameChanged: (option: IPropertyOption, text: string) => Promise<void>
+     onDrop: (srcOption: IPropertyOption, dstOption?: IPropertyOption) => void
++    onDropToGroup: (srcCard: Card, groupID: string, dstCardID: string) => void
++    groupToggle: () => void
+ }
+ 
+ const TableGroupHeaderRow = (props: Props): JSX.Element => {
+     const {board, activeView, group, groupByProperty} = props
+     const [groupTitle, setGroupTitle] = useState(group.option.value)
+ 
+-    const [isDragging, isOver, groupHeaderRef] = useSortable('groupHeader', group.option, !props.readonly, props.onDrop)
++    const ref = useRef<HTMLDivElement>(null)
++    const [{isDragging}, drag] = useDrag(() => ({
++        type: 'groupHeader',
++        item: group.option,
++        collect: (monitor) => ({
++            isDragging: monitor.isDragging(),
++        }),
++        canDrag: () => !props.readonly,
++    }), ['groupHeader', group.option, props.readonly])
++
++    const [{isOver}, drop] = useDrop(() => ({
++        accept: ['groupHeader', 'card'],
++        collect: (monitor) => ({
++            isOver: monitor.isOver(),
++        }),
++        drop: (dragItem: IPropertyOption | Card, monitor) => {
++            // @ts-ignore
++            if (dragItem?.type === 'card' && monitor.isOver({shallow: true})) {
++                // @ts-ignore
++                props.onDropToGroup(dragItem, group.option.id, '')
++                return;
++            }
++            // @ts-ignore
++            props.onDrop(dragItem, group.option)
++        },
++        canDrop: () => !props.readonly,
++    }), [group.option, props.onDrop, props.readonly])
++    drop(drag(ref))
++
+     const intl = useIntl()
+     const columnResize = useColumnResize()
+ 
+@@ -56,10 +87,18 @@ const TableGroupHeaderRow = (props: Props): JSX.Element => {
+ 
+     const canEditOption = groupByProperty?.type !== 'person' && group.option.id
+ 
++    const toggleGroup = useCallback(() => {
++        if (props.readonly) {
++            return
++        }
++        props.hideGroup(group.option.id || 'undefined')
++        props.groupToggle()
++    }, [props.readonly, group.option.id, props.groupToggle, props.hideGroup])
++
+     return (
+         <div
+             key={group.option.id + 'header'}
+-            ref={groupHeaderRef}
++            ref={ref}
+             style={{opacity: isDragging ? 0.5 : 1}}
+             className={className}
+         >
+@@ -73,7 +112,7 @@ const TableGroupHeaderRow = (props: Props): JSX.Element => {
+                         <CompassIcon
+                             icon='menu-right'
+                         />}
+-                    onClick={() => (props.readonly ? {} : props.hideGroup(group.option.id || 'undefined'))}
++                    onClick={toggleGroup}
+                     className={`octo-table-cell__expand ${props.readonly ? 'readonly' : ''}`}
+                 />
+ 
+diff --git a/webapp/src/components/table/tableRows.test.tsx b/webapp/src/components/table/tableRows.test.tsx
+index 66ba68c9cde..de220479892 100644
+--- a/webapp/src/components/table/tableRows.test.tsx
++++ b/webapp/src/components/table/tableRows.test.tsx
+@@ -74,6 +74,7 @@ describe('components/table/TableRows', () => {
+                         addCard={addCard}
+                         onCardClicked={jest.fn()}
+                         onDrop={jest.fn()}
++                        useVirtualizedList={false}
+                     />
+                 </ColumnResizeProvider>
+             </ReduxProvider>,
+diff --git a/webapp/src/components/table/tableRows.tsx b/webapp/src/components/table/tableRows.tsx
+index c0460d9701b..4e328212024 100644
+--- a/webapp/src/components/table/tableRows.tsx
++++ b/webapp/src/components/table/tableRows.tsx
+@@ -1,6 +1,8 @@
+ // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
+ // See LICENSE.txt for license information.
+ import React, {useCallback} from 'react'
++import {FixedSizeList, ListChildComponentProps} from 'react-window'
++import AutoSizer from 'react-virtualized-auto-sizer'
+ 
+ import {Card} from '../../blocks/card'
+ import {Board} from '../../blocks/board'
+@@ -21,19 +23,57 @@ type Props = {
+     addCard: (groupByOptionId?: string) => Promise<void>
+     onCardClicked: (e: React.MouseEvent, card: Card) => void
+     onDrop: (srcCard: Card, dstCard: Card) => void
++    useVirtualizedList: boolean
+ }
+ 
+ const TableRows = (props: Props): JSX.Element => {
+-    const {board, cards, activeView} = props
++    const {board, cards, activeView, useVirtualizedList} = props
+ 
+     const onClickRow = useCallback((e: React.MouseEvent<HTMLDivElement>, card: Card) => {
+         props.onCardClicked(e, card)
+     }, [props.onCardClicked])
+ 
+-    return (
+-        <>
+-            {cards.map((card, idx) => {
+-                return (
++    if (!useVirtualizedList) {
++        return (
++            <>
++                {cards.map((card, idx) => {
++                    return (
++                        <TableRow
++                            key={card.id + card.updateAt}
++                            board={board}
++                            columnWidths={activeView.fields.columnWidths}
++                            isManualSort={activeView.fields.sortOptions.length === 0}
++                            groupById={activeView.fields.groupById}
++                            visiblePropertyIds={activeView.fields.visiblePropertyIds}
++                            collapsedOptionIds={activeView.fields.collapsedOptionIds}
++                            card={card}
++                            addCard={props.addCard}
++                            isSelected={props.selectedCardIds.includes(card.id)}
++                            focusOnMount={props.cardIdToFocusOnRender === card.id}
++                            isLastCard={idx === (cards.length - 1)}
++                            onClick={onClickRow}
++                            showCard={props.showCard}
++                            readonly={props.readonly}
++                            onDrop={props.onDrop}
++                        />
++                    )
++                })}
++            </>
++        )
++    }
++
++    const isItemLoaded = (index: number) => {
++        return index < cards.length;
++    }
++
++    const Item = ({index, style}: ListChildComponentProps) => {
++        const card = cards[index]
++        if (isItemLoaded(index)) {
++            return (
++                <div
++                    style={style}
++                    key={card.id + card.updateAt}
++                >
+                     <TableRow
+                         key={card.id + card.updateAt}
+                         board={board}
+@@ -46,14 +86,34 @@ const TableRows = (props: Props): JSX.Element => {
+                         addCard={props.addCard}
+                         isSelected={props.selectedCardIds.includes(card.id)}
+                         focusOnMount={props.cardIdToFocusOnRender === card.id}
+-                        isLastCard={idx === (cards.length - 1)}
++                        isLastCard={index === (cards.length - 1)}
+                         onClick={onClickRow}
+                         showCard={props.showCard}
+                         readonly={props.readonly}
+                         onDrop={props.onDrop}
+-                    />)
+-            })}
+-        </>
++                    />
++                </div>
++                
++            )
++        }
++
++        return null
++    }
++
++    return (
++        <AutoSizer disableWidth>
++            {({height}) => (
++                <FixedSizeList
++                    height={height}
++                    itemCount={1828}
++                    itemSize={44}
++                    width={'100%'}
++                >
++                    {Item}
++                </FixedSizeList>
++            )}
++        </AutoSizer>
++        
+     )
+ }
+ 
+diff --git a/webapp/src/store/attachments.ts b/webapp/src/store/attachments.ts
+index 879e364e3cf..bb74445451a 100644
+--- a/webapp/src/store/attachments.ts
++++ b/webapp/src/store/attachments.ts
+@@ -1,7 +1,7 @@
+ // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
+ // See LICENSE.txt for license information.
+ 
+-import {createSlice, PayloadAction} from '@reduxjs/toolkit'
++import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit'
+ 
+ import {AttachmentBlock} from '../blocks/attachmentBlock'
+ 
+@@ -79,11 +79,12 @@ const attachmentSlice = createSlice({
+ export const {updateAttachments, updateUploadPrecent} = attachmentSlice.actions
+ export const {reducer} = attachmentSlice
+ 
+-export function getCardAttachments(cardId: string): (state: RootState) => AttachmentBlock[] {
+-    return (state: RootState): AttachmentBlock[] => {
+-        return (state.attachments?.attachmentsByCard && state.attachments.attachmentsByCard[cardId]) || []
+-    }
+-}
++export const getCardAttachments: (state: RootState, cardId: string) => AttachmentBlock[] = createSelector(
++    (state: RootState, cardId: string) => state.attachments.attachmentsByCard[cardId],
++    (attachments) => {
++        return attachments || []
++    },
++)
+ 
+ export function getUploadPercent(blockId: string): (state: RootState) => number {
+     return (state: RootState): number => {
+diff --git a/webapp/src/store/cards.ts b/webapp/src/store/cards.ts
+index 5f30f6f60a6..3629d39671f 100644
+--- a/webapp/src/store/cards.ts
++++ b/webapp/src/store/cards.ts
+@@ -162,11 +162,10 @@ export const getSortedTemplates = createSelector(
+     },
+ )
+ 
+-export function getCard(cardId: string): (state: RootState) => Card|undefined {
+-    return (state: RootState): Card|undefined => {
+-        return getCards(state)[cardId] || getTemplates(state)[cardId]
+-    }
+-}
++export const getCard: (state: RootState, cardId: string) => Card|undefined = createSelector(
++    (state: RootState, cardId: string) => getCards(state)[cardId] || getTemplates(state)[cardId],
++    (card) => card,
++)
+ 
+ export const getCurrentBoardCards = createSelector(
+     (state: RootState) => state.boards.current,
+diff --git a/webapp/src/store/comments.ts b/webapp/src/store/comments.ts
+index 325d804ab62..73c8a7d0fde 100644
+--- a/webapp/src/store/comments.ts
++++ b/webapp/src/store/comments.ts
+@@ -80,11 +80,13 @@ const commentsSlice = createSlice({
+ export const {updateComments} = commentsSlice.actions
+ export const {reducer} = commentsSlice
+ 
+-export function getCardComments(cardId: string): (state: RootState) => CommentBlock[] {
+-    return (state: RootState): CommentBlock[] => {
+-        return (state.comments?.commentsByCard && state.comments.commentsByCard[cardId]) || []
+-    }
+-}
++export const getCardComments: (state: RootState, cardId: string) => CommentBlock[] = createSelector(
++    (state: RootState, cardId: string) => state.comments?.commentsByCard[cardId],
++    (comments) => {
++        console.log(comments)
++        return comments || []
++    },
++)
+ 
+ export function getLastCardComment(cardId: string): (state: RootState) => CommentBlock|undefined {
+     return (state: RootState): CommentBlock|undefined => {
+diff --git a/webapp/src/store/contents.ts b/webapp/src/store/contents.ts
+index dccd278ea37..75ae51ed2f3 100644
+--- a/webapp/src/store/contents.ts
++++ b/webapp/src/store/contents.ts
+@@ -92,40 +92,40 @@ export const getContents = createSelector(
+     (contents) => Object.values(contents),
+ )
+ 
+-export function getCardContents(cardId: string): (state: RootState) => Array<ContentBlock|ContentBlock[]> {
+-    return createSelector(
+-        (state: RootState) => (state.contents?.contentsByCard && state.contents.contentsByCard[cardId]) || [],
+-        (state: RootState) => getCards(state)[cardId]?.fields?.contentOrder || getTemplates(state)[cardId]?.fields?.contentOrder,
+-        (contents, contentOrder): Array<ContentBlock|ContentBlock[]> => {
+-            const result: Array<ContentBlock|ContentBlock[]> = []
+-            if (!contents) {
+-                return []
+-            }
+-            if (contentOrder) {
+-                for (const contentId of contentOrder) {
+-                    if (typeof contentId === 'string') {
+-                        const content = contents.find((c) => c.id === contentId)
+-                        if (content) {
+-                            result.push(content)
+-                        }
+-                    } else if (typeof contentId === 'object' && contentId) {
+-                        const subResult: ContentBlock[] = []
+-                        for (const subContentId of contentId) {
+-                            if (typeof subContentId === 'string') {
+-                                const subContent = contents.find((c) => c.id === subContentId)
+-                                if (subContent) {
+-                                    subResult.push(subContent)
+-                                }
++export const getCardContents: (state: RootState, cardId: string) => Array<ContentBlock|ContentBlock[]> = createSelector(
++    (state: RootState, cardId: string) => (state.contents.contentsByCard[cardId]),
++    (state: RootState, cardId: string) => getCards(state)[cardId]?.fields?.contentOrder,
++    (state: RootState, cardId: string) => getTemplates(state)[cardId]?.fields?.contentOrder,
++    (contents, cardContentOrder, templateContentOrder): Array<ContentBlock|ContentBlock[]> => {
++        const contentOrder = cardContentOrder || templateContentOrder
++        const result: Array<ContentBlock|ContentBlock[]> = []
++        if (!contents) {
++            return []
++        }
++        if (contentOrder) {
++            for (const contentId of contentOrder) {
++                if (typeof contentId === 'string') {
++                    const content = contents.find((c) => c.id === contentId)
++                    if (content) {
++                        result.push(content)
++                    }
++                } else if (typeof contentId === 'object' && contentId) {
++                    const subResult: ContentBlock[] = []
++                    for (const subContentId of contentId) {
++                        if (typeof subContentId === 'string') {
++                            const subContent = contents.find((c) => c.id === subContentId)
++                            if (subContent) {
++                                subResult.push(subContent)
+                             }
+                         }
+-                        result.push(subResult)
+                     }
++                    result.push(subResult)
+                 }
+             }
+-            return result
+-        },
+-    )
+-}
++        }
++        return result
++    },
++)
+ 
+ export function getLastCardContent(cardId: string): (state: RootState) => ContentBlock|undefined {
+     return (state: RootState): ContentBlock|undefined => {

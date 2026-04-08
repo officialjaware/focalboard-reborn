@@ -1,0 +1,67 @@
+diff --git a/mattermost-plugin/webapp/tsconfig.json b/mattermost-plugin/webapp/tsconfig.json
+index 32c6a731d61..cc371e82767 100644
+--- a/mattermost-plugin/webapp/tsconfig.json
++++ b/mattermost-plugin/webapp/tsconfig.json
+@@ -1,31 +1,34 @@
+ {
+-	"compilerOptions": {
+-		"jsx": "react",
+-		"target": "es2019",
+-		"module": "commonjs",
+-		"esModuleInterop": true,
+-		"noImplicitAny": true,
+-		"strict": true,
+-		"strictNullChecks": true,
+-		"forceConsistentCasingInFileNames": true,
+-		"sourceMap": true,
+-		"allowJs": true,
+-		"resolveJsonModule": true,
+-		"incremental": false,
+-		"outDir": "./dist",
+-		"moduleResolution": "node",
+-        "typeRoots": [ "./src/types", "./node_modules/@types"]
+-	},
+-	"include": [
+-        "src",
+-        "../../webapp/src"
+-	],
+-	"exclude": [
+-        ".git",
+-		"**/node_modules/*",
+-		"pack",
+-        "dist",
+-        "node_modules",
+-        "!node_modules/@types"
++  "compilerOptions": {
++    "jsx": "react",
++    "target": "es2019",
++    "module": "commonjs",
++    "esModuleInterop": true,
++    "noImplicitAny": true,
++    "strict": true,
++    "strictNullChecks": true,
++    "forceConsistentCasingInFileNames": true,
++    "sourceMap": true,
++    "allowJs": true,
++    "resolveJsonModule": true,
++    "incremental": false,
++    "outDir": "./dist",
++    "moduleResolution": "node",
++    "typeRoots": [
++      "./src/types",
++      "./node_modules/@types"
+     ]
++  },
++  "include": [
++    "src",
++    "../../webapp/src"
++  ],
++  "exclude": [
++    ".git",
++    "**/node_modules/*",
++    "pack",
++    "dist",
++    "node_modules",
++    "!node_modules/@types"
++  ]
+ }

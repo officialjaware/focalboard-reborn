@@ -1,0 +1,432 @@
+diff --git a/webapp/cypress/integration/createBoard.ts b/webapp/cypress/integration/createBoard.ts
+index 27430dad0fc..3c8afe03c61 100644
+--- a/webapp/cypress/integration/createBoard.ts
++++ b/webapp/cypress/integration/createBoard.ts
+@@ -161,9 +161,10 @@ describe('Create and delete board / card', () => {
+         }
+ 
+         // Create empty card in last group
+-        cy.log('**Create new empty card in first group**')
++        cy.log('**Create new non empty card in first group**')
+         cy.get('.octo-board-column').last().contains('+ New').scrollIntoView().click()
+         cy.get('.Dialog').should('exist')
++        cy.get('.Dialog .EditableArea.Editable.title').should('exist').type('New card')
+         cy.get('.Dialog Button[title=\'Close dialog\']').should('be.visible').click()
+         cy.get('.KanbanCard').scrollIntoView().should('exist')
+ 
+@@ -225,4 +226,23 @@ describe('Create and delete board / card', () => {
+             type(`{shift+${ctrlKey}+z}`).
+             should('have.text', '')
+     })
++
++    it('Deletes newly created card after close if no interaction were made in the card', () => {
++        // Visit a page and create new empty board
++        cy.visit('/')
++        cy.wait(500)
++        cy.uiCreateEmptyBoard()
++
++        cy.log('**Create new empty group**')
++        cy.contains('+ Add a group').scrollIntoView().should('be.visible').click()
++        cy.get('.KanbanColumnHeader .Editable[value=\'New group\']').should('have.length', 1)
++
++        cy.log('**Create new non empty card in first group**')
++        cy.get('.octo-board-column').last().contains('+ New').scrollIntoView().click()
++        cy.get('.Dialog').should('exist')
++
++        cy.log('**Close dialog without touching any field**')
++        cy.get('.Dialog Button[title=\'Close dialog\']').should('be.visible').click()
++        cy.get('.KanbanCard').should('not.exist')
++    })
+ })
+diff --git a/webapp/src/components/cardDetail/cardDetail.tsx b/webapp/src/components/cardDetail/cardDetail.tsx
+index 0aa50bae528..9cc59c0efb8 100644
+--- a/webapp/src/components/cardDetail/cardDetail.tsx
++++ b/webapp/src/components/cardDetail/cardDetail.tsx
+@@ -23,7 +23,7 @@ import TelemetryClient, {TelemetryActions, TelemetryCategory} from '../../teleme
+ import BlockIconSelector from '../blockIconSelector'
+ 
+ import {useAppDispatch, useAppSelector} from '../../store/hooks'
+-import {updateCards, setCurrent as setCurrentCard} from '../../store/cards'
++import {updateCards, setCurrent as setCurrentCard, touchCard} from '../../store/cards'
+ import {updateContents} from '../../store/contents'
+ import {Permission} from '../../constants'
+ import {useHasCurrentBoardPermissions} from '../../hooks/permissions'
+@@ -225,7 +225,10 @@ const CardDetail = (props: Props): JSX.Element|null => {
+                     className='title'
+                     value={title}
+                     placeholderText='Untitled'
+-                    onChange={(newTitle: string) => setTitle(newTitle)}
++                    onChange={(newTitle: string) => {
++                        setTitle(newTitle)
++                        dispatch(touchCard(card.id))
++                    }}
+                     saveOnEsc={true}
+                     onSave={saveTitle}
+                     onCancel={() => setTitle(props.card.title)}
+@@ -320,6 +323,7 @@ const CardDetail = (props: Props): JSX.Element|null => {
+                         boardId={card.boardId}
+                         blocks={blocks}
+                         onBlockCreated={async (block: any, afterBlock: any): Promise<BlockData|null> => {
++                            dispatch(touchCard(card.id))
+                             if (block.contentType === 'text' && block.value === '') {
+                                 return null
+                             }
+@@ -335,6 +339,7 @@ const CardDetail = (props: Props): JSX.Element|null => {
+                             return {...block, id: newBlock.id}
+                         }}
+                         onBlockModified={async (block: any): Promise<BlockData<any>|null> => {
++                            dispatch(touchCard(card.id))
+                             const originalContentBlock = props.contents.flatMap((b) => b).find((b) => b.id === block.id)
+                             if (!originalContentBlock) {
+                                 return null
+@@ -359,6 +364,7 @@ const CardDetail = (props: Props): JSX.Element|null => {
+                             return block
+                         }}
+                         onBlockMoved={async (block: BlockData, beforeBlock: BlockData|null, afterBlock: BlockData|null): Promise<void> => {
++                            dispatch(touchCard(card.id))
+                             if (block.id) {
+                                 const idx = card.fields.contentOrder.indexOf(block.id)
+                                 let sourceBlockId: string
+diff --git a/webapp/src/components/cardDetail/cardDetailContents.tsx b/webapp/src/components/cardDetail/cardDetailContents.tsx
+index 1375ee7672d..d3395393dfd 100644
+--- a/webapp/src/components/cardDetail/cardDetailContents.tsx
++++ b/webapp/src/components/cardDetail/cardDetailContents.tsx
+@@ -16,6 +16,9 @@ import {MarkdownEditor} from '../markdownEditor'
+ 
+ import AddDescriptionTourStep from '../onboardingTour/addDescription/add_description'
+ 
++import {touchCard} from '../../store/cards'
++import {useAppDispatch} from '../../store/hooks'
++
+ import {dragAndDropRearrange} from './cardDetailContentsUtility'
+ 
+ export type Position = 'left' | 'right' | 'above' | 'below' | 'aboveRow' | 'belowRow'
+@@ -161,6 +164,8 @@ const ContentBlockWithDragAndDrop = (props: ContentBlockWithDragAndDropProps) =>
+ const CardDetailContents = (props: Props) => {
+     const intl = useIntl()
+     const {contents, card, id} = props
++    const dispatch = useAppDispatch()
++
+     if (contents.length) {
+         return (
+             <div className='octo-content'>
+@@ -196,6 +201,7 @@ const CardDetailContents = (props: Props) => {
+                                 addTextBlock(card, intl, text)
+                             }
+                         }}
++                        onChange={() => dispatch(touchCard(card.id))}
+                     />
+                 }
+             </div>
+diff --git a/webapp/src/components/cardDetail/cardDetailContentsMenu.tsx b/webapp/src/components/cardDetail/cardDetailContentsMenu.tsx
+index ed1bc1690b7..0a7315982d6 100644
+--- a/webapp/src/components/cardDetail/cardDetailContentsMenu.tsx
++++ b/webapp/src/components/cardDetail/cardDetailContentsMenu.tsx
+@@ -3,6 +3,8 @@
+ import React, {useCallback} from 'react'
+ import {FormattedMessage, IntlShape, useIntl} from 'react-intl'
+ 
++import {ThunkDispatch} from '@reduxjs/toolkit'
++
+ import {BlockTypes} from '../../blocks/block'
+ import {Utils} from '../../utils'
+ import Button from '../../widgets/buttons/button'
+@@ -11,9 +13,13 @@ import MenuWrapper from '../../widgets/menuWrapper'
+ 
+ import {contentRegistry} from '../content/contentRegistry'
+ 
++import {touchCard} from '../../store/cards'
++
++import {useAppDispatch} from '../../store/hooks'
++
+ import {useCardDetailContext} from './cardDetailContext'
+ 
+-function addContentMenu(intl: IntlShape, type: BlockTypes): JSX.Element {
++function addContentMenu(intl: IntlShape, type: BlockTypes, dispatch: ThunkDispatch<any, any, any>): JSX.Element {
+     const handler = contentRegistry.getHandler(type)
+     if (!handler) {
+         Utils.logError(`addContentMenu, unknown content type: ${type}`)
+@@ -24,6 +30,7 @@ function addContentMenu(intl: IntlShape, type: BlockTypes): JSX.Element {
+         const {card} = cardDetail
+         const index = card.fields.contentOrder.length
+         cardDetail.addBlock(handler, index, false)
++        dispatch(touchCard(card.id))
+     }, [cardDetail, handler])
+ 
+     return (
+@@ -39,6 +46,7 @@ function addContentMenu(intl: IntlShape, type: BlockTypes): JSX.Element {
+ 
+ const CardDetailContentsMenu = () => {
+     const intl = useIntl()
++    const dispatch = useAppDispatch()
+     return (
+         <div className='CardDetailContentsMenu content add-content'>
+             <MenuWrapper>
+@@ -49,7 +57,7 @@ const CardDetailContentsMenu = () => {
+                     />
+                 </Button>
+                 <Menu position='top'>
+-                    {contentRegistry.contentTypes.map((type) => addContentMenu(intl, type))}
++                    {contentRegistry.contentTypes.map((type) => addContentMenu(intl, type, dispatch))}
+                 </Menu>
+             </MenuWrapper>
+         </div>
+diff --git a/webapp/src/components/cardDetail/cardDetailProperties.tsx b/webapp/src/components/cardDetail/cardDetailProperties.tsx
+index 475a736441f..6b506a767a1 100644
+--- a/webapp/src/components/cardDetail/cardDetailProperties.tsx
++++ b/webapp/src/components/cardDetail/cardDetailProperties.tsx
+@@ -23,6 +23,8 @@ import {Permission} from '../../constants'
+ import {useHasCurrentBoardPermissions} from '../../hooks/permissions'
+ import propRegistry from '../../properties'
+ import {PropertyType} from '../../properties/types'
++import {touchCard} from '../../store/cards'
++import {useAppDispatch} from '../../store/hooks'
+ 
+ type Props = {
+     board: Board
+@@ -39,6 +41,7 @@ const CardDetailProperties = (props: Props) => {
+     const canEditBoardProperties = useHasCurrentBoardPermissions([Permission.ManageBoardProperties])
+     const canEditBoardCards = useHasCurrentBoardPermissions([Permission.ManageBoardCards])
+     const intl = useIntl()
++    const dispatch = useAppDispatch()
+ 
+     useEffect(() => {
+         const newProperty = board.cardProperties.find((property) => property.id === newTemplateId)
+@@ -51,6 +54,8 @@ const CardDetailProperties = (props: Props) => {
+     const [showConfirmationDialog, setShowConfirmationDialog] = useState<boolean>(false)
+ 
+     function onPropertyChangeSetAndOpenConfirmationDialog(newType: PropertyType, newName: string, propertyTemplate: IPropertyTemplate) {
++        dispatch(touchCard(card.id))
++
+         const oldType = propRegistry.get(propertyTemplate.type)
+ 
+         // do nothing if no change
+@@ -101,6 +106,8 @@ const CardDetailProperties = (props: Props) => {
+     }
+ 
+     function onPropertyDeleteSetAndOpenConfirmationDialog(propertyTemplate: IPropertyTemplate) {
++        dispatch(touchCard(card.id))
++
+         // set ConfirmationDialogBox Props
+         setConfirmationDialogBox({
+             heading: intl.formatMessage({id: 'CardDetailProperty.confirm-delete-heading', defaultMessage: 'Confirm delete property'}),
+@@ -179,6 +186,7 @@ const CardDetailProperties = (props: Props) => {
+                             <PropertyTypes
+                                 label={intl.formatMessage({id: 'PropertyMenu.selectType', defaultMessage: 'Select property type'})}
+                                 onTypeSelected={async (type) => {
++                                    dispatch(touchCard(card.id))
+                                     const template: IPropertyTemplate = {
+                                         id: Utils.createGuid(IDType.BlockID),
+                                         name: type.displayName(intl),
+diff --git a/webapp/src/components/cardDetail/commentsList.tsx b/webapp/src/components/cardDetail/commentsList.tsx
+index 1cf2fb4dd6b..34f0ebfca6f 100644
+--- a/webapp/src/components/cardDetail/commentsList.tsx
++++ b/webapp/src/components/cardDetail/commentsList.tsx
+@@ -5,7 +5,7 @@ import {FormattedMessage, useIntl} from 'react-intl'
+ 
+ import {CommentBlock, createCommentBlock} from '../../blocks/commentBlock'
+ import mutator from '../../mutator'
+-import {useAppSelector} from '../../store/hooks'
++import {useAppDispatch, useAppSelector} from '../../store/hooks'
+ import {Utils} from '../../utils'
+ import Button from '../../widgets/buttons/button'
+ 
+@@ -18,6 +18,8 @@ import {Permission} from '../../constants'
+ 
+ import AddCommentTourStep from '../onboardingTour/addComments/addComments'
+ 
++import {touchCard} from '../../store/cards'
++
+ import Comment from './comment'
+ 
+ import './commentsList.scss'
+@@ -32,6 +34,8 @@ type Props = {
+ const CommentsList = (props: Props) => {
+     const [newComment, setNewComment] = useState('')
+     const me = useAppSelector<IUser|null>(getMe)
++    const dispatch = useAppDispatch()
++
+     const canDeleteOthersComments = useHasCurrentBoardPermissions([Permission.DeleteOthersComments])
+ 
+     const onSendClicked = () => {
+@@ -64,6 +68,8 @@ const CommentsList = (props: Props) => {
+                 text={newComment}
+                 placeholderText={intl.formatMessage({id: 'CardDetail.new-comment-placeholder', defaultMessage: 'Add a comment...'})}
+                 onChange={(value: string) => {
++                    dispatch(touchCard(props.cardId))
++
+                     if (newComment !== value) {
+                         setNewComment(value)
+                     }
+diff --git a/webapp/src/components/cardDialog.tsx b/webapp/src/components/cardDialog.tsx
+index ab564049568..4535472a686 100644
+--- a/webapp/src/components/cardDialog.tsx
++++ b/webapp/src/components/cardDialog.tsx
+@@ -6,11 +6,10 @@ import {FormattedMessage, useIntl} from 'react-intl'
+ import {Board} from '../blocks/board'
+ import {BoardView} from '../blocks/boardView'
+ import {Card} from '../blocks/card'
+-import {sendFlashMessage} from '../components/flashMessages'
+ import mutator from '../mutator'
+ import octoClient from '../octoClient'
+ import {getCardAttachments, updateAttachments, updateUploadPrecent} from '../store/attachments'
+-import {getCard} from '../store/cards'
++import {getCard, getTouchedCardId, touchCard} from '../store/cards'
+ import {getCardComments} from '../store/comments'
+ import {getCardContents} from '../store/contents'
+ import {useAppDispatch, useAppSelector} from '../store/hooks'
+@@ -27,6 +26,8 @@ import {AttachmentBlock, createAttachmentBlock} from '../blocks/attachmentBlock'
+ import {Block, createBlock} from '../blocks/block'
+ import {Permission} from '../constants'
+ 
++import {sendFlashMessage} from './flashMessages'
++
+ import BoardPermissionGate from './permissions/boardPermissionGate'
+ 
+ import CardDetail from './cardDetail/cardDetail'
+@@ -44,6 +45,7 @@ type Props = {
+     onClose: () => void
+     showCard: (cardId?: string) => void
+     readonly: boolean
++    newlyCreated?: boolean
+ }
+ 
+ const CardDialog = (props: Props): JSX.Element => {
+@@ -52,6 +54,7 @@ const CardDialog = (props: Props): JSX.Element => {
+     const contents = useAppSelector(getCardContents(props.cardId))
+     const comments = useAppSelector(getCardComments(props.cardId))
+     const attachments = useAppSelector(getCardAttachments(props.cardId))
++    const touchedCardId = useAppSelector(getTouchedCardId)
+     const intl = useIntl()
+     const dispatch = useAppDispatch()
+     const isTemplate = card && card.fields.isTemplate
+@@ -224,12 +227,22 @@ const CardDialog = (props: Props): JSX.Element => {
+         )
+     }
+ 
++    const onClose = () => {
++        dispatch(touchCard(undefined))
++
++        if (props.newlyCreated && props.cardId !== touchedCardId) {
++            handleDeleteCard()
++        } else {
++            props.onClose()
++        }
++    }
++
+     return (
+         <>
+             <Dialog
+                 title={<div/>}
+                 className='cardDialog'
+-                onClose={props.onClose}
++                onClose={onClose}
+                 toolsMenu={!props.readonly && !card?.limited && menu}
+                 toolbar={attachBtn()}
+             >
+@@ -252,7 +265,7 @@ const CardDialog = (props: Props): JSX.Element => {
+                         comments={comments}
+                         attachments={attachments}
+                         readonly={props.readonly}
+-                        onClose={props.onClose}
++                        onClose={onClose}
+                         onDelete={deleteBlock}
+                         addAttachment={addElement}
+                     />}
+diff --git a/webapp/src/components/centerPanel.tsx b/webapp/src/components/centerPanel.tsx
+index 7fa7006262f..3825abadbd2 100644
+--- a/webapp/src/components/centerPanel.tsx
++++ b/webapp/src/components/centerPanel.tsx
+@@ -80,6 +80,7 @@ const CenterPanel = (props: Props) => {
+     const [selectedCardIds, setSelectedCardIds] = useState<string[]>([])
+     const [cardIdToFocusOnRender, setCardIdToFocusOnRender] = useState('')
+     const [showHiddenCardCountNotification, setShowHiddenCardCountNotification] = useState(false)
++    const [newlyCreatedCardId, setNewlyCreatedCardId] = useState<string|undefined>(undefined)
+ 
+     const onboardingTourStarted = useAppSelector(getOnboardingTourStarted)
+     const onboardingTourCategory = useAppSelector(getOnboardingTourCategory)
+@@ -164,7 +165,8 @@ const CenterPanel = (props: Props) => {
+         }
+     }, [selectedCardIds, props.readonly, props.cards])
+ 
+-    const showCard = useCallback((cardId?: string) => {
++    const showCard = useCallback((cardId?: string, isNew?: boolean) => {
++        setNewlyCreatedCardId(cardId && isNew ? cardId : undefined)
+         if (selectedCardIds.length > 0) {
+             setSelectedCardIds([])
+         }
+@@ -201,7 +203,7 @@ const CenterPanel = (props: Props) => {
+                     if (show) {
+                         dispatch(addCardAction(createCard(block)))
+                         dispatch(updateView({...activeView, fields: {...activeView.fields, cardOrder: [...activeView.fields.cardOrder, block.id]}}))
+-                        showCard(block.id)
++                        showCard(block.id, true)
+                     } else {
+                         // Focus on this card's title inline on next render
+                         setCardIdToFocusOnRender(block.id)
+@@ -413,6 +415,7 @@ const CenterPanel = (props: Props) => {
+                         onClose={() => showCard(undefined)}
+                         showCard={(cardId) => showCard(cardId)}
+                         readonly={props.readonly}
++                        newlyCreated={props.shownCardId === newlyCreatedCardId}
+                     />
+                 </RootPortal>}
+ 
+diff --git a/webapp/src/mutator.ts b/webapp/src/mutator.ts
+index 3dea2ae4103..f4c7d5e36ce 100644
+--- a/webapp/src/mutator.ts
++++ b/webapp/src/mutator.ts
+@@ -26,7 +26,7 @@ import {UserConfigPatch, UserPreference} from './user'
+ import store from './store'
+ import {updateBoards} from './store/boards'
+ import {updateViews} from './store/views'
+-import {updateCards} from './store/cards'
++import {touchCard, updateCards} from './store/cards'
+ import {updateAttachments} from './store/attachments'
+ import {updateComments} from './store/comments'
+ import {updateContents} from './store/contents'
+@@ -630,6 +630,8 @@ class Mutator {
+     }
+ 
+     async changePropertyValue(boardId: string, card: Card, propertyId: string, value?: string | string[], description = 'change property') {
++        store.dispatch(touchCard(card.id))
++
+         const oldValue = card.fields.properties[propertyId]
+ 
+         // dont save anything if property value was not changed.
+diff --git a/webapp/src/store/cards.ts b/webapp/src/store/cards.ts
+index 5f30f6f60a6..1df572862e6 100644
+--- a/webapp/src/store/cards.ts
++++ b/webapp/src/store/cards.ts
+@@ -29,6 +29,7 @@ type CardsState = {
+     cards: {[key: string]: Card}
+     templates: {[key: string]: Card}
+     cardHiddenWarning: boolean
++    touchedCardId?: string
+ }
+ 
+ export const refreshCards = createAsyncThunk<Block[], number, {state: RootState}>(
+@@ -106,6 +107,9 @@ const cardsSlice = createSlice({
+                 }
+             }
+         },
++        touchCard: (state: CardsState, action: PayloadAction<string|undefined>) => {
++            state.touchedCardId = action.payload
++        },
+     },
+     extraReducers: (builder) => {
+         builder.addCase(refreshCards.fulfilled, (state, action) => {
+@@ -141,7 +145,7 @@ const cardsSlice = createSlice({
+     },
+ })
+ 
+-export const {updateCards, addCard, addTemplate, setCurrent, setLimitTimestamp, showCardHiddenWarning} = cardsSlice.actions
++export const {updateCards, addCard, addTemplate, setCurrent, setLimitTimestamp, showCardHiddenWarning, touchCard} = cardsSlice.actions
+ export const {reducer} = cardsSlice
+ 
+ export const getCards = (state: RootState): {[key: string]: Card} => state.cards.cards
+@@ -410,3 +414,4 @@ export const getCurrentCard = createSelector(
+ 
+ export const getCardLimitTimestamp = (state: RootState): number => state.cards.limitTimestamp
+ export const getCardHiddenWarning = (state: RootState): boolean => state.cards.cardHiddenWarning
++export const getTouchedCardId = (state: RootState): string|undefined => state.cards.touchedCardId

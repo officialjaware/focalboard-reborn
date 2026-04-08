@@ -1,0 +1,12 @@
+diff --git a/webapp/src/components/personSelector.tsx b/webapp/src/components/personSelector.tsx
+index c9d7c7a79bb..f50af067143 100644
+--- a/webapp/src/components/personSelector.tsx
++++ b/webapp/src/components/personSelector.tsx
+@@ -60,6 +60,7 @@ const selectStyles = {
+         position: 'static',
+         top: 'unset',
+         transform: 'unset',
++        color: 'rgb(var(--center-channel-color-rgb))',
+     }),
+     menu: (provided: CSSObject): CSSObject => ({
+         ...provided,

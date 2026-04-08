@@ -1,0 +1,29 @@
+diff --git a/webapp/html-templates/page.ejs b/webapp/html-templates/page.ejs
+index 28b48991bbb..617d0913c75 100644
+--- a/webapp/html-templates/page.ejs
++++ b/webapp/html-templates/page.ejs
+@@ -4,6 +4,8 @@
+ <head>
+ 	<meta charset="UTF-8">
+     <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'>
++    <link rel="manifest" href="{{.BaseURL}}/static/manifest.json" />
++    <link rel="mask-icon" href="{{.BaseURL}}/static/favicon.svg" color="#5bbad5">
+ 
+     <title><%= htmlWebpackPlugin.options.title %></title>
+ 
+diff --git a/webapp/static/manifest.json b/webapp/static/manifest.json
+new file mode 100644
+index 00000000000..61ba77b1065
+--- /dev/null
++++ b/webapp/static/manifest.json
+@@ -0,0 +1,10 @@
++{
++  "name": "Focalboard",
++  "display": "standalone",
++    "icons": [
++    {
++      "src": "/static/favicon.svg",
++      "sizes": "any"
++    }
++  ]
++}

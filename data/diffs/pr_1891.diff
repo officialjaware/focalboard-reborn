@@ -1,0 +1,100 @@
+diff --git a/.dockerignore b/.dockerignore
+index 2bd086d3ebe..2b60edd95c5 100644
+--- a/.dockerignore
++++ b/.dockerignore
+@@ -1,6 +1,7 @@
+ CHANGELOG.md
+ README.md
+ 
++node_modules
+ .github/
+ mac/
+ win-wpf/
+diff --git a/README.md b/README.md
+index ddd8a621057..583f48ac211 100644
+--- a/README.md
++++ b/README.md
+@@ -90,6 +90,7 @@ You can build standalone apps that package the server to run locally against SQL
+     * `docker build -f docker/Dockerfile .`
+     * To Build it for a custom Architekture (Expiremental)
+     * `docker build -f docker/Dockerfile --platform linux/arm64 .`
++    * For more information see: [Docker Readme](docker/README.md)
+ 
+ Cross-compilation currently isn't fully supported, so please build on the appropriate platform. Refer to the GitHub Actions workflows (build-mac.yml, build-win.yml, build-ubuntu.yml) for the detailed list of steps on each platform.
+ 
+diff --git a/docker/Dockerfile b/docker/Dockerfile
+index c6b177abd43..4691c48a02c 100644
+--- a/docker/Dockerfile
++++ b/docker/Dockerfile
+@@ -15,8 +15,10 @@ ADD . /go/src/focalboard
+ 
+ RUN  make server-linux
+ RUN mkdir /data
++RUN mkdir /config
+ 
+-## Final image
++## Final Distrolles Base image
++## For Debugging add :Debug see https://github.com/GoogleContainerTools/distroless#debug-images
+ FROM gcr.io/distroless/base-debian10
+ 
+ WORKDIR /opt/focalboard
+@@ -25,7 +27,7 @@ COPY --from=gobuild --chown=nobody:nobody /data /data
+ COPY --from=nodebuild --chown=nobody:nobody /webapp/pack pack/
+ COPY --from=gobuild --chown=nobody:nobody /go/src/focalboard/bin/linux/focalboard-server bin/
+ COPY --from=gobuild --chown=nobody:nobody /go/src/focalboard/LICENSE.txt LICENSE.txt
+-COPY --from=gobuild --chown=nobody:nobody /go/src/focalboard/docker/server_config.json config.json
++COPY --from=gobuild --chown=nobody:nobody /go/src/focalboard/docker/server_config.json /config/config.json
+ 
+ USER nobody
+ 
+@@ -33,6 +35,8 @@ EXPOSE 8000/tcp
+ 
+ EXPOSE 8000/tcp 9092/tcp
+ 
++VOLUME /config
+ VOLUME /data
+ 
+-CMD ["/opt/focalboard/bin/focalboard-server"]
++ENTRYPOINT [ "/opt/focalboard/bin/focalboard-server"]
++CMD ["--config", "/config/config.json"]
+\ No newline at end of file
+diff --git a/docker/README.md b/docker/README.md
+index 01f7ab05e99..d27a3c7ed37 100644
+--- a/docker/README.md
++++ b/docker/README.md
+@@ -4,12 +4,21 @@
+ 
+ The Dockerfile gives a quick and easy way to pull the latest Focalboard server and deploy it locally.
+ 
++Execute from the Root Directory of this Repository to Build:
+ ```
+-docker build -t focalboard .
+-docker run -it -v "/home/user/focalboard-data:/data" -p 80:8000 focalboard
++docker build -f docker/Dockerfile -t focalboard .
+ ```
+ 
+-> The `-v` flag can be used to store Focalboard's database and uploaded files in a directory on the Docker host
++Execute for Running the Container
++```
++docker run -it  -v "/home/user/focalboard-data:/data" \
++                -v "/home/user/focalboard-config:/config" \
++                -p 80:8000 focalboard 
++```
++
++> The `-v` flag can be used to store Focalboard's config file and database and uploaded files in a directory on the Docker host
++> When you use the Bind Mount for the Config Folder, be Aware that you need to Put a Valid Config File in the Specified Directory on the Host
++> A Valid Config File can be found under: [Config File](server_config.json)
+ 
+ Open a browser to http://localhost to start
+ 
+diff --git a/docker/docker-compose.yml b/docker/docker-compose.yml
+index 19c0f8bce34..9ff3110e707 100644
+--- a/docker/docker-compose.yml
++++ b/docker/docker-compose.yml
+@@ -9,4 +9,4 @@ services:
+       - 80:8000
+     environment:
+       - VIRTUAL_HOST=focalboard.local
+-      - VIRTUAL_PORT=8000
++      - VIRTUAL_PORT=8000
+\ No newline at end of file

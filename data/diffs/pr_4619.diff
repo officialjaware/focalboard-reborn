@@ -1,0 +1,398 @@
+diff --git a/server/app/boards.go b/server/app/boards.go
+index 2ddee918f13..e9ef428a8dc 100644
+--- a/server/app/boards.go
++++ b/server/app/boards.go
+@@ -22,6 +22,7 @@ const linkBoardMessage = "@%s linked the board [%s](%s) with this channel"
+ const unlinkBoardMessage = "@%s unlinked the board [%s](%s) with this channel"
+ 
+ var errNoDefaultCategoryFound = errors.New("no default category found for user")
++var errMemberRoleCannotBeChanged = errors.New("cannot change the role of this member")
+ 
+ func (a *App) GetBoard(boardID string) (*model.Board, error) {
+ 	board, err := a.store.GetBoard(boardID)
+@@ -604,6 +605,10 @@ func (a *App) UpdateBoardMember(member *model.BoardMember) (*model.BoardMember,
+ 		return nil, bErr
+ 	}
+ 
++	if a.permissions.HasPermissionToTeam(member.UserID, board.TeamID, model.PermissionManageTeam) {
++		return nil, errMemberRoleCannotBeChanged
++	}
++
+ 	oldMember, err := a.store.GetMemberForBoard(member.BoardID, member.UserID)
+ 	if model.IsErrNotFound(err) {
+ 		return nil, nil
+diff --git a/server/integrationtests/board_test.go b/server/integrationtests/board_test.go
+index 500ccfd9d3a..e1b7e7f2989 100644
+--- a/server/integrationtests/board_test.go
++++ b/server/integrationtests/board_test.go
+@@ -1598,6 +1598,43 @@ func TestUpdateMember(t *testing.T) {
+ 		require.True(t, members[0].SchemeAdmin)
+ 	})
+ 
++	t.Run("should not update a member if they are a team admin or higher", func(t *testing.T) {
++		th := SetupTestHelper(t).InitBasic()
++		defer th.TearDown()
++
++		newBoard := &model.Board{
++			Title:  "title",
++			Type:   model.BoardTypePrivate,
++			TeamID: teamID,
++		}
++		board, err := th.Server.App().CreateBoard(newBoard, th.GetUser1().ID, true)
++		require.NoError(t, err)
++
++		newUser2Member := &model.BoardMember{
++			UserID:      th.GetUser2().ID,
++			BoardID:     board.ID,
++			Schemeadmin: true,
++		}
++		user2Member, err := th.Server.App().AddMemberToBoard(newUser2Member)
++		require.NoError(t, err)
++		require.NotNil(t, user2Member)
++
++		memberUpdate := &model.BoardMember{
++			UserID:       th.GetUser1().ID,
++			BoardID:      board.ID,
++			SchemeEditor: true,
++		}
++
++		updatedUser1Member, resp := th.Client.UpdateBoardMember(memberUpdate)
++		th.CheckBadRequest(resp)
++		require.Nil(t, updatedUser1Member)
++
++		members, err := th.Server.App().GetMembersForBoard(board.ID)
++		require.NoError(t, err)
++		require.Len(t, members, 1)
++		require.True(t, members[0].SchemeAdmin)
++	})
++
+ 	t.Run("should always disable the admin role on update member if the user is a guest", func(t *testing.T) {
+ 		th := SetupTestHelperPluginMode(t)
+ 		defer th.TearDown()
+diff --git a/webapp/src/components/shareBoard/__snapshots__/userPermissionsRow.test.tsx.snap b/webapp/src/components/shareBoard/__snapshots__/userPermissionsRow.test.tsx.snap
+index 8745f3ea7f1..305d79ed076 100644
+--- a/webapp/src/components/shareBoard/__snapshots__/userPermissionsRow.test.tsx.snap
++++ b/webapp/src/components/shareBoard/__snapshots__/userPermissionsRow.test.tsx.snap
+@@ -78,8 +78,6 @@ exports[`src/components/shareBoard/userPermissionsRow should match snapshot 1`]
+                     class="noicon"
+                   />
+                 </div>
+-              </div>
+-              <div>
+                 <div
+                   aria-label="Commenter"
+                   class="MenuOption TextOption menu-option"
+@@ -109,8 +107,6 @@ exports[`src/components/shareBoard/userPermissionsRow should match snapshot 1`]
+                     class="noicon"
+                   />
+                 </div>
+-              </div>
+-              <div>
+                 <div
+                   aria-label="Editor"
+                   class="MenuOption TextOption menu-option"
+@@ -140,8 +136,6 @@ exports[`src/components/shareBoard/userPermissionsRow should match snapshot 1`]
+                     class="noicon"
+                   />
+                 </div>
+-              </div>
+-              <div>
+                 <div
+                   aria-label="Admin"
+                   class="MenuOption TextOption menu-option"
+@@ -177,8 +171,6 @@ exports[`src/components/shareBoard/userPermissionsRow should match snapshot 1`]
+                     class="noicon"
+                   />
+                 </div>
+-              </div>
+-              <div>
+                 <div
+                   class="MenuOption MenuSeparator menu-separator"
+                 />
+@@ -332,8 +324,6 @@ exports[`src/components/shareBoard/userPermissionsRow should match snapshot in p
+                     class="noicon"
+                   />
+                 </div>
+-              </div>
+-              <div>
+                 <div
+                   aria-label="Commenter"
+                   class="MenuOption TextOption menu-option"
+@@ -363,8 +353,6 @@ exports[`src/components/shareBoard/userPermissionsRow should match snapshot in p
+                     class="noicon"
+                   />
+                 </div>
+-              </div>
+-              <div>
+                 <div
+                   aria-label="Editor"
+                   class="MenuOption TextOption menu-option"
+@@ -394,8 +382,6 @@ exports[`src/components/shareBoard/userPermissionsRow should match snapshot in p
+                     class="noicon"
+                   />
+                 </div>
+-              </div>
+-              <div>
+                 <div
+                   aria-label="Admin"
+                   class="MenuOption TextOption menu-option"
+@@ -431,8 +417,6 @@ exports[`src/components/shareBoard/userPermissionsRow should match snapshot in p
+                     class="noicon"
+                   />
+                 </div>
+-              </div>
+-              <div>
+                 <div
+                   class="MenuOption MenuSeparator menu-separator"
+                 />
+@@ -586,9 +570,6 @@ exports[`src/components/shareBoard/userPermissionsRow should match snapshot in t
+                     class="noicon"
+                   />
+                 </div>
+-              </div>
+-              <div />
+-              <div>
+                 <div
+                   aria-label="Editor"
+                   class="MenuOption TextOption menu-option"
+@@ -618,8 +599,6 @@ exports[`src/components/shareBoard/userPermissionsRow should match snapshot in t
+                     class="noicon"
+                   />
+                 </div>
+-              </div>
+-              <div>
+                 <div
+                   aria-label="Admin"
+                   class="MenuOption TextOption menu-option"
+@@ -655,8 +634,6 @@ exports[`src/components/shareBoard/userPermissionsRow should match snapshot in t
+                     class="noicon"
+                   />
+                 </div>
+-              </div>
+-              <div>
+                 <div
+                   class="MenuOption MenuSeparator menu-separator"
+                 />
+@@ -786,141 +763,7 @@ exports[`src/components/shareBoard/userPermissionsRow should match snapshot-admi
+             <div
+               class="menu-options"
+             >
+-              <div>
+-                <div
+-                  aria-label="Viewer"
+-                  class="MenuOption TextOption menu-option"
+-                  role="button"
+-                >
+-                  <div
+-                    class="d-flex menu-option__check"
+-                  >
+-                    <div
+-                      class="menu-option__icon"
+-                    >
+-                      <div
+-                        class="empty-icon"
+-                      />
+-                    </div>
+-                  </div>
+-                  <div
+-                    class="menu-option__content"
+-                  >
+-                    <div
+-                      class="menu-name"
+-                    >
+-                      Viewer
+-                    </div>
+-                  </div>
+-                  <div
+-                    class="noicon"
+-                  />
+-                </div>
+-              </div>
+-              <div>
+-                <div
+-                  aria-label="Commenter"
+-                  class="MenuOption TextOption menu-option"
+-                  role="button"
+-                >
+-                  <div
+-                    class="d-flex menu-option__check"
+-                  >
+-                    <div
+-                      class="menu-option__icon"
+-                    >
+-                      <div
+-                        class="empty-icon"
+-                      />
+-                    </div>
+-                  </div>
+-                  <div
+-                    class="menu-option__content"
+-                  >
+-                    <div
+-                      class="menu-name"
+-                    >
+-                      Commenter
+-                    </div>
+-                  </div>
+-                  <div
+-                    class="noicon"
+-                  />
+-                </div>
+-              </div>
+-              <div>
+-                <div
+-                  aria-label="Editor"
+-                  class="MenuOption TextOption menu-option"
+-                  role="button"
+-                >
+-                  <div
+-                    class="d-flex menu-option__check"
+-                  >
+-                    <div
+-                      class="menu-option__icon"
+-                    >
+-                      <div
+-                        class="empty-icon"
+-                      />
+-                    </div>
+-                  </div>
+-                  <div
+-                    class="menu-option__content"
+-                  >
+-                    <div
+-                      class="menu-name"
+-                    >
+-                      Editor
+-                    </div>
+-                  </div>
+-                  <div
+-                    class="noicon"
+-                  />
+-                </div>
+-              </div>
+-              <div>
+-                <div
+-                  aria-label="Admin"
+-                  class="MenuOption TextOption menu-option"
+-                  role="button"
+-                >
+-                  <div
+-                    class="d-flex menu-option__check"
+-                  >
+-                    <div
+-                      class="menu-option__icon"
+-                    >
+-                      <svg
+-                        class="CheckIcon Icon"
+-                        viewBox="0 0 100 100"
+-                        xmlns="http://www.w3.org/2000/svg"
+-                      >
+-                        <polyline
+-                          points="20,60 40,80 80,40"
+-                        />
+-                      </svg>
+-                    </div>
+-                  </div>
+-                  <div
+-                    class="menu-option__content"
+-                  >
+-                    <div
+-                      class="menu-name"
+-                    >
+-                      Admin
+-                    </div>
+-                  </div>
+-                  <div
+-                    class="noicon"
+-                  />
+-                </div>
+-              </div>
+-              <div>
+-                <div
+-                  class="MenuOption MenuSeparator menu-separator"
+-                />
+-              </div>
++              <div />
+               <div>
+                 <div
+                   aria-label="Remove member"
+diff --git a/webapp/src/components/shareBoard/userPermissionsRow.tsx b/webapp/src/components/shareBoard/userPermissionsRow.tsx
+index 303308d6f4b..872d3831fce 100644
+--- a/webapp/src/components/shareBoard/userPermissionsRow.tsx
++++ b/webapp/src/components/shareBoard/userPermissionsRow.tsx
+@@ -83,38 +83,43 @@ const UserPermissionsRow = (props: Props): JSX.Element => {
+                             position='left'
+                             parentRef={menuWrapperRef}
+                         >
+-                            {(board.minimumRole === MemberRole.Viewer || board.minimumRole === MemberRole.None) &&
+-                                <Menu.Text
+-                                    id={MemberRole.Viewer}
+-                                    check={true}
+-                                    icon={currentRole === MemberRole.Viewer ? <CheckIcon/> : <div className='empty-icon'/>}
+-                                    name={intl.formatMessage({id: 'BoardMember.schemeViewer', defaultMessage: 'Viewer'})}
+-                                    onClick={() => props.onUpdateBoardMember(member, MemberRole.Viewer)}
+-                                />}
+-                            {!board.isTemplate && (board.minimumRole === MemberRole.None || board.minimumRole === MemberRole.Commenter || board.minimumRole === MemberRole.Viewer) &&
+-                                <Menu.Text
+-                                    id={MemberRole.Commenter}
+-                                    check={true}
+-                                    icon={currentRole === MemberRole.Commenter ? <CheckIcon/> : <div className='empty-icon'/>}
+-                                    name={intl.formatMessage({id: 'BoardMember.schemeCommenter', defaultMessage: 'Commenter'})}
+-                                    onClick={() => props.onUpdateBoardMember(member, MemberRole.Commenter)}
+-                                />}
+-                            <Menu.Text
+-                                id={MemberRole.Editor}
+-                                check={true}
+-                                icon={currentRole === MemberRole.Editor ? <CheckIcon/> : <div className='empty-icon'/>}
+-                                name={intl.formatMessage({id: 'BoardMember.schemeEditor', defaultMessage: 'Editor'})}
+-                                onClick={() => props.onUpdateBoardMember(member, MemberRole.Editor)}
+-                            />
+-                            {user.is_guest !== true &&
+-                                <Menu.Text
+-                                    id={MemberRole.Admin}
+-                                    check={true}
+-                                    icon={currentRole === MemberRole.Admin ? <CheckIcon/> : <div className='empty-icon'/>}
+-                                    name={intl.formatMessage({id: 'BoardMember.schemeAdmin', defaultMessage: 'Admin'})}
+-                                    onClick={() => props.onUpdateBoardMember(member, MemberRole.Admin)}
+-                                />}
+-                            <Menu.Separator/>
++                            {
++                                (!user.permissions || user.permissions?.find((s) => s !== 'manage_system' && s !== 'manage_team')) &&
++                                <>
++                                    {(board.minimumRole === MemberRole.Viewer || board.minimumRole === MemberRole.None) &&
++                                        <Menu.Text
++                                            id={MemberRole.Viewer}
++                                            check={true}
++                                            icon={currentRole === MemberRole.Viewer ? <CheckIcon/> : <div className='empty-icon'/>}
++                                            name={intl.formatMessage({id: 'BoardMember.schemeViewer', defaultMessage: 'Viewer'})}
++                                            onClick={() => props.onUpdateBoardMember(member, MemberRole.Viewer)}
++                                        />}
++                                    {!board.isTemplate && (board.minimumRole === MemberRole.None || board.minimumRole === MemberRole.Commenter || board.minimumRole === MemberRole.Viewer) &&
++                                        <Menu.Text
++                                            id={MemberRole.Commenter}
++                                            check={true}
++                                            icon={currentRole === MemberRole.Commenter ? <CheckIcon/> : <div className='empty-icon'/>}
++                                            name={intl.formatMessage({id: 'BoardMember.schemeCommenter', defaultMessage: 'Commenter'})}
++                                            onClick={() => props.onUpdateBoardMember(member, MemberRole.Commenter)}
++                                        />}
++                                    <Menu.Text
++                                        id={MemberRole.Editor}
++                                        check={true}
++                                        icon={currentRole === MemberRole.Editor ? <CheckIcon/> : <div className='empty-icon'/>}
++                                        name={intl.formatMessage({id: 'BoardMember.schemeEditor', defaultMessage: 'Editor'})}
++                                        onClick={() => props.onUpdateBoardMember(member, MemberRole.Editor)}
++                                    />
++                                    {user.is_guest !== true &&
++                                        <Menu.Text
++                                            id={MemberRole.Admin}
++                                            check={true}
++                                            icon={currentRole === MemberRole.Admin ? <CheckIcon/> : <div className='empty-icon'/>}
++                                            name={intl.formatMessage({id: 'BoardMember.schemeAdmin', defaultMessage: 'Admin'})}
++                                            onClick={() => props.onUpdateBoardMember(member, MemberRole.Admin)}
++                                        />}
++                                    <Menu.Separator/>
++                                </>
++                            }
+                             <Menu.Text
+                                 id='Remove'
+                                 name={intl.formatMessage({id: 'ShareBoard.userPermissionsRemoveMemberText', defaultMessage: 'Remove member'})}

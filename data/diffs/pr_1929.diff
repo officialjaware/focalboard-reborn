@@ -1,0 +1,165 @@
+diff --git a/docker/README.md b/docker/README.md
+index 01f7ab05e99..8ee7d65274a 100644
+--- a/docker/README.md
++++ b/docker/README.md
+@@ -1,32 +1,8 @@
+-# Deploy Focalboard with Docker
++# Focalboard with Docker
++This directory contains both example files for both deploying Focalboard from the [prebuilt images on Dockerhub](https://hub.docker.com/r/mattermost/focalboard), as well as building the docker image for Focalboard locally from this repository.
+ 
+-## Docker
++## deploy/
++This directory contains an example `docker-compose.yml` file that you can use to quickly get up and running.
+ 
+-The Dockerfile gives a quick and easy way to pull the latest Focalboard server and deploy it locally.
+-
+-```
+-docker build -t focalboard .
+-docker run -it -v "/home/user/focalboard-data:/data" -p 80:8000 focalboard
+-```
+-
+-> The `-v` flag can be used to store Focalboard's database and uploaded files in a directory on the Docker host
+-
+-Open a browser to http://localhost to start
+-
+-## Docker-Compose
+-
+-Docker-Compose provides the option to automate the build and run step, or even include some of the steps from the [personal server setup](https://www.focalboard.com/download/personal-edition/ubuntu/).
+-
+-To start the server run
+-
+-```
+-docker-compose up
+-```
+-
+-This will automatically build the focalboard image and start it with the http port mapping.
+-
+-To run focalboard with a nginx proxy and a postgres backend run
+-
+-```
+-docker-compose -f docker-compose-db-nginx.yml up
+-```
++## develop/
++This directory contains examples on how you can build and deploy locally Focalboard directly from this repository. 
+diff --git a/docker/deploy/README.md b/docker/deploy/README.md
+new file mode 100644
+index 00000000000..8a27aebd599
+--- /dev/null
++++ b/docker/deploy/README.md
+@@ -0,0 +1,8 @@
++# deploy/
++## docker-compose.yml
++The example docker-compose.yml in this directory will pull the latest image from DockerHub (you can also specify a specific build if necessary). 
++
++## focalboard_sqlite3_config.json
++An example configuration file has been provided as well. If you wish to override defaults, you'll need to make any changes necessary, and then uncomment the following line in `docker-compose.yml`
++
++`- "./focalboard_sqlite3_config.json:/opt/focalboard/config.json/"`
+diff --git a/docker/deploy/docker-compose.yml b/docker/deploy/docker-compose.yml
+new file mode 100644
+index 00000000000..14716a948b9
+--- /dev/null
++++ b/docker/deploy/docker-compose.yml
+@@ -0,0 +1,22 @@
++version: "3"
++services:
++  focalboard:
++    # images available here: https://hub.docker.com/r/mattermost/focalboard/tags
++    image: mattermost/focalboard:latest
++    container_name: focalboard
++    ports:
++      - 80:8000
++
++    # Uncomment to set any environment variables necessary
++    # environment:
++    #  - VIRTUAL_HOST=focalboard.local
++    #  - VIRTUAL_PORT=8000
++
++    volumes:
++      - focalboard_data:/data
++    # Uncomment and point to your configuration file if you need to override defaults
++    # - "./focalboard_sqlite3_config.json:/opt/focalboard/config.json/"
++
++volumes:
++  focalboard_data:
++
+diff --git a/docker/server_config.json b/docker/deploy/focalboard_sqlite3_config.json
+similarity index 100%
+rename from docker/server_config.json
+rename to docker/deploy/focalboard_sqlite3_config.json
+diff --git a/docker/Dockerfile b/docker/develop/Dockerfile
+similarity index 100%
+rename from docker/Dockerfile
+rename to docker/develop/Dockerfile
+diff --git a/docker/develop/README.md b/docker/develop/README.md
+new file mode 100644
+index 00000000000..453498004e8
+--- /dev/null
++++ b/docker/develop/README.md
+@@ -0,0 +1,32 @@
++# develop/
++This directory contains examples on how you can build and deploy locally Focalboard directly from this repository.
++
++## Docker
++The Dockerfile gives a quick and easy way to pull the latest Focalboard server and deploy it locally.
++
++```
++docker build -t focalboard .
++docker run -it -v "/home/user/focalboard-data:/data" -p 80:8000 focalboard
++```
++
++> The `-v` flag can be used to store Focalboard's database and uploaded files in a directory on the Docker host
++
++Open a browser to http://localhost to start
++
++## Docker-Compose
++
++Docker-Compose provides the option to automate the build and run step, or even include some of the steps from the [personal server setup](https://www.focalboard.com/download/personal-edition/ubuntu/).
++
++To start the server run
++
++```
++docker-compose up
++```
++
++This will automatically build the focalboard image and start it with the http port mapping.
++
++To run focalboard with a nginx proxy and a postgres backend run
++
++```
++docker-compose -f docker-compose-db-nginx.yml up
++
+diff --git a/docker/config.json b/docker/develop/config.json
+similarity index 100%
+rename from docker/config.json
+rename to docker/develop/config.json
+diff --git a/docker/docker-compose-db-nginx.yml b/docker/develop/docker-compose-db-nginx.yml
+similarity index 100%
+rename from docker/docker-compose-db-nginx.yml
+rename to docker/develop/docker-compose-db-nginx.yml
+diff --git a/docker/docker-compose.yml b/docker/develop/docker-compose.yml
+similarity index 100%
+rename from docker/docker-compose.yml
+rename to docker/develop/docker-compose.yml
+diff --git a/docker/develop/server_config.json b/docker/develop/server_config.json
+new file mode 100644
+index 00000000000..383ab555c69
+--- /dev/null
++++ b/docker/develop/server_config.json
+@@ -0,0 +1,16 @@
++{
++  "serverRoot": "http://localhost:8000",
++  "port": 8000,
++  "dbtype": "sqlite3",
++  "dbconfig": "/data/focalboard.db",
++  "postgres_dbconfig": "dbname=focalboard sslmode=disable",
++  "useSSL": false,
++  "webpath": "./pack",
++  "filespath": "/data/files",
++  "telemetry": true,
++  "session_expire_time": 2592000,
++  "session_refresh_time": 18000,
++  "localOnly": false,
++  "enableLocalMode": true,
++  "localModeSocketLocation": "/var/tmp/focalboard_local.socket"
++}

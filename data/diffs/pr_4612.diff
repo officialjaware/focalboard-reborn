@@ -1,0 +1,1266 @@
+diff --git a/webapp/src/components/calendar/__snapshots__/fullCalendarCard.test.tsx.snap b/webapp/src/components/calendar/__snapshots__/fullCalendarCard.test.tsx.snap
+new file mode 100644
+index 00000000000..e461837d6f1
+--- /dev/null
++++ b/webapp/src/components/calendar/__snapshots__/fullCalendarCard.test.tsx.snap
+@@ -0,0 +1,616 @@
++// Jest Snapshot v1, https://goo.gl/fbAQLP
++
++exports[`src/components/calendar/fullCalendarCard return FullCalendarCard and click on copy link menu  1`] = `
++<div>
++  <div
++    class="EventContent"
++  >
++    <div
++      aria-label="menuwrapper"
++      class="MenuWrapper override menuOpened optionsMenu"
++      role="button"
++    >
++      <button
++        type="button"
++      >
++        <i
++          class="CompassIcon icon-dots-horizontal OptionsIcon"
++        />
++      </button>
++      <div
++        class="Menu noselect left "
++      >
++        <div
++          class="menu-contents"
++        >
++          <div
++            class="menu-options"
++          >
++            <div>
++              <div
++                aria-label="Delete"
++                class="MenuOption TextOption menu-option"
++                role="button"
++              >
++                <div
++                  class="d-flex"
++                >
++                  <div
++                    class="menu-option__icon"
++                  >
++                    <i
++                      class="CompassIcon icon-trash-can-outline DeleteIcon trash-can-outline"
++                    />
++                  </div>
++                </div>
++                <div
++                  class="menu-option__content"
++                >
++                  <div
++                    class="menu-name"
++                  >
++                    Delete
++                  </div>
++                </div>
++                <div
++                  class="noicon"
++                />
++              </div>
++              <div
++                aria-label="Duplicate"
++                class="MenuOption TextOption menu-option"
++                role="button"
++              >
++                <div
++                  class="d-flex"
++                >
++                  <div
++                    class="menu-option__icon"
++                  >
++                    <i
++                      class="CompassIcon icon-content-copy content-copy"
++                    />
++                  </div>
++                </div>
++                <div
++                  class="menu-option__content"
++                >
++                  <div
++                    class="menu-name"
++                  >
++                    Duplicate
++                  </div>
++                </div>
++                <div
++                  class="noicon"
++                />
++              </div>
++            </div>
++            <div>
++              <div
++                aria-label="Copy link"
++                class="MenuOption TextOption menu-option"
++                role="button"
++              >
++                <div
++                  class="d-flex"
++                >
++                  <div
++                    class="menu-option__icon"
++                  >
++                    <i
++                      class="CompassIcon icon-link-variant LinkIcon"
++                    />
++                  </div>
++                </div>
++                <div
++                  class="menu-option__content"
++                >
++                  <div
++                    class="menu-name"
++                  >
++                    Copy link
++                  </div>
++                </div>
++                <div
++                  class="noicon"
++                />
++              </div>
++            </div>
++            <div />
++          </div>
++          <div
++            class="menu-spacer hideOnWidescreen"
++          />
++          <div
++            class="menu-options hideOnWidescreen"
++          >
++            <div
++              aria-label="Cancel"
++              class="MenuOption TextOption menu-option menu-cancel"
++              role="button"
++            >
++              <div
++                class="d-flex"
++              >
++                <div
++                  class="noicon"
++                />
++              </div>
++              <div
++                class="menu-option__content"
++              >
++                <div
++                  class="menu-name"
++                >
++                  Cancel
++                </div>
++              </div>
++              <div
++                class="noicon"
++              />
++            </div>
++          </div>
++        </div>
++      </div>
++    </div>
++    <div
++      class="octo-icontitle"
++    >
++      <div
++        class="octo-icon"
++      >
++        i
++      </div>
++      <div
++        class="fc-event-title"
++      >
++        title
++      </div>
++    </div>
++    <div
++      class="octo-tooltip tooltip-top"
++      data-tooltip="name"
++    >
++      <div
++        class="octo-propertyvalue octo-propertyvalue--readonly"
++      />
++    </div>
++  </div>
++</div>
++`;
++
++exports[`src/components/calendar/fullCalendarCard return FullCalendarCard and click on delete menu  1`] = `
++<div>
++  <div
++    class="EventContent"
++  >
++    <div
++      aria-label="menuwrapper"
++      class="MenuWrapper override menuOpened optionsMenu"
++      role="button"
++    >
++      <button
++        type="button"
++      >
++        <i
++          class="CompassIcon icon-dots-horizontal OptionsIcon"
++        />
++      </button>
++      <div
++        class="Menu noselect left "
++      >
++        <div
++          class="menu-contents"
++        >
++          <div
++            class="menu-options"
++          >
++            <div>
++              <div
++                aria-label="Delete"
++                class="MenuOption TextOption menu-option"
++                role="button"
++              >
++                <div
++                  class="d-flex"
++                >
++                  <div
++                    class="menu-option__icon"
++                  >
++                    <i
++                      class="CompassIcon icon-trash-can-outline DeleteIcon trash-can-outline"
++                    />
++                  </div>
++                </div>
++                <div
++                  class="menu-option__content"
++                >
++                  <div
++                    class="menu-name"
++                  >
++                    Delete
++                  </div>
++                </div>
++                <div
++                  class="noicon"
++                />
++              </div>
++              <div
++                aria-label="Duplicate"
++                class="MenuOption TextOption menu-option"
++                role="button"
++              >
++                <div
++                  class="d-flex"
++                >
++                  <div
++                    class="menu-option__icon"
++                  >
++                    <i
++                      class="CompassIcon icon-content-copy content-copy"
++                    />
++                  </div>
++                </div>
++                <div
++                  class="menu-option__content"
++                >
++                  <div
++                    class="menu-name"
++                  >
++                    Duplicate
++                  </div>
++                </div>
++                <div
++                  class="noicon"
++                />
++              </div>
++            </div>
++            <div>
++              <div
++                aria-label="Copy link"
++                class="MenuOption TextOption menu-option"
++                role="button"
++              >
++                <div
++                  class="d-flex"
++                >
++                  <div
++                    class="menu-option__icon"
++                  >
++                    <i
++                      class="CompassIcon icon-link-variant LinkIcon"
++                    />
++                  </div>
++                </div>
++                <div
++                  class="menu-option__content"
++                >
++                  <div
++                    class="menu-name"
++                  >
++                    Copy link
++                  </div>
++                </div>
++                <div
++                  class="noicon"
++                />
++              </div>
++            </div>
++            <div />
++          </div>
++          <div
++            class="menu-spacer hideOnWidescreen"
++          />
++          <div
++            class="menu-options hideOnWidescreen"
++          >
++            <div
++              aria-label="Cancel"
++              class="MenuOption TextOption menu-option menu-cancel"
++              role="button"
++            >
++              <div
++                class="d-flex"
++              >
++                <div
++                  class="noicon"
++                />
++              </div>
++              <div
++                class="menu-option__content"
++              >
++                <div
++                  class="menu-name"
++                >
++                  Cancel
++                </div>
++              </div>
++              <div
++                class="noicon"
++              />
++            </div>
++          </div>
++        </div>
++      </div>
++    </div>
++    <div
++      class="octo-icontitle"
++    >
++      <div
++        class="octo-icon"
++      >
++        i
++      </div>
++      <div
++        class="fc-event-title"
++      >
++        title
++      </div>
++    </div>
++    <div
++      class="octo-tooltip tooltip-top"
++      data-tooltip="name"
++    >
++      <div
++        class="octo-propertyvalue octo-propertyvalue--readonly"
++      />
++    </div>
++  </div>
++</div>
++`;
++
++exports[`src/components/calendar/fullCalendarCard return FullCalendarCard and click on duplicate menu  1`] = `
++<div>
++  <div
++    class="EventContent"
++  >
++    <div
++      aria-label="menuwrapper"
++      class="MenuWrapper override menuOpened optionsMenu"
++      role="button"
++    >
++      <button
++        type="button"
++      >
++        <i
++          class="CompassIcon icon-dots-horizontal OptionsIcon"
++        />
++      </button>
++      <div
++        class="Menu noselect left "
++      >
++        <div
++          class="menu-contents"
++        >
++          <div
++            class="menu-options"
++          >
++            <div>
++              <div
++                aria-label="Delete"
++                class="MenuOption TextOption menu-option"
++                role="button"
++              >
++                <div
++                  class="d-flex"
++                >
++                  <div
++                    class="menu-option__icon"
++                  >
++                    <i
++                      class="CompassIcon icon-trash-can-outline DeleteIcon trash-can-outline"
++                    />
++                  </div>
++                </div>
++                <div
++                  class="menu-option__content"
++                >
++                  <div
++                    class="menu-name"
++                  >
++                    Delete
++                  </div>
++                </div>
++                <div
++                  class="noicon"
++                />
++              </div>
++              <div
++                aria-label="Duplicate"
++                class="MenuOption TextOption menu-option"
++                role="button"
++              >
++                <div
++                  class="d-flex"
++                >
++                  <div
++                    class="menu-option__icon"
++                  >
++                    <i
++                      class="CompassIcon icon-content-copy content-copy"
++                    />
++                  </div>
++                </div>
++                <div
++                  class="menu-option__content"
++                >
++                  <div
++                    class="menu-name"
++                  >
++                    Duplicate
++                  </div>
++                </div>
++                <div
++                  class="noicon"
++                />
++              </div>
++            </div>
++            <div>
++              <div
++                aria-label="Copy link"
++                class="MenuOption TextOption menu-option"
++                role="button"
++              >
++                <div
++                  class="d-flex"
++                >
++                  <div
++                    class="menu-option__icon"
++                  >
++                    <i
++                      class="CompassIcon icon-link-variant LinkIcon"
++                    />
++                  </div>
++                </div>
++                <div
++                  class="menu-option__content"
++                >
++                  <div
++                    class="menu-name"
++                  >
++                    Copy link
++                  </div>
++                </div>
++                <div
++                  class="noicon"
++                />
++              </div>
++            </div>
++            <div />
++          </div>
++          <div
++            class="menu-spacer hideOnWidescreen"
++          />
++          <div
++            class="menu-options hideOnWidescreen"
++          >
++            <div
++              aria-label="Cancel"
++              class="MenuOption TextOption menu-option menu-cancel"
++              role="button"
++            >
++              <div
++                class="d-flex"
++              >
++                <div
++                  class="noicon"
++                />
++              </div>
++              <div
++                class="menu-option__content"
++              >
++                <div
++                  class="menu-name"
++                >
++                  Cancel
++                </div>
++              </div>
++              <div
++                class="noicon"
++              />
++            </div>
++          </div>
++        </div>
++      </div>
++    </div>
++    <div
++      class="octo-icontitle"
++    >
++      <div
++        class="octo-icon"
++      >
++        i
++      </div>
++      <div
++        class="fc-event-title"
++      >
++        title
++      </div>
++    </div>
++    <div
++      class="octo-tooltip tooltip-top"
++      data-tooltip="name"
++    >
++      <div
++        class="octo-propertyvalue octo-propertyvalue--readonly"
++      />
++    </div>
++  </div>
++</div>
++`;
++
++exports[`src/components/calendar/fullCalendarCard should match snapshot 1`] = `
++<div>
++  <div
++    class="EventContent"
++  >
++    <div
++      aria-label="menuwrapper"
++      class="MenuWrapper optionsMenu"
++      role="button"
++    >
++      <button
++        type="button"
++      >
++        <i
++          class="CompassIcon icon-dots-horizontal OptionsIcon"
++        />
++      </button>
++    </div>
++    <div
++      class="octo-icontitle"
++    >
++      <div
++        class="octo-icon"
++      >
++        i
++      </div>
++      <div
++        class="fc-event-title"
++      >
++        title
++      </div>
++    </div>
++    <div
++      class="octo-tooltip tooltip-top"
++      data-tooltip="name"
++    >
++      <div
++        class="octo-propertyvalue octo-propertyvalue--readonly"
++      />
++    </div>
++  </div>
++</div>
++`;
++
++exports[`src/components/calendar/fullCalendarCard should match snapshot with readonly 1`] = `
++<div>
++  <div
++    class="EventContent"
++  >
++    <div
++      class="octo-icontitle"
++    >
++      <div
++        class="octo-icon"
++      >
++        i
++      </div>
++      <div
++        class="fc-event-title"
++      >
++        title
++      </div>
++    </div>
++    <div
++      class="octo-tooltip tooltip-top"
++      data-tooltip="name"
++    >
++      <div
++        class="octo-propertyvalue octo-propertyvalue--readonly"
++      />
++    </div>
++  </div>
++</div>
++`;
+diff --git a/webapp/src/components/calendar/fullCalendar.tsx b/webapp/src/components/calendar/fullCalendar.tsx
+index 7c1fccf263d..12e851c8598 100644
+--- a/webapp/src/components/calendar/fullCalendar.tsx
++++ b/webapp/src/components/calendar/fullCalendar.tsx
+@@ -1,7 +1,7 @@
+ // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
+ // See LICENSE.txt for license information.
+ 
+-import React, {useCallback, useMemo, useState} from 'react'
++import React, {useCallback, useMemo} from 'react'
+ import {useIntl} from 'react-intl'
+ 
+ import FullCalendar, {EventChangeArg, EventInput, EventContentArg, DayCellContentArg} from '@fullcalendar/react'
+@@ -18,18 +18,12 @@ import {BoardView} from '../../blocks/boardView'
+ import {Card} from '../../blocks/card'
+ import {DateProperty} from '../../properties/date/date'
+ import propsRegistry from '../../properties'
+-import Tooltip from '../../widgets/tooltip'
+-import PropertyValueElement from '../propertyValueElement'
+ import {Constants, Permission} from '../../constants'
+ import {useHasCurrentBoardPermissions} from '../../hooks/permissions'
+-import CardBadges from '../cardBadges'
+-import ConfirmationDialogBox, {ConfirmationDialogBoxProps} from '../confirmationDialogBox'
+ 
+ import './fullcalendar.scss'
+-import MenuWrapper from '../../widgets/menuWrapper'
+-import CardActionsMenu from '../cardActionsMenu/cardActionsMenu'
+-import TelemetryClient, {TelemetryActions, TelemetryCategory} from '../../telemetry/telemetryClient'
+-import CardActionsMenuIcon from '../cardActionsMenu/cardActionsMenuIcon'
++
++import FullCalendarCard from './fullCalendarCard'
+ 
+ const oneDay = 60 * 60 * 24 * 1000
+ 
+@@ -76,8 +70,6 @@ const CalendarFullView = (props: Props): JSX.Element|null => {
+     const {board, cards, activeView, dateDisplayProperty, readonly} = props
+     const isSelectable = !readonly
+     const canAddCards = useHasCurrentBoardPermissions([Permission.ManageBoardCards])
+-    const [showConfirmationDialogBox, setShowConfirmationDialogBox] = useState<boolean>(false)
+-    const [cardItem, setCardItem] = useState<Card>()
+ 
+     const visiblePropertyTemplates = useMemo(() => (
+         board.cardProperties.filter((template: IPropertyTemplate) => activeView.fields.visiblePropertyIds.includes(template.id))
+@@ -127,82 +119,19 @@ const CalendarFullView = (props: Props): JSX.Element|null => {
+ 
+     const visibleBadges = activeView.fields.visiblePropertyIds.includes(Constants.badgesColumnId)
+ 
+-    const openConfirmationDialogBox = (card: Card) => {
+-        setShowConfirmationDialogBox(true)
+-        setCardItem(card)
+-    }
+-
+-    const handleDeleteCard = useCallback(() => {
+-        if (!cardItem) {
+-            return
+-        }
+-        mutator.deleteBlock(cardItem, 'delete card')
+-        setShowConfirmationDialogBox(false)
+-    }, [cardItem, board.id])
+-
+-    const confirmDialogProps: ConfirmationDialogBoxProps = useMemo(() => {
+-        return {
+-            heading: intl.formatMessage({id: 'CardDialog.delete-confirmation-dialog-heading', defaultMessage: 'Confirm card delete!'}),
+-            confirmButtonText: intl.formatMessage({id: 'CardDialog.delete-confirmation-dialog-button-text', defaultMessage: 'Delete'}),
+-            onConfirm: handleDeleteCard,
+-            onClose: () => {
+-                setShowConfirmationDialogBox(false)
+-            },
+-        }
+-    }, [handleDeleteCard])
+-
+     const renderEventContent = (eventProps: EventContentArg): JSX.Element|null => {
+         const {event} = eventProps
+         const card = cards.find((o) => o.id === event.id) || cards[0]
+-
+         return (
+-            <>
+-                <div
+-                    className='EventContent'
+-                    onClick={() => props.showCard(event.id)}
+-                >
+-                    {!props.readonly &&
+-                    <MenuWrapper
+-                        className='optionsMenu'
+-                        stopPropagationOnToggle={true}
+-                    >
+-                        <CardActionsMenuIcon/>
+-                        <CardActionsMenu
+-                            cardId={card.id}
+-                            boardId={card.boardId}
+-                            onClickDelete={() => openConfirmationDialogBox(card)}
+-                            onClickDuplicate={() => {
+-                                TelemetryClient.trackEvent(TelemetryCategory, TelemetryActions.DuplicateCard, {board: board.id, card: card.id})
+-                                mutator.duplicateCard(card.id, board.id)
+-                            }}
+-                        />
+-                    </MenuWrapper>}
+-                    <div className='octo-icontitle'>
+-                        { event.extendedProps.icon ? <div className='octo-icon'>{event.extendedProps.icon}</div> : undefined }
+-                        <div
+-                            className='fc-event-title'
+-                            key='__title'
+-                        >{event.title || intl.formatMessage({id: 'CalendarCard.untitled', defaultMessage: 'Untitled'})}</div>
+-                    </div>
+-                    {visiblePropertyTemplates.map((template) => (
+-                        <Tooltip
+-                            key={template.id}
+-                            title={template.name}
+-                        >
+-                            <PropertyValueElement
+-                                board={board}
+-                                readOnly={true}
+-                                card={card}
+-                                propertyTemplate={template}
+-                                showEmptyPlaceholder={false}
+-                            />
+-                        </Tooltip>
+-                    ))}
+-                    {visibleBadges &&
+-                    <CardBadges card={card}/> }
+-                </div>
+-            </>
+-        )
++            <FullCalendarCard
++                card={card}
++                board={board}
++                visiblePropertyTemplates={visiblePropertyTemplates}
++                visibleBadges={visibleBadges}
++                key={card.id}
++                readonly={props.readonly}
++                showCard={props.showCard}
++            />)
+     }
+ 
+     const eventChange = useCallback((eventProps: EventChangeArg) => {
+@@ -292,7 +221,6 @@ const CalendarFullView = (props: Props): JSX.Element|null => {
+                 selectMirror={true}
+                 select={onNewEvent}
+             />
+-            {showConfirmationDialogBox && <ConfirmationDialogBox dialogBox={confirmDialogProps}/>}
+         </div>
+     )
+ }
+diff --git a/webapp/src/components/calendar/fullCalendarCard.test.tsx b/webapp/src/components/calendar/fullCalendarCard.test.tsx
+new file mode 100644
+index 00000000000..8fdfac8ed4a
+--- /dev/null
++++ b/webapp/src/components/calendar/fullCalendarCard.test.tsx
+@@ -0,0 +1,186 @@
++// Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
++// See LICENSE.txt for license information.
++import React from 'react'
++import {render, screen, within} from '@testing-library/react'
++import '@testing-library/jest-dom'
++import {MemoryRouter} from 'react-router-dom'
++
++import {Provider as ReduxProvider} from 'react-redux'
++
++import userEvent from '@testing-library/user-event'
++
++import {mocked} from 'jest-mock'
++
++import Mutator from '../../mutator'
++import {Utils} from '../../utils'
++
++import {TestBlockFactory} from '../../test/testBlockFactory'
++import {IPropertyTemplate} from '../../blocks/board'
++import {mockStateStore, wrapDNDIntl} from '../../testUtils'
++
++import FullCalendarCard from './fullCalendarCard'
++
++jest.mock('../../mutator')
++jest.mock('../../utils')
++jest.mock('../../telemetry/telemetryClient')
++const mockedUtils = mocked(Utils, true)
++const mockedMutator = mocked(Mutator, true)
++
++describe('src/components/calendar/fullCalendarCard', () => {
++    const board = TestBlockFactory.createBoard()
++    const card = TestBlockFactory.createCard(board)
++    const propertyTemplate: IPropertyTemplate = {
++        id: 'id',
++        name: 'name',
++        type: 'text',
++        options: [
++            {
++                color: 'propColorOrange',
++                id: 'property_value_id_1',
++                value: 'Q1',
++            },
++            {
++                color: 'propColorBlue',
++                id: 'property_value_id_2',
++                value: 'Q2',
++            },
++        ],
++    }
++    const state = {
++        cards: {
++            cards: [card],
++        },
++        teams: {
++            current: {id: 'team-id'},
++        },
++        boards: {
++            current: 'board_id_1',
++            boards: {
++                board_id_1: {id: 'board_id_1'},
++            },
++            myBoardMemberships: {
++                board_id_1: {userId: 'user_id_1', schemeAdmin: true},
++            },
++        },
++        contents: {},
++        comments: {
++            comments: {},
++        },
++        users: {
++            me: {
++                id: 'user_id_1',
++                props: {},
++            },
++        },
++    }
++    const store = mockStateStore([], state)
++    beforeEach(jest.clearAllMocks)
++    test('should match snapshot', () => {
++        const {container} = render(wrapDNDIntl(
++            <ReduxProvider store={store}>
++                <FullCalendarCard
++                    card={card}
++                    board={board}
++                    visiblePropertyTemplates={[propertyTemplate]}
++                    visibleBadges={false}
++                    readonly={false}
++                    showCard={jest.fn()}
++                />
++            </ReduxProvider>,
++        ), {wrapper: MemoryRouter})
++        expect(container).toMatchSnapshot()
++    })
++    test('should match snapshot with readonly', () => {
++        const {container} = render(wrapDNDIntl(
++            <ReduxProvider store={store}>
++                <FullCalendarCard
++                    card={card}
++                    board={board}
++                    visiblePropertyTemplates={[propertyTemplate]}
++                    visibleBadges={false}
++                    readonly={true}
++                    showCard={jest.fn()}
++                />
++            </ReduxProvider>,
++        ), {wrapper: MemoryRouter})
++        expect(container).toMatchSnapshot()
++    })
++    test('return FullCalendarCard and click on delete menu ', () => {
++        const result = render(wrapDNDIntl(
++            <ReduxProvider store={store}>
++                <FullCalendarCard
++                    card={card}
++                    board={board}
++                    visiblePropertyTemplates={[propertyTemplate]}
++                    visibleBadges={false}
++                    readonly={false}
++                    showCard={jest.fn()}
++                />
++            </ReduxProvider>,
++        ), {wrapper: MemoryRouter})
++
++        const {container} = result
++
++        const elementMenuWrapper = screen.getByRole('button', {name: 'menuwrapper'})
++        expect(elementMenuWrapper).not.toBeNull()
++        userEvent.click(elementMenuWrapper)
++        expect(container).toMatchSnapshot()
++        const elementButtonDelete = within(elementMenuWrapper).getByRole('button', {name: 'Delete'})
++        expect(elementButtonDelete).not.toBeNull()
++        userEvent.click(elementButtonDelete)
++
++        const confirmDialog = screen.getByTitle('Confirmation Dialog Box')
++        expect(confirmDialog).toBeDefined()
++        const confirmButton = within(confirmDialog).getByRole('button', {name: 'Delete'})
++        expect(confirmButton).toBeDefined()
++        userEvent.click(confirmButton)
++
++        expect(mockedMutator.deleteBlock).toBeCalledWith(card, 'delete card')
++    })
++
++    test('return FullCalendarCard and click on duplicate menu ', () => {
++        const {container} = render(wrapDNDIntl(
++            <ReduxProvider store={store}>
++                <FullCalendarCard
++                    card={card}
++                    board={board}
++                    visiblePropertyTemplates={[propertyTemplate]}
++                    visibleBadges={false}
++                    readonly={false}
++                    showCard={jest.fn()}
++                />
++            </ReduxProvider>,
++        ), {wrapper: MemoryRouter})
++        const elementMenuWrapper = screen.getByRole('button', {name: 'menuwrapper'})
++        expect(elementMenuWrapper).not.toBeNull()
++        userEvent.click(elementMenuWrapper)
++        expect(container).toMatchSnapshot()
++        const elementButtonDuplicate = within(elementMenuWrapper).getByRole('button', {name: 'Duplicate'})
++        expect(elementButtonDuplicate).not.toBeNull()
++        userEvent.click(elementButtonDuplicate)
++        expect(mockedMutator.duplicateCard).toBeCalledTimes(1)
++    })
++
++    test('return FullCalendarCard and click on copy link menu ', () => {
++        const {container} = render(wrapDNDIntl(
++            <ReduxProvider store={store}>
++                <FullCalendarCard
++                    card={card}
++                    board={board}
++                    visiblePropertyTemplates={[propertyTemplate]}
++                    visibleBadges={false}
++                    readonly={false}
++                    showCard={jest.fn()}
++                />
++            </ReduxProvider>,
++        ), {wrapper: MemoryRouter})
++        const elementMenuWrapper = screen.getByRole('button', {name: 'menuwrapper'})
++        expect(elementMenuWrapper).not.toBeNull()
++        userEvent.click(elementMenuWrapper)
++        expect(container).toMatchSnapshot()
++        const elementButtonCopyLink = within(elementMenuWrapper).getByRole('button', {name: 'Copy link'})
++        expect(elementButtonCopyLink).not.toBeNull()
++        userEvent.click(elementButtonCopyLink)
++        expect(mockedUtils.copyTextToClipboard).toBeCalledTimes(1)
++    })
++})
+diff --git a/webapp/src/components/calendar/fullCalendarCard.tsx b/webapp/src/components/calendar/fullCalendarCard.tsx
+new file mode 100644
+index 00000000000..5d4b2ba8519
+--- /dev/null
++++ b/webapp/src/components/calendar/fullCalendarCard.tsx
+@@ -0,0 +1,117 @@
++// Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
++// See LICENSE.txt for license information.
++
++import React, {useCallback, useMemo, useState} from 'react'
++import {useIntl} from 'react-intl'
++
++import {useIsCardEmpty} from '../../hooks/useIsCardEmpty'
++import mutator from '../../mutator'
++
++import {Board, IPropertyTemplate} from '../../blocks/board'
++import {Card} from '../../blocks/card'
++import Tooltip from '../../widgets/tooltip'
++import PropertyValueElement from '../propertyValueElement'
++import CardBadges from '../cardBadges'
++import ConfirmationDialogBox, {ConfirmationDialogBoxProps} from '../confirmationDialogBox'
++
++import './fullcalendar.scss'
++import MenuWrapper from '../../widgets/menuWrapper'
++import CardActionsMenu from '../cardActionsMenu/cardActionsMenu'
++import TelemetryClient, {TelemetryActions, TelemetryCategory} from '../../telemetry/telemetryClient'
++import CardActionsMenuIcon from '../cardActionsMenu/cardActionsMenuIcon'
++
++type Props = {
++    card: Card
++    board: Board
++    visiblePropertyTemplates: IPropertyTemplate[]
++    visibleBadges: boolean
++    readonly: boolean
++    showCard: (cardId: string) => void
++}
++
++const FullCalendarCard = (props: Props): JSX.Element|null => {
++    const {card, board, visiblePropertyTemplates, visibleBadges} = props
++    const isCardEmpty = useIsCardEmpty(card)
++    const intl = useIntl()
++    const [showConfirmationDialogBox, setShowConfirmationDialogBox] = useState<boolean>(false)
++
++    const handleDeleteCard = useCallback(() => {
++        if (!card) {
++            return
++        }
++        mutator.deleteBlock(card, 'delete card')
++        setShowConfirmationDialogBox(false)
++    }, [card, board.id])
++
++    const handleDeleteButtonOnClick = useCallback(() => {
++        // user trying to delete a card with blank name
++        // but content present cannot be deleted without
++        // confirmation dialog
++        if (isCardEmpty) {
++            handleDeleteCard()
++            return
++        }
++        setShowConfirmationDialogBox(true)
++    }, [handleDeleteCard, isCardEmpty])
++
++    const confirmDialogProps: ConfirmationDialogBoxProps = useMemo(() => {
++        return {
++            heading: intl.formatMessage({id: 'CardDialog.delete-confirmation-dialog-heading', defaultMessage: 'Confirm card delete!'}),
++            confirmButtonText: intl.formatMessage({id: 'CardDialog.delete-confirmation-dialog-button-text', defaultMessage: 'Delete'}),
++            onConfirm: handleDeleteCard,
++            onClose: () => {
++                setShowConfirmationDialogBox(false)
++            },
++        }
++    }, [handleDeleteCard])
++
++    return (<>
++        <div
++            className='EventContent'
++            onClick={() => props.showCard(card.id)}
++        >
++            {!props.readonly &&
++            <MenuWrapper
++                className='optionsMenu'
++                stopPropagationOnToggle={true}
++            >
++                <CardActionsMenuIcon/>
++                <CardActionsMenu
++                    cardId={card.id}
++                    boardId={card.boardId}
++                    onClickDelete={handleDeleteButtonOnClick}
++                    onClickDuplicate={() => {
++                        TelemetryClient.trackEvent(TelemetryCategory, TelemetryActions.DuplicateCard, {board: board.id, card: card.id})
++                        mutator.duplicateCard(card.id, board.id)
++                    }}
++                />
++            </MenuWrapper>}
++            <div className='octo-icontitle'>
++                { card.fields.icon ? <div className='octo-icon'>{card.fields.icon}</div> : undefined }
++                <div
++                    className='fc-event-title'
++                    key='__title'
++                >{card.title || intl.formatMessage({id: 'CalendarCard.untitled', defaultMessage: 'Untitled'})}</div>
++            </div>
++            {visiblePropertyTemplates.map((template) => (
++                <Tooltip
++                    key={template.id}
++                    title={template.name}
++                >
++                    <PropertyValueElement
++                        board={board}
++                        readOnly={true}
++                        card={card}
++                        propertyTemplate={template}
++                        showEmptyPlaceholder={false}
++                    />
++                </Tooltip>
++            ))}
++            {visibleBadges &&
++            <CardBadges card={card}/> }
++        </div>
++        {showConfirmationDialogBox && <ConfirmationDialogBox dialogBox={confirmDialogProps}/>}
++    </>)
++}
++
++export default React.memo(FullCalendarCard)
+diff --git a/webapp/src/components/cardDialog.tsx b/webapp/src/components/cardDialog.tsx
+index da13e035db2..f35c9e08505 100644
+--- a/webapp/src/components/cardDialog.tsx
++++ b/webapp/src/components/cardDialog.tsx
+@@ -9,6 +9,7 @@ import {Card} from '../blocks/card'
+ import octoClient from '../octoClient'
+ import mutator from '../mutator'
+ import {getCard} from '../store/cards'
++import {useIsCardEmpty} from '../hooks/useIsCardEmpty'
+ import {getCardComments} from '../store/comments'
+ import {getCardContents} from '../store/contents'
+ import {useAppDispatch, useAppSelector} from '../store/hooks'
+@@ -62,6 +63,7 @@ const CardDialog = (props: Props): JSX.Element => {
+     const dispatch = useAppDispatch()
+     const me = useAppSelector<IUser|null>(getMe)
+     const isTemplate = card && card.fields.isTemplate
++    const isCardEmpty = useIsCardEmpty(card)
+ 
+     const [showConfirmationDialogBox, setShowConfirmationDialogBox] = useState<boolean>(false)
+     const makeTemplateClicked = async () => {
+@@ -109,7 +111,7 @@ const CardDialog = (props: Props): JSX.Element => {
+         // use may be renaming a card title
+         // and accidently delete the card
+         // so adding des
+-        if (card?.title === '' && card?.fields.contentOrder.length === 0) {
++        if (isCardEmpty) {
+             handleDeleteCard()
+             return
+         }
+diff --git a/webapp/src/components/gallery/galleryCard.tsx b/webapp/src/components/gallery/galleryCard.tsx
+index 76e295f3824..69b5e22a038 100644
+--- a/webapp/src/components/gallery/galleryCard.tsx
++++ b/webapp/src/components/gallery/galleryCard.tsx
+@@ -22,6 +22,7 @@ import CardBadges from '../cardBadges'
+ import CardActionsMenu from '../cardActionsMenu/cardActionsMenu'
+ import ConfirmationDialogBox, {ConfirmationDialogBoxProps} from '../confirmationDialogBox'
+ import CardActionsMenuIcon from '../cardActionsMenu/cardActionsMenuIcon'
++import {useIsCardEmpty} from '../../hooks/useIsCardEmpty'
+ 
+ type Props = {
+     board: Board
+@@ -39,6 +40,7 @@ type Props = {
+ const GalleryCard = (props: Props) => {
+     const intl = useIntl()
+     const {card, board} = props
++    const isCardEmpty = useIsCardEmpty(card)
+     const [isDragging, isOver, cardRef] = useSortable('card', card, props.isManualSort && !props.readonly, props.onDrop)
+     const contents = useAppSelector(getCardContents(card.id))
+     const [showConfirmationDialogBox, setShowConfirmationDialogBox] = useState<boolean>(false)
+@@ -46,6 +48,9 @@ const GalleryCard = (props: Props) => {
+     const visiblePropertyTemplates = props.visiblePropertyTemplates || []
+ 
+     const handleDeleteCard = useCallback(() => {
++        if (!card) {
++            return
++        }
+         mutator.deleteBlock(card, 'delete card')
+     }, [card, board.id])
+ 
+@@ -60,6 +65,17 @@ const GalleryCard = (props: Props) => {
+         }
+     }, [handleDeleteCard])
+ 
++    const handleDeleteButtonOnClick = useCallback(() => {
++        // user trying to delete a card with blank name
++        // but content present cannot be deleted without
++        // confirmation dialog
++        if (isCardEmpty) {
++            handleDeleteCard()
++            return
++        }
++        setShowConfirmationDialogBox(true)
++    }, [isCardEmpty])
++
+     const image: ContentBlock|undefined = useMemo(() => {
+         for (let i = 0; i < contents.length; ++i) {
+             if (Array.isArray(contents[i])) {
+@@ -93,7 +109,7 @@ const GalleryCard = (props: Props) => {
+                         <CardActionsMenu
+                             cardId={card!.id}
+                             boardId={card!.boardId}
+-                            onClickDelete={() => setShowConfirmationDialogBox(true)}
++                            onClickDelete={handleDeleteButtonOnClick}
+                             onClickDuplicate={() => {
+                                 TelemetryClient.trackEvent(TelemetryCategory, TelemetryActions.DuplicateCard, {board: board.id, card: card.id})
+                                 mutator.duplicateCard(card.id, board.id)
+diff --git a/webapp/src/components/kanban/kanbanCard.tsx b/webapp/src/components/kanban/kanbanCard.tsx
+index a1fc303e700..4642a8c63c6 100644
+--- a/webapp/src/components/kanban/kanbanCard.tsx
++++ b/webapp/src/components/kanban/kanbanCard.tsx
+@@ -7,6 +7,7 @@ import {useIntl} from 'react-intl'
+ import {Board, IPropertyTemplate} from '../../blocks/board'
+ import {Card} from '../../blocks/card'
+ import {useSortable} from '../../hooks/sortable'
++import {useIsCardEmpty} from '../../hooks/useIsCardEmpty'
+ import mutator from '../../mutator'
+ import TelemetryClient, {TelemetryActions, TelemetryCategory} from '../../telemetry/telemetryClient'
+ import {Utils} from '../../utils'
+@@ -38,6 +39,7 @@ type Props = {
+ 
+ const KanbanCard = (props: Props) => {
+     const {card, board} = props
++    const isCardEmpty = useIsCardEmpty(card)
+     const intl = useIntl()
+     const [isDragging, isOver, cardRef] = useSortable('card', card, !props.readonly, props.onDrop)
+     const visiblePropertyTemplates = props.visiblePropertyTemplates || []
+@@ -72,12 +74,12 @@ const KanbanCard = (props: Props) => {
+         // user trying to delete a card with blank name
+         // but content present cannot be deleted without
+         // confirmation dialog
+-        if (card?.title === '' && card?.fields?.contentOrder?.length === 0) {
++        if (isCardEmpty) {
+             handleDeleteCard()
+             return
+         }
+         setShowConfirmationDialogBox(true)
+-    }, [handleDeleteCard, card.title, card?.fields?.contentOrder?.length])
++    }, [handleDeleteCard, isCardEmpty])
+ 
+     const handleOnClick = useCallback((e: React.MouseEvent) => {
+         if (props.onClick) {
+diff --git a/webapp/src/components/table/tableRow.tsx b/webapp/src/components/table/tableRow.tsx
+index eb570f41c4c..23bc34c6f5b 100644
+--- a/webapp/src/components/table/tableRow.tsx
++++ b/webapp/src/components/table/tableRow.tsx
+@@ -10,7 +10,7 @@ import mutator from '../../mutator'
+ import Button from '../../widgets/buttons/button'
+ import Editable from '../../widgets/editable'
+ import {useSortable} from '../../hooks/sortable'
+-
++import {useIsCardEmpty} from '../../hooks/useIsCardEmpty'
+ import {Utils} from '../../utils'
+ 
+ import PropertyValueElement from '../propertyValueElement'
+@@ -48,7 +48,7 @@ type Props = {
+ const TableRow = (props: Props) => {
+     const intl = useIntl()
+     const {board, card, isManualSort, groupById, visiblePropertyIds, collapsedOptionIds} = props
+-
++    const isCardEmpty = useIsCardEmpty(card)
+     const titleRef = useRef<{ focus(selectAll?: boolean): void }>(null)
+     const [title, setTitle] = useState(props.card.title || '')
+     const isGrouped = Boolean(groupById)
+@@ -138,12 +138,12 @@ const TableRow = (props: Props) => {
+         // user trying to delete a card with blank name
+         // but content present cannot be deleted without
+         // confirmation dialog
+-        if (card?.title === '' && card?.fields.contentOrder.length === 0) {
++        if (isCardEmpty) {
+             handleDeleteCard()
+             return
+         }
+         setShowConfirmationDialogBox(true)
+-    }, [card.title, card.fields.contentOrder, handleDeleteCard])
++    }, [handleDeleteCard, isCardEmpty])
+ 
+     return (
+         <div
+diff --git a/webapp/src/hooks/useIsCardEmpty.ts b/webapp/src/hooks/useIsCardEmpty.ts
+new file mode 100644
+index 00000000000..106000cf611
+--- /dev/null
++++ b/webapp/src/hooks/useIsCardEmpty.ts
+@@ -0,0 +1,22 @@
++// Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
++// See LICENSE.txt for license information.
++
++import {useMemo} from 'react'
++
++import {useAppSelector} from '../store/hooks'
++import {Card} from '../blocks/card'
++import {getCardComments} from '../store/comments'
++import {getCardAttachments} from '../store/attachments'
++
++export const useIsCardEmpty = (card: Card | undefined) => {
++    if (!card) {
++        return true
++    }
++
++    const comments = useAppSelector(getCardComments(card.id))
++    const attachments = useAppSelector(getCardAttachments(card.id))
++
++    return useMemo(() => {
++        return card?.title === '' && card?.fields.contentOrder.length === 0 && Object.values(card?.fields?.properties).every((x) => !x.length) && comments.length === 0 && attachments.length === 0
++    }, [card?.title, card?.fields.contentOrder, card?.fields?.properties, comments, attachments])
++}
