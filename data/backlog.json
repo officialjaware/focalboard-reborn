@@ -801,11 +801,11 @@
       "summary": "Fix assignee field text color in dark theme/mode",
       "test_hint": "Switch to dark theme and verify assignee field text is visible/correctly colored on task cards"
     },
-    "status": "open",
+    "status": "in-progress",
     "assigned_to": null,
     "fork_issue_number": 25,
-    "attempts": 0,
-    "last_attempt": null
+    "attempts": 1,
+    "last_attempt": "2026-04-08T23:01:09Z"
   },
   {
     "base_ref": "main",

@@ -23,7 +23,7 @@ exports[`properties/person not readOnly, show firstname 1`] = `
         class="react-select__value-container react-select__value-container--has-value css-1gbdvdc-ValueContainer"
       >
         <div
-          class="react-select__single-value css-qosd1h-singleValue"
+          class="react-select__single-value css-37w7ka-singleValue"
         >
           <div
             class="Person-item"
@@ -688,7 +688,7 @@ exports[`properties/person not readOnly, show username 1`] = `
         class="react-select__value-container react-select__value-container--has-value css-1gbdvdc-ValueContainer"
       >
         <div
-          class="react-select__single-value css-qosd1h-singleValue"
+          class="react-select__single-value css-37w7ka-singleValue"
         >
           <div
             class="Person-item"
