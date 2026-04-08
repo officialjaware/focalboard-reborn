@@ -1,0 +1,142 @@
+diff --git a/webapp/src/components/calculations/__snapshots__/calculation.test.tsx.snap b/webapp/src/components/calculations/__snapshots__/calculation.test.tsx.snap
+index b0d329db2b0..7ef46283d7b 100644
+--- a/webapp/src/components/calculations/__snapshots__/calculation.test.tsx.snap
++++ b/webapp/src/components/calculations/__snapshots__/calculation.test.tsx.snap
+@@ -98,7 +98,7 @@ exports[`components/calculations/Calculation should match snapshot - option chan
+           class="CalculationOptions__control css-1s59geg-Control"
+         >
+           <div
+-            class="CalculationOptions__value-container CalculationOptions__value-container--has-value css-1mxrbau-ValueContainer"
++            class="CalculationOptions__value-container CalculationOptions__value-container--has-value css-5xgqhs-ValueContainer"
+           >
+             <div
+               class="CalculationOptions__single-value css-1brck82-singleValue"
+diff --git a/webapp/src/components/calculations/__snapshots__/options.test.tsx.snap b/webapp/src/components/calculations/__snapshots__/options.test.tsx.snap
+index a7271b6b591..61bd400c48b 100644
+--- a/webapp/src/components/calculations/__snapshots__/options.test.tsx.snap
++++ b/webapp/src/components/calculations/__snapshots__/options.test.tsx.snap
+@@ -24,7 +24,7 @@ exports[`components/calculations/Options should match snapshot 1`] = `
+       class="CalculationOptions__control CalculationOptions__control--is-focused css-1s59geg-Control"
+     >
+       <div
+-        class="CalculationOptions__value-container CalculationOptions__value-container--has-value css-1mxrbau-ValueContainer"
++        class="CalculationOptions__value-container CalculationOptions__value-container--has-value css-5xgqhs-ValueContainer"
+       >
+         <div
+           class="CalculationOptions__single-value css-1brck82-singleValue"
+@@ -106,7 +106,7 @@ exports[`components/calculations/Options should match snapshot menu open 1`] = `
+       class="CalculationOptions__control CalculationOptions__control--is-focused CalculationOptions__control--menu-is-open css-1s59geg-Control"
+     >
+       <div
+-        class="CalculationOptions__value-container CalculationOptions__value-container--has-value css-1mxrbau-ValueContainer"
++        class="CalculationOptions__value-container CalculationOptions__value-container--has-value css-5xgqhs-ValueContainer"
+       >
+         <div
+           class="CalculationOptions__single-value css-1brck82-singleValue"
+diff --git a/webapp/src/components/kanban/calculation/__snapshots__/calculation.test.tsx.snap b/webapp/src/components/kanban/calculation/__snapshots__/calculation.test.tsx.snap
+index b96d996470b..93f3e3dbb62 100644
+--- a/webapp/src/components/kanban/calculation/__snapshots__/calculation.test.tsx.snap
++++ b/webapp/src/components/kanban/calculation/__snapshots__/calculation.test.tsx.snap
+@@ -52,7 +52,7 @@ exports[`components/kanban/calculation/KanbanCalculation calculations menu open
+         class="CalculationOptions__control CalculationOptions__control--is-focused CalculationOptions__control--menu-is-open css-1s59geg-Control"
+       >
+         <div
+-          class="CalculationOptions__value-container CalculationOptions__value-container--has-value css-1mxrbau-ValueContainer"
++          class="CalculationOptions__value-container CalculationOptions__value-container--has-value css-5xgqhs-ValueContainer"
+         >
+           <div
+             class="CalculationOptions__single-value css-1brck82-singleValue"
+diff --git a/webapp/src/components/kanban/calculation/__snapshots__/calculationOptions.test.tsx.snap b/webapp/src/components/kanban/calculation/__snapshots__/calculationOptions.test.tsx.snap
+index 97bef1fa416..e4b946819b3 100644
+--- a/webapp/src/components/kanban/calculation/__snapshots__/calculationOptions.test.tsx.snap
++++ b/webapp/src/components/kanban/calculation/__snapshots__/calculationOptions.test.tsx.snap
+@@ -24,7 +24,7 @@ exports[`components/kanban/calculations/KanbanCalculationOptions base case 1`] =
+       class="CalculationOptions__control CalculationOptions__control--is-focused css-1s59geg-Control"
+     >
+       <div
+-        class="CalculationOptions__value-container CalculationOptions__value-container--has-value css-1mxrbau-ValueContainer"
++        class="CalculationOptions__value-container CalculationOptions__value-container--has-value css-5xgqhs-ValueContainer"
+       >
+         <div
+           class="CalculationOptions__single-value css-1brck82-singleValue"
+@@ -106,7 +106,7 @@ exports[`components/kanban/calculations/KanbanCalculationOptions with menu open
+       class="CalculationOptions__control CalculationOptions__control--is-focused CalculationOptions__control--menu-is-open css-1s59geg-Control"
+     >
+       <div
+-        class="CalculationOptions__value-container CalculationOptions__value-container--has-value css-1mxrbau-ValueContainer"
++        class="CalculationOptions__value-container CalculationOptions__value-container--has-value css-5xgqhs-ValueContainer"
+       >
+         <div
+           class="CalculationOptions__single-value css-1brck82-singleValue"
+@@ -270,7 +270,7 @@ exports[`components/kanban/calculations/KanbanCalculationOptions with submenu op
+       class="CalculationOptions__control CalculationOptions__control--is-focused CalculationOptions__control--menu-is-open css-1s59geg-Control"
+     >
+       <div
+-        class="CalculationOptions__value-container CalculationOptions__value-container--has-value css-1mxrbau-ValueContainer"
++        class="CalculationOptions__value-container CalculationOptions__value-container--has-value css-5xgqhs-ValueContainer"
+       >
+         <div
+           class="CalculationOptions__single-value css-1brck82-singleValue"
+diff --git a/webapp/src/components/properties/user/__snapshots__/user.test.tsx.snap b/webapp/src/components/properties/user/__snapshots__/user.test.tsx.snap
+index 7c6343c0a45..09883ed1093 100644
+--- a/webapp/src/components/properties/user/__snapshots__/user.test.tsx.snap
++++ b/webapp/src/components/properties/user/__snapshots__/user.test.tsx.snap
+@@ -12,10 +12,10 @@ exports[`components/properties/user not readonly 1`] = `
+       class="css-1f43avz-a11yText-A11yText"
+     />
+     <div
+-      class=" css-pwgt1w-Control"
++      class=" css-10u8ygp-Control"
+     >
+       <div
+-        class=" css-kpfmlq-ValueContainer"
++        class=" css-1eructm-ValueContainer"
+       >
+         <div
+           class=" css-ciz25-singleValue"
+@@ -105,10 +105,10 @@ exports[`components/properties/user not readonly not existing user 1`] = `
+       class="css-1f43avz-a11yText-A11yText"
+     />
+     <div
+-      class=" css-pwgt1w-Control"
++      class=" css-10u8ygp-Control"
+     >
+       <div
+-        class=" css-kpfmlq-ValueContainer"
++        class=" css-1eructm-ValueContainer"
+       >
+         <div
+           class=" css-1oswhd8-placeholder"
+@@ -200,10 +200,10 @@ exports[`components/properties/user user dropdown open 1`] = `
+       </span>
+     </span>
+     <div
+-      class=" css-pwgt1w-Control"
++      class=" css-10u8ygp-Control"
+     >
+       <div
+-        class=" css-kpfmlq-ValueContainer"
++        class=" css-1eructm-ValueContainer"
+       >
+         <div
+           class=" css-ciz25-singleValue"
+diff --git a/webapp/src/theme.ts b/webapp/src/theme.ts
+index 8b48537bfec..2b09500696f 100644
+--- a/webapp/src/theme.ts
++++ b/webapp/src/theme.ts
+@@ -275,14 +275,13 @@ export function getSelectBaseStyle() {
+         control: (): CSSObject => ({
+             border: 0,
+             width: '100%',
+-            margin: '4px 0 0 0',
+ 
+             // display: 'flex',
+             // marginTop: 0,
+         }),
+         valueContainer: (provided: CSSObject): CSSObject => ({
+             ...provided,
+-            padding: '0 5px',
++            padding: '0 5px 0 0',
+             overflow: 'unset',
+         }),
+         singleValue: (provided: CSSObject): CSSObject => ({

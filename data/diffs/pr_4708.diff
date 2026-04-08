@@ -1,0 +1,13 @@
+diff --git a/webapp/src/components/table/table.scss b/webapp/src/components/table/table.scss
+index 6d36a721581..9a3a8f20401 100644
+--- a/webapp/src/components/table/table.scss
++++ b/webapp/src/components/table/table.scss
+@@ -3,7 +3,7 @@
+ .Table {
+     margin-top: 16px;
+     margin-left: 0 !important;
+-    overflow: auto;
++    overflow: hidden;
+     position: relative;
+     flex: 1;
+ 

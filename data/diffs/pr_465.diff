@@ -1,0 +1,55 @@
+diff --git a/mac/Focalboard/ViewController.swift b/mac/Focalboard/ViewController.swift
+index 61b98b8389d..7e5f942d804 100644
+--- a/mac/Focalboard/ViewController.swift
++++ b/mac/Focalboard/ViewController.swift
+@@ -107,8 +107,14 @@ class ViewController:
+ 
+ 	private func updateSessionTokenAndUserSettings() {
+ 		let appDelegate = NSApplication.shared.delegate as! AppDelegate
++		let url = URL(string: "http://localhost:\(appDelegate.serverPort)/")!
++		let sessionScript = """
++		if (window.location.href.toLowerCase().startsWith('\(url)'.toLowerCase())) {
++			localStorage.setItem('focalboardSessionId', '\(appDelegate.sessionToken)');
++		}
++		"""
+ 		let sessionTokenScript = WKUserScript(
+-			source: "localStorage.setItem('focalboardSessionId', '\(appDelegate.sessionToken)');",
++			source: sessionScript,
+ 			injectionTime: .atDocumentStart,
+ 			forMainFrameOnly: true
+ 		)
+@@ -126,8 +132,7 @@ class ViewController:
+ 	private func loadHomepage() {
+ 		NSLog("loadHomepage")
+ 		let appDelegate = NSApplication.shared.delegate as! AppDelegate
+-		let port = appDelegate.serverPort
+-		let url = URL(string: "http://localhost:\(port)/")!
++		let url = URL(string: "http://localhost:\(appDelegate.serverPort)/")!
+ 		let request = URLRequest(url: url)
+ 		refreshWebViewOnLoad = true
+ 		webView.load(request)
+diff --git a/win-wpf/Focalboard/MainWindow.xaml.cs b/win-wpf/Focalboard/MainWindow.xaml.cs
+index cd3e4f158ab..0c50dab866c 100644
+--- a/win-wpf/Focalboard/MainWindow.xaml.cs
++++ b/win-wpf/Focalboard/MainWindow.xaml.cs
+@@ -134,7 +134,7 @@ async void InitializeWebView() {
+ 
+ 			webView.ContentLoading += WebView_ContentLoading;
+ 
+-			var url = String.Format("http://localhost:{0}", port);
++			var url = String.Format("http://localhost:{0}/", port);
+ 			webView.Source = new Uri(url);
+ 		}
+ 
+@@ -146,7 +146,10 @@ private static string GetWebView2Version() {
+ 
+ 		private void WebView_ContentLoading(object sender, CoreWebView2ContentLoadingEventArgs e) {
+ 			// Set focalboardSessionId
+-			string script = $"localStorage.setItem('focalboardSessionId', '{sessionToken}');";
++			var url = String.Format("http://localhost:{0}/", port);
++			string script = $@"if (window.location.href.toLowerCase().startsWith('{url}'.toLowerCase())) {{
++				localStorage.setItem('focalboardSessionId', '{sessionToken}');
++			}}";
+ 			webView.ExecuteScriptAsync(script);
+ 		}
+ 	}

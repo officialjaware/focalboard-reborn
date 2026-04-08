@@ -1,0 +1,22 @@
+diff --git a/webapp/src/widgets/switch.scss b/webapp/src/widgets/switch.scss
+index 3dd83539af0..bf3a6dc77e3 100644
+--- a/webapp/src/widgets/switch.scss
++++ b/webapp/src/widgets/switch.scss
+@@ -3,7 +3,7 @@
+     flex-shrink: 0;
+     align-items: center;
+     box-sizing: content-box;
+-    height: 14px;
++    height: 18px;
+     width: 26px;
+     border-radius: 44px;
+     padding: 2px;
+@@ -15,7 +15,7 @@
+         background-color: rgb(var(--button-bg-rgb));
+ 
+         .octo-switch-inner {
+-            transform: translateX(12px) translateY(0);
++            transform: translateX(8px) translateY(0);
+         }
+     }
+ 

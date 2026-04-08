@@ -1,0 +1,35 @@
+diff --git a/Dockerfile.build b/Dockerfile.build
+index 922c28c1dac..1953254ca44 100644
+--- a/Dockerfile.build
++++ b/Dockerfile.build
+@@ -18,7 +18,7 @@ RUN CPPFLAGS="-DPNG_ARM_NEON_OPT=0" npm install --no-optional && \
+     npm run pack
+ 
+ # build backend and package
+-FROM golang:1.18.3@sha256:b203dc573d81da7b3176264bfa447bd7c10c9347689be40540381838d75eebef AS backend
++FROM golang:1.21 AS backend
+ 
+ COPY . .
+ COPY --from=frontend /webapp/pack webapp/pack
+diff --git a/docker/Dockerfile b/docker/Dockerfile
+index e6f529be61f..4d4029c145a 100644
+--- a/docker/Dockerfile
++++ b/docker/Dockerfile
+@@ -10,7 +10,7 @@ RUN CPPFLAGS="-DPNG_ARM_NEON_OPT=0" npm install --no-optional && \
+     npm run pack
+ 
+ ### Go build
+-FROM golang:1.18.3@sha256:b203dc573d81da7b3176264bfa447bd7c10c9347689be40540381838d75eebef AS gobuild
++FROM golang:1.21 AS gobuild
+ 
+ WORKDIR /go/src/focalboard
+ ADD . /go/src/focalboard
+@@ -22,7 +22,7 @@ ARG TARGETARCH
+ RUN EXCLUDE_PLUGIN=true EXCLUDE_SERVER=true EXCLUDE_ENTERPRISE=true make server-docker os=${TARGETOS} arch=${TARGETARCH}
+ 
+ ## Final image
+-FROM debian:buster-slim@sha256:5b0b1a9a54651bbe9d4d3ee96bbda2b2a1da3d2fa198ddebbced46dfdca7f216
++FROM debian:bookworm-slim
+ 
+ RUN mkdir -p /opt/focalboard/data/files
+ RUN chown -R nobody:nogroup /opt/focalboard

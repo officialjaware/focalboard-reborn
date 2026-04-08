@@ -1,0 +1,73 @@
+diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
+index b8e3331f499..6a7bb051b49 100644
+--- a/CONTRIBUTING.md
++++ b/CONTRIBUTING.md
+@@ -4,7 +4,7 @@ Thank you for your interest in contributing! Please read the [Focalboard Contrib
+ 
+ When you submit a pull request, it goes through a code review process outlined [here](https://developers.mattermost.com/contribute/getting-started/code-review/).
+ 
+-After a noteable bug fix or improvement is merged, submit a pull request to the [CHANGELOG](CHANGELOG.md) under the next release section.
++After a notable bug fix or improvement is merged, submit a pull request to the [CHANGELOG](CHANGELOG.md) under the next release section.
+ 
+ ## Bug Reports
+ 
+diff --git a/website/site/config.toml b/website/site/config.toml
+index c84b7aeafd3..59eba275247 100644
+--- a/website/site/config.toml
++++ b/website/site/config.toml
+@@ -15,7 +15,7 @@ pygmentsStyle = "manni"
+ [params]
+   # Meta
+   author = ""
+-  description = ""
++  description = "Focalboard is an open source alternative to tools like Asana, Trello, and Notion. Available as a stand-alone application or integrated into the Mattermost platform, Focalboard helps developers stay aligned to complete tasks, reach milestones, and achieve their goals."
+   email = ""
+   ghrepo = "https://github.com/mattermost/focalboard/"
+ 
+diff --git a/website/site/layouts/partials/head.html b/website/site/layouts/partials/head.html
+index 2dc47c87029..87e09c24d38 100755
+--- a/website/site/layouts/partials/head.html
++++ b/website/site/layouts/partials/head.html
+@@ -1,10 +1,37 @@
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+-<title> {{ .Title }}</title>
+-<meta name="viewport" content="width=device-width, initial-scale=1"> {{ with .Site.Params.author }}
+-<meta name="author" content="{{ . }}">{{ end }} {{ with .Site.Params.description }}
+-<meta name="description" content="{{ . }}">{{ end }} {{ with .Site.LanguageCode }}
+-<meta http-equiv="content-language" content="{{ . }}" />{{ end }}
++
++{{ if in .Title "Focalboard" }}
++<title>{{ .Title }}</title>
++{{ else }}
++<title>{{ .Title }} | Focalboard</title>
++{{ end }}
++
++<meta name="viewport" content="width=device-width, initial-scale=1">
++
++{{ with .Site.Params.author }}
++<meta name="author" content="{{ . }}">
++{{ end }}
++
++{{ with .Site.Params.description }}
++<meta name="description" content="{{ . }}">
++<meta property="og:description" content="{{ . }}">
++{{ end }}
++
++{{ with .Site.LanguageCode }}
++<meta http-equiv="content-language" content="{{ . }}" />
++<meta property="og:locale" content="{{ replace . "-" "_" }}" />
++{{ end }}
++
++<meta property="og:site_name" content="{{ .Site.Title }}">
++<meta property="og:title" content="{{ .Title }}">
++<meta property="og:image" content="{{ .Site.BaseURL }}img/hero.jpg">
++<meta property="og:image:url" content="{{ .Site.BaseURL }}img/hero.jpg">
++<meta property="og:image:type" content="image/jpeg">
++<meta property="og:image:width" content="2048">
++<meta property="og:image:height" content="1306">
++<meta property="og:image:alt" content="Screenshot showcasing the UI of Focalboard, focused on a project status board.">
++<meta property="og:type" content="website">
+ 
+ <!-- canonical link tag -->
+ {{ if .Params.canonicalUrl }}

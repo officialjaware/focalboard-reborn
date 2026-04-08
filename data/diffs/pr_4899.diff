@@ -1,0 +1,13 @@
+diff --git a/webapp/src/components/kanban/kanbanColumn.test.tsx b/webapp/src/components/kanban/kanbanColumn.test.tsx
+index b861dd4dcdd..7de61f9b9ed 100644
+--- a/webapp/src/components/kanban/kanbanColumn.test.tsx
++++ b/webapp/src/components/kanban/kanbanColumn.test.tsx
+@@ -12,7 +12,7 @@ describe('src/components/kanban/kanbanColumn', () => {
+             <KanbanColumn
+                 onDrop={jest.fn()}
+             >
+-                {}
++                <></>
+             </KanbanColumn>,
+         ))
+         expect(container).toMatchSnapshot()

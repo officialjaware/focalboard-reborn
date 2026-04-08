@@ -1,0 +1,26 @@
+diff --git a/webapp/i18n/en.json b/webapp/i18n/en.json
+index b7a90daf5ff..43138ae97eb 100644
+--- a/webapp/i18n/en.json
++++ b/webapp/i18n/en.json
+@@ -6,7 +6,7 @@
+   "AttachmentBlock.delete": "Attachment deleted.",
+   "AttachmentBlock.failed": "This file couldn't be uploaded as the file size limit has been reached.",
+   "AttachmentBlock.upload": "Attachment uploading.",
+-  "AttachmentBlock.uploadSuccess": "Attachment uploaded.",
++  "AttachmentBlock.uploadSuccess": "Attachment uploaded successfully.",
+   "AttachmentElement.delete-confirmation-dialog-button-text": "Delete",
+   "AttachmentElement.download": "Download",
+   "AttachmentElement.upload-percentage": "Uploading...({uploadPercent}%)",
+diff --git a/webapp/src/components/cardDialog.tsx b/webapp/src/components/cardDialog.tsx
+index da13e035db2..bdf14dcc52c 100644
+--- a/webapp/src/components/cardDialog.tsx
++++ b/webapp/src/components/cardDialog.tsx
+@@ -183,7 +183,7 @@ const CardDialog = (props: Props): JSX.Element => {
+                                         const block = createAttachmentBlock()
+                                         block.fields.attachmentId = attachmentId || ''
+                                         block.title = attachment.name
+-                                        sendFlashMessage({content: intl.formatMessage({id: 'AttachmentBlock.uploadSuccess', defaultMessage: 'Attachment uploaded successfull.'}), severity: 'normal'})
++                                        sendFlashMessage({content: intl.formatMessage({id: 'AttachmentBlock.uploadSuccess', defaultMessage: 'Attachment uploaded successfully.'}), severity: 'normal'})
+                                         resolve(block)
+                                     } else {
+                                         removeUploadingAttachment(uploadingBlock)

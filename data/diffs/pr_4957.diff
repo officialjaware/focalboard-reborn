@@ -1,0 +1,13 @@
+diff --git a/webapp/src/components/live-markdown-plugin/liveMarkdownPlugin.ts b/webapp/src/components/live-markdown-plugin/liveMarkdownPlugin.ts
+index afcb2bd02a9..42b03a89926 100644
+--- a/webapp/src/components/live-markdown-plugin/liveMarkdownPlugin.ts
++++ b/webapp/src/components/live-markdown-plugin/liveMarkdownPlugin.ts
+@@ -180,7 +180,7 @@ const maintainInlineStyles = (
+ 
+     // If enter was pressed (or the block was otherwise split) we must maintain
+     // styles in the previous block as well
+-    if (lastChangeType === 'split-block') {
++    if (lastChangeType === 'split-block' && contentState.getBlockBefore(blockKey) !== undefined) {
+         const newPrevBlock = mapInlineStyles(
+             contentState.getBlockBefore(blockKey)!,
+             inlineStyleStrategies,

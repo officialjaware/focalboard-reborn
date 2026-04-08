@@ -1,0 +1,154 @@
+diff --git a/webapp/package-lock.json b/webapp/package-lock.json
+index d5acbb97e11..c252197e8eb 100644
+--- a/webapp/package-lock.json
++++ b/webapp/package-lock.json
+@@ -29,6 +29,7 @@
+ 				"imagemin-pngquant": "^9.0.2",
+ 				"imagemin-svgo": "^10.0.1",
+ 				"imagemin-webp": "^7.0.0",
++				"katex": "^0.15.1",
+ 				"lodash": "^4.17.21",
+ 				"marked": "^4.0.12",
+ 				"mini-create-react-context": "^0.4.1",
+@@ -63,6 +64,7 @@
+ 				"@types/draft-js": "^0.11.9",
+ 				"@types/emoji-mart": "^3.0.9",
+ 				"@types/jest": "^27.4.1",
++				"@types/katex": "^0.11.1",
+ 				"@types/marked": "^4.0.3",
+ 				"@types/nanoevents": "^1.0.0",
+ 				"@types/react": "^17.0.43",
+@@ -2632,6 +2634,12 @@
+ 			"integrity": "sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==",
+ 			"dev": true
+ 		},
++		"node_modules/@types/katex": {
++			"version": "0.11.1",
++			"resolved": "https://registry.npmjs.org/@types/katex/-/katex-0.11.1.tgz",
++			"integrity": "sha512-DUlIj2nk0YnJdlWgsFuVKcX27MLW0KbKmGVoUHmFr+74FYYNUDAaj9ZqTADvsbE8rfxuVmSFc7KczYn5Y09ozg==",
++			"dev": true
++		},
+ 		"node_modules/@types/lodash": {
+ 			"version": "4.14.182",
+ 			"resolved": "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.182.tgz",
+@@ -11492,6 +11500,29 @@
+ 				"node": ">=8"
+ 			}
+ 		},
++		"node_modules/katex": {
++			"version": "0.15.1",
++			"resolved": "https://registry.npmjs.org/katex/-/katex-0.15.1.tgz",
++			"integrity": "sha512-KIk+gizli0gl1XaJlCYS8/donGMbzXYTka6BbH3AgvDJTOwyDY4hJ+YmzJ1F0y/3XzX5B9ED8AqB2Hmn2AZ0uA==",
++			"funding": [
++				"https://opencollective.com/katex",
++				"https://github.com/sponsors/katex"
++			],
++			"dependencies": {
++				"commander": "^8.0.0"
++			},
++			"bin": {
++				"katex": "cli.js"
++			}
++		},
++		"node_modules/katex/node_modules/commander": {
++			"version": "8.3.0",
++			"resolved": "https://registry.npmjs.org/commander/-/commander-8.3.0.tgz",
++			"integrity": "sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==",
++			"engines": {
++				"node": ">= 12"
++			}
++		},
+ 		"node_modules/keyv": {
+ 			"version": "3.0.0",
+ 			"resolved": "https://registry.npmjs.org/keyv/-/keyv-3.0.0.tgz",
+@@ -19429,6 +19460,12 @@
+ 			"integrity": "sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==",
+ 			"dev": true
+ 		},
++		"@types/katex": {
++			"version": "0.11.1",
++			"resolved": "https://registry.npmjs.org/@types/katex/-/katex-0.11.1.tgz",
++			"integrity": "sha512-DUlIj2nk0YnJdlWgsFuVKcX27MLW0KbKmGVoUHmFr+74FYYNUDAaj9ZqTADvsbE8rfxuVmSFc7KczYn5Y09ozg==",
++			"dev": true
++		},
+ 		"@types/lodash": {
+ 			"version": "4.14.182",
+ 			"resolved": "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.182.tgz",
+@@ -26186,6 +26223,21 @@
+ 			"integrity": "sha512-pBxcB3LFc8QVgdggvZWyeys+hnrNWg4OcZIU/1X59k5jQdLBlCsYGRQaz234SqoRLTCgMH00fY0xRJH+F9METQ==",
+ 			"dev": true
+ 		},
++		"katex": {
++			"version": "0.15.1",
++			"resolved": "https://registry.npmjs.org/katex/-/katex-0.15.1.tgz",
++			"integrity": "sha512-KIk+gizli0gl1XaJlCYS8/donGMbzXYTka6BbH3AgvDJTOwyDY4hJ+YmzJ1F0y/3XzX5B9ED8AqB2Hmn2AZ0uA==",
++			"requires": {
++				"commander": "^8.0.0"
++			},
++			"dependencies": {
++				"commander": {
++					"version": "8.3.0",
++					"resolved": "https://registry.npmjs.org/commander/-/commander-8.3.0.tgz",
++					"integrity": "sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww=="
++				}
++			}
++		},
+ 		"keyv": {
+ 			"version": "3.0.0",
+ 			"resolved": "https://registry.npmjs.org/keyv/-/keyv-3.0.0.tgz",
+diff --git a/webapp/package.json b/webapp/package.json
+index b15469a7bea..e7d77c07ab0 100644
+--- a/webapp/package.json
++++ b/webapp/package.json
+@@ -46,6 +46,7 @@
+ 		"imagemin-pngquant": "^9.0.2",
+ 		"imagemin-svgo": "^10.0.1",
+ 		"imagemin-webp": "^7.0.0",
++		"katex": "^0.15.1",
+ 		"lodash": "^4.17.21",
+ 		"marked": "^4.0.12",
+ 		"mini-create-react-context": "^0.4.1",
+@@ -104,6 +105,7 @@
+ 		"@types/draft-js": "^0.11.9",
+ 		"@types/emoji-mart": "^3.0.9",
+ 		"@types/jest": "^27.4.1",
++		"@types/katex": "^0.11.1",
+ 		"@types/marked": "^4.0.3",
+ 		"@types/nanoevents": "^1.0.0",
+ 		"@types/react": "^17.0.43",
+diff --git a/webapp/src/utils.ts b/webapp/src/utils.ts
+index 3a2954d180f..b3efe389c47 100644
+--- a/webapp/src/utils.ts
++++ b/webapp/src/utils.ts
+@@ -8,7 +8,10 @@ import {generatePath, match as routerMatch} from 'react-router-dom'
+ 
+ import {History} from 'history'
+ 
++import katex from 'katex'
++
+ import {IUser} from './user'
++import 'katex/dist/katex.min.css'
+ 
+ import {Block} from './blocks/block'
+ import {Board as BoardType, BoardMember, createBoard} from './blocks/board'
+@@ -309,7 +312,19 @@ class Utils {
+     }
+ 
+     static htmlFromMarkdownWithRenderer(text: string, renderer: marked.Renderer): string {
+-        const html = marked(text.replace(/</g, '&lt;'), {renderer, breaks: true})
++        const newText = text.replace(/</g, '&lt;').replace(
++            /\$\$([^$]*?)\$\$([^\S\r\n]*\n)?/g, // Matches $$…$$ plus trailing whitespace & newline (if any)
++            (match: string, p1: string) => {
++                return katex.renderToString(p1, {displayMode: true, throwOnError: false})
++            },
++        ).replace(
++            /\$([^]*?)\$/g,
++            (match: string, p1: string) => {
++                return katex.renderToString(p1, {displayMode: false, throwOnError: false})
++            },
++        )
++
++        const html = marked(newText, {renderer, breaks: true})
+         return html.trim()
+     }
+ 

@@ -1,0 +1,853 @@
+diff --git a/webapp/src/components/createCategory/createCategory.tsx b/webapp/src/components/createCategory/createCategory.tsx
+index f33feab3435..a2541585bfe 100644
+--- a/webapp/src/components/createCategory/createCategory.tsx
++++ b/webapp/src/components/createCategory/createCategory.tsx
+@@ -28,6 +28,7 @@ type Props = {
+     initialValue?: string
+     onClose: () => void
+     title: JSX.Element
++    onCreate?: (category: Category) => Promise<void>
+ }
+ 
+ const CreateCategory = (props: Props): JSX.Element => {
+@@ -70,7 +71,8 @@ const CreateCategory = (props: Props): JSX.Element => {
+                 teamID,
+             } as Category
+ 
+-            await mutator.createCategory(category)
++            const createdCategory = await mutator.createCategory(category)
++            await props.onCreate?.(createdCategory)
+         }
+ 
+         props.onClose()
+diff --git a/webapp/src/components/sidebar/__snapshots__/sidebarBoardItem.test.tsx.snap b/webapp/src/components/sidebar/__snapshots__/sidebarBoardItem.test.tsx.snap
+index dfcb02c079c..ebc355f44ee 100644
+--- a/webapp/src/components/sidebar/__snapshots__/sidebarBoardItem.test.tsx.snap
++++ b/webapp/src/components/sidebar/__snapshots__/sidebarBoardItem.test.tsx.snap
+@@ -1,5 +1,147 @@
+ // Jest Snapshot v1, https://goo.gl/fbAQLP
+ 
++exports[`components/sidebarBoardItem modal should be displayed when create category sub-menu is clicked 1`] = `
++<div>
++  <div
++    class="SidebarBoardItem subitem active"
++  >
++    <div
++      class="octo-sidebar-icon"
++    >
++      i
++    </div>
++    <div
++      class="octo-sidebar-title"
++      title="board title"
++    >
++      board title
++    </div>
++    <div>
++      <div
++        aria-label="menuwrapper"
++        class="MenuWrapper x"
++        role="button"
++      >
++        <button
++          class="IconButton"
++          type="button"
++        >
++          <i
++            class="CompassIcon icon-dots-horizontal OptionsIcon"
++          />
++        </button>
++      </div>
++    </div>
++  </div>
++  <div
++    class="SidebarBoardItem sidebar-view-item active"
++  >
++    <svg
++      class="BoardIcon Icon"
++      fill="currentColor"
++      height="24"
++      viewBox="0 0 24 24"
++      width="24"
++      xmlns="http://www.w3.org/2000/svg"
++    >
++      <g
++        opacity="0.8"
++      >
++        <path
++          clip-rule="evenodd"
++          d="M4 4H20V20H4V4ZM2 4C2 2.89543 2.89543 2 4 2H20C21.1046 2 22 2.89543 22 4V20C22 21.1046 21.1046 22 20 22H4C2.89543 22 2 21.1046 2 20V4ZM8 6H6V12H8V6ZM11 6H13V16H11V6ZM18 6H16V9H18V6Z"
++          fill="currentColor"
++          fill-rule="evenodd"
++        />
++      </g>
++    </svg>
++    <div
++      class="octo-sidebar-title"
++      title="view title"
++    >
++      view title
++    </div>
++  </div>
++  <div
++    class="Dialog dialog-back CreateCategoryModal"
++  >
++    <div
++      class="backdrop"
++    />
++    <div
++      class="wrapper"
++    >
++      <div
++        class="dialog"
++        role="dialog"
++      >
++        <div
++          class="toolbar"
++        >
++          <div>
++            <h1
++              class="dialog-title"
++            >
++              Create New Category
++            </h1>
++          </div>
++          <div
++            class="toolbar--right"
++          >
++            <button
++              aria-label="Close dialog"
++              class="IconButton dialog__close size--medium"
++              title="Close dialog"
++              type="button"
++            >
++              <i
++                class="CompassIcon icon-close CloseIcon"
++              />
++            </button>
++          </div>
++        </div>
++        <div
++          class="CreateCategory"
++        >
++          <div
++            class="inputWrapper"
++          >
++            <input
++              class="categoryNameInput"
++              maxlength="100"
++              placeholder="Name your category"
++              type="text"
++              value=""
++            />
++          </div>
++          <div
++            class="createCategoryActions"
++          >
++            <button
++              class="Button danger size--medium"
++              type="button"
++            >
++              <span>
++                Cancel
++              </span>
++            </button>
++            <button
++              class="Button size--medium"
++              disabled=""
++              type="button"
++            >
++              <span>
++                Create
++              </span>
++            </button>
++          </div>
++        </div>
++      </div>
++    </div>
++  </div>
++</div>
++`;
++
+ exports[`components/sidebarBoardItem renders default icon if no custom icon set 1`] = `
+ <div>
+   <div
+@@ -67,6 +209,457 @@ exports[`components/sidebarBoardItem renders default icon if no custom icon set
+ </div>
+ `;
+ 
++exports[`components/sidebarBoardItem should have create category sub-menu 1`] = `
++<div>
++  <div
++    class="SidebarBoardItem subitem active"
++  >
++    <div
++      class="octo-sidebar-icon"
++    >
++      i
++    </div>
++    <div
++      class="octo-sidebar-title"
++      title="board title"
++    >
++      board title
++    </div>
++    <div>
++      <div
++        aria-label="menuwrapper"
++        class="MenuWrapper menuOpen"
++        role="button"
++      >
++        <button
++          class="IconButton"
++          type="button"
++        >
++          <i
++            class="CompassIcon icon-dots-horizontal OptionsIcon"
++          />
++        </button>
++        <div
++          class="Menu noselect auto  fixed"
++          style="top: 40px;"
++        >
++          <div
++            class="menu-contents"
++          >
++            <div
++              class="menu-options"
++            >
++              <div>
++                <div
++                  class="MenuOption SubMenuOption menu-option menu-option-active boardMoveToCategorySubmenu"
++                  id="moveBlock"
++                >
++                  <div
++                    class="menu-option__icon"
++                  >
++                    <i
++                      class="CompassIcon icon-folder-plus-outline CreateNewFolderIcon"
++                    />
++                  </div>
++                  <div
++                    class="menu-name"
++                  >
++                    Move To...
++                  </div>
++                  <i
++                    class="CompassIcon icon-chevron-right"
++                  />
++                  <div
++                    class="SubMenu Menu noselect auto"
++                    style="top: 0px;"
++                  >
++                    <div
++                      class="menu-contents"
++                    >
++                      <div
++                        class="menu-options"
++                      >
++                        <div
++                          aria-label="Category 1"
++                          class="MenuOption TextOption menu-option"
++                          role="button"
++                        >
++                          <div
++                            class="d-flex"
++                          >
++                            <div
++                              class="menu-option__icon"
++                            >
++                              <i
++                                class="CompassIcon icon-check CheckIconCompass"
++                              />
++                            </div>
++                          </div>
++                          <div
++                            class="menu-option__content"
++                          >
++                            <div
++                              class="menu-name"
++                            >
++                              Category 1
++                            </div>
++                          </div>
++                          <div
++                            class="noicon"
++                          />
++                        </div>
++                        <div
++                          aria-label="Category 2"
++                          class="MenuOption TextOption menu-option"
++                          role="button"
++                        >
++                          <div
++                            class="d-flex"
++                          >
++                            <div
++                              class="menu-option__icon"
++                            >
++                              <i
++                                class="CompassIcon icon-folder-outline Folder"
++                              />
++                            </div>
++                          </div>
++                          <div
++                            class="menu-option__content"
++                          >
++                            <div
++                              class="menu-name"
++                            >
++                              Category 2
++                            </div>
++                          </div>
++                          <div
++                            class="noicon"
++                          />
++                        </div>
++                        <div
++                          aria-label="Category 3"
++                          class="MenuOption TextOption menu-option"
++                          role="button"
++                        >
++                          <div
++                            class="d-flex"
++                          >
++                            <div
++                              class="menu-option__icon"
++                            >
++                              <i
++                                class="CompassIcon icon-folder-outline Folder"
++                              />
++                            </div>
++                          </div>
++                          <div
++                            class="menu-option__content"
++                          >
++                            <div
++                              class="menu-name"
++                            >
++                              Category 3
++                            </div>
++                          </div>
++                          <div
++                            class="noicon"
++                          />
++                        </div>
++                        <div
++                          class="MenuOption MenuSeparator menu-separator"
++                        />
++                        <div
++                          aria-label="Create New Category"
++                          class="MenuOption TextOption menu-option"
++                          role="button"
++                        >
++                          <div
++                            class="d-flex"
++                          >
++                            <div
++                              class="menu-option__icon"
++                            >
++                              <i
++                                class="CompassIcon icon-folder-plus-outline CreateNewFolderIcon"
++                              />
++                            </div>
++                          </div>
++                          <div
++                            class="menu-option__content"
++                          >
++                            <div
++                              class="menu-name"
++                            >
++                              Create New Category
++                            </div>
++                          </div>
++                          <div
++                            class="noicon"
++                          />
++                        </div>
++                      </div>
++                      <div
++                        class="menu-spacer hideOnWidescreen"
++                      />
++                      <div
++                        class="menu-options hideOnWidescreen"
++                      >
++                        <div
++                          aria-label="Cancel"
++                          class="MenuOption TextOption menu-option menu-cancel"
++                          role="button"
++                        >
++                          <div
++                            class="d-flex"
++                          >
++                            <div
++                              class="noicon"
++                            />
++                          </div>
++                          <div
++                            class="menu-option__content"
++                          >
++                            <div
++                              class="menu-name"
++                            >
++                              Cancel
++                            </div>
++                          </div>
++                          <div
++                            class="noicon"
++                          />
++                        </div>
++                      </div>
++                    </div>
++                  </div>
++                </div>
++              </div>
++              <div>
++                <div
++                  aria-label="Duplicate board"
++                  class="MenuOption TextOption menu-option"
++                  role="button"
++                >
++                  <div
++                    class="d-flex"
++                  >
++                    <div
++                      class="menu-option__icon"
++                    >
++                      <i
++                        class="CompassIcon icon-content-copy content-copy"
++                      />
++                    </div>
++                  </div>
++                  <div
++                    class="menu-option__content"
++                  >
++                    <div
++                      class="menu-name"
++                    >
++                      Duplicate board
++                    </div>
++                  </div>
++                  <div
++                    class="noicon"
++                  />
++                </div>
++              </div>
++              <div>
++                <div
++                  aria-label="New template from board"
++                  class="MenuOption TextOption menu-option"
++                  role="button"
++                >
++                  <div
++                    class="d-flex"
++                  >
++                    <div
++                      class="menu-option__icon"
++                    >
++                      <i
++                        class="CompassIcon icon-plus AddIcon"
++                      />
++                    </div>
++                  </div>
++                  <div
++                    class="menu-option__content"
++                  >
++                    <div
++                      class="menu-name"
++                    >
++                      New template from board
++                    </div>
++                  </div>
++                  <div
++                    class="noicon"
++                  />
++                </div>
++              </div>
++              <div>
++                <div
++                  aria-label="Export board archive"
++                  class="MenuOption TextOption menu-option"
++                  role="button"
++                >
++                  <div
++                    class="d-flex"
++                  >
++                    <div
++                      class="menu-option__icon"
++                    >
++                      <i
++                        class="CompassIcon icon-export-variant"
++                      />
++                    </div>
++                  </div>
++                  <div
++                    class="menu-option__content"
++                  >
++                    <div
++                      class="menu-name"
++                    >
++                      Export board archive
++                    </div>
++                  </div>
++                  <div
++                    class="noicon"
++                  />
++                </div>
++              </div>
++              <div>
++                <div
++                  aria-label="Hide board"
++                  class="MenuOption TextOption menu-option"
++                  role="button"
++                >
++                  <div
++                    class="d-flex"
++                  >
++                    <div
++                      class="menu-option__icon"
++                    >
++                      <i
++                        class="CompassIcon icon-close CloseIcon"
++                      />
++                    </div>
++                  </div>
++                  <div
++                    class="menu-option__content"
++                  >
++                    <div
++                      class="menu-name"
++                    >
++                      Hide board
++                    </div>
++                  </div>
++                  <div
++                    class="noicon"
++                  />
++                </div>
++              </div>
++              <div>
++                <div
++                  aria-label="Delete board"
++                  class="MenuOption TextOption menu-option text-danger"
++                  role="button"
++                >
++                  <div
++                    class="d-flex"
++                  >
++                    <div
++                      class="menu-option__icon"
++                    >
++                      <i
++                        class="CompassIcon icon-trash-can-outline DeleteIcon trash-can-outline"
++                      />
++                    </div>
++                  </div>
++                  <div
++                    class="menu-option__content"
++                  >
++                    <div
++                      class="menu-name"
++                    >
++                      Delete board
++                    </div>
++                  </div>
++                  <div
++                    class="noicon"
++                  />
++                </div>
++              </div>
++            </div>
++            <div
++              class="menu-spacer hideOnWidescreen"
++            />
++            <div
++              class="menu-options hideOnWidescreen"
++            >
++              <div
++                aria-label="Cancel"
++                class="MenuOption TextOption menu-option menu-cancel"
++                role="button"
++              >
++                <div
++                  class="d-flex"
++                >
++                  <div
++                    class="noicon"
++                  />
++                </div>
++                <div
++                  class="menu-option__content"
++                >
++                  <div
++                    class="menu-name"
++                  >
++                    Cancel
++                  </div>
++                </div>
++                <div
++                  class="noicon"
++                />
++              </div>
++            </div>
++          </div>
++        </div>
++      </div>
++    </div>
++  </div>
++  <div
++    class="SidebarBoardItem sidebar-view-item active"
++  >
++    <svg
++      class="BoardIcon Icon"
++      fill="currentColor"
++      height="24"
++      viewBox="0 0 24 24"
++      width="24"
++      xmlns="http://www.w3.org/2000/svg"
++    >
++      <g
++        opacity="0.8"
++      >
++        <path
++          clip-rule="evenodd"
++          d="M4 4H20V20H4V4ZM2 4C2 2.89543 2.89543 2 4 2H20C21.1046 2 22 2.89543 22 4V20C22 21.1046 21.1046 22 20 22H4C2.89543 22 2 21.1046 2 20V4ZM8 6H6V12H8V6ZM11 6H13V16H11V6ZM18 6H16V9H18V6Z"
++          fill="currentColor"
++          fill-rule="evenodd"
++        />
++      </g>
++    </svg>
++    <div
++      class="octo-sidebar-title"
++      title="view title"
++    >
++      view title
++    </div>
++  </div>
++</div>
++`;
++
+ exports[`components/sidebarBoardItem sidebar board item 1`] = `
+ <div>
+   <div
+diff --git a/webapp/src/components/sidebar/sidebarBoardItem.test.tsx b/webapp/src/components/sidebar/sidebarBoardItem.test.tsx
+index 91bfb35e452..5c1cada3248 100644
+--- a/webapp/src/components/sidebar/sidebarBoardItem.test.tsx
++++ b/webapp/src/components/sidebar/sidebarBoardItem.test.tsx
+@@ -12,6 +12,8 @@ import {Provider as ReduxProvider} from 'react-redux'
+ 
+ import configureStore from 'redux-mock-store'
+ 
++import {act} from 'react-dom/test-utils'
++
+ import {TestBlockFactory} from '../../test/testBlockFactory'
+ 
+ import {wrapIntl} from '../../testUtils'
+@@ -144,4 +146,75 @@ describe('components/sidebarBoardItem', () => {
+         userEvent.click(elementMenuWrapper!)
+         expect(container).toMatchSnapshot()
+     })
++
++    test('should have create category sub-menu', () => {
++        const mockStore = configureStore([])
++        const store = mockStore({...state})
++
++        const component = wrapIntl(
++            <ReduxProvider store={store}>
++                <Router history={history}>
++                    <SidebarBoardItem
++                        categoryBoards={categoryBoards1}
++                        board={board}
++                        allCategories={allCategoryBoards}
++                        isActive={true}
++                        showBoard={jest.fn()}
++                        showView={jest.fn()}
++                        onDeleteRequest={jest.fn()}
++                    />
++                </Router>
++            </ReduxProvider>,
++        )
++        const {container} = render(component)
++        const elementMenuWrapper = container.querySelector('.SidebarBoardItem div.MenuWrapper')
++        expect(elementMenuWrapper).not.toBeNull()
++        act(() => {
++            userEvent.click(elementMenuWrapper!)
++        })
++        act(() => {
++            const moveToElement = container.querySelector('#moveBlock')
++            userEvent.hover(moveToElement!)
++        })
++        const createCategoryMenu = container.querySelector('[aria-label="Create New Category"]')
++        expect(createCategoryMenu).not.toBeNull()
++        expect(container).toMatchSnapshot()
++    })
++
++    test('modal should be displayed when create category sub-menu is clicked', () => {
++        const mockStore = configureStore([])
++        const store = mockStore({...state})
++
++        const component = wrapIntl(
++            <ReduxProvider store={store}>
++                <Router history={history}>
++                    <SidebarBoardItem
++                        categoryBoards={categoryBoards1}
++                        board={board}
++                        allCategories={allCategoryBoards}
++                        isActive={true}
++                        showBoard={jest.fn()}
++                        showView={jest.fn()}
++                        onDeleteRequest={jest.fn()}
++                    />
++                </Router>
++            </ReduxProvider>,
++        )
++        const {container} = render(component)
++        const elementMenuWrapper = container.querySelector('.SidebarBoardItem div.MenuWrapper')
++        expect(elementMenuWrapper).not.toBeNull()
++        act(() => {
++            userEvent.click(elementMenuWrapper!)
++        })
++        act(() => {
++            const moveToElement = container.querySelector('#moveBlock')
++            userEvent.hover(moveToElement!)
++        })
++        const createCategoryMenuElement = container.querySelector('[aria-label="Create New Category"]')
++        expect(createCategoryMenuElement).not.toBeNull()
++        act(() => {
++            userEvent.click(createCategoryMenuElement!)
++        })
++        expect(container).toMatchSnapshot()
++    })
+ })
+diff --git a/webapp/src/components/sidebar/sidebarBoardItem.tsx b/webapp/src/components/sidebar/sidebarBoardItem.tsx
+index 5eff9310699..70e79d415ca 100644
+--- a/webapp/src/components/sidebar/sidebarBoardItem.tsx
++++ b/webapp/src/components/sidebar/sidebarBoardItem.tsx
+@@ -1,7 +1,7 @@
+ // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
+ // See LICENSE.txt for license information.
+ import React, {useCallback, useRef, useState} from 'react'
+-import {useIntl} from 'react-intl'
++import {FormattedMessage, useIntl} from 'react-intl'
+ import {generatePath, useHistory, useRouteMatch} from 'react-router-dom'
+ 
+ import {Board} from '../../blocks/board'
+@@ -15,7 +15,7 @@ import MenuWrapper from '../../widgets/menuWrapper'
+ import BoardPermissionGate from '../permissions/boardPermissionGate'
+ 
+ import './sidebarBoardItem.scss'
+-import {CategoryBoards, updateBoardCategories} from '../../store/sidebar'
++import {Category, CategoryBoards, updateBoardCategories} from '../../store/sidebar'
+ import CreateNewFolder from '../../widgets/icons/newFolder'
+ import {useAppDispatch, useAppSelector} from '../../store/hooks'
+ import {getCurrentBoardViews, getCurrentViewId} from '../../store/views'
+@@ -41,6 +41,10 @@ import {getCurrentBoardId, getMySortedBoards} from '../../store/boards'
+ import {UserSettings} from '../../userSettings'
+ import {Archiver} from '../../archiver'
+ 
++import SeparatorOption from '../../widgets/menu/separatorOption'
++
++import CreateCategory from '../../components/createCategory/createCategory'
++
+ const iconForViewType = (viewType: IViewType): JSX.Element => {
+     switch (viewType) {
+     case 'board': return <BoardIcon/>
+@@ -78,6 +82,8 @@ const SidebarBoardItem = (props: Props) => {
+     const dispatch = useAppDispatch()
+     const myAllBoards = useAppSelector(getMySortedBoards)
+     const currentBoardID = useAppSelector(getCurrentBoardId)
++    const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false)
++    const [selectedBoardId, setSelectedBoardId] = useState<string>()
+ 
+     const generateMoveToCategoryOptions = (boardID: string) => {
+         return props.allCategories.map((category) => (
+@@ -192,6 +198,14 @@ const SidebarBoardItem = (props: Props) => {
+         }
+     }
+ 
++    const handleOnCreate = async (toCategory: Category) => {
++        if (!toCategory || !selectedBoardId) {
++            return
++        }
++
++        await mutator.moveBoardToCategory(teamID, selectedBoardId, toCategory.id, props.categoryBoards.id)
++    }
++
+     const boardItemRef = useRef<HTMLDivElement>(null)
+ 
+     const title = board.title || intl.formatMessage({id: 'Sidebar.untitled-board', defaultMessage: '(Untitled Board)'})
+@@ -238,6 +252,16 @@ const SidebarBoardItem = (props: Props) => {
+                                 position='auto'
+                             >
+                                 {generateMoveToCategoryOptions(board.id)}
++                                <SeparatorOption/>
++                                <Menu.Text
++                                    id='createNewCategory'
++                                    icon={<CreateNewFolder/>}
++                                    name={intl.formatMessage({id: 'SidebarCategories.CategoryMenu.CreateNew', defaultMessage: 'Create New Category'})}
++                                    onClick={() => {
++                                        setSelectedBoardId(board.id)
++                                        setShowCreateCategoryModal(true)
++                                    }}
++                                />
+                             </Menu.SubMenu>
+                             {!me?.is_guest &&
+                                 <Menu.Text
+@@ -299,6 +323,19 @@ const SidebarBoardItem = (props: Props) => {
+                     </div>
+                 </div>
+             ))}
++            {showCreateCategoryModal &&
++                <CreateCategory
++                    onClose={() => {
++                        setShowCreateCategoryModal(false)
++                    }}
++                    title={(
++                        <FormattedMessage
++                            id='SidebarCategories.CategoryMenu.CreateNew'
++                            defaultMessage='Create New Category'
++                        />
++                    )}
++                    onCreate={handleOnCreate}
++                />}
+         </>
+     )
+ }
+diff --git a/webapp/src/mutator.ts b/webapp/src/mutator.ts
+index b6353f5e2ec..2124c734302 100644
+--- a/webapp/src/mutator.ts
++++ b/webapp/src/mutator.ts
+@@ -919,8 +919,8 @@ class Mutator {
+         return this.unhideViewColumns(boardId, view, [columnOptionId])
+     }
+ 
+-    async createCategory(category: Category): Promise<void> {
+-        await octoClient.createSidebarCategory(category)
++    async createCategory(category: Category): Promise<Category> {
++        return octoClient.createSidebarCategory(category)
+     }
+ 
+     async deleteCategory(teamID: string, categoryID: string): Promise<void> {
+diff --git a/webapp/src/octoClient.ts b/webapp/src/octoClient.ts
+index 756b58cfe3e..42de6f396c5 100644
+--- a/webapp/src/octoClient.ts
++++ b/webapp/src/octoClient.ts
+@@ -767,14 +767,16 @@ class OctoClient {
+         return (await this.getJson(response, [])) as CategoryBoards[]
+     }
+ 
+-    async createSidebarCategory(category: Category): Promise<Response> {
++    async createSidebarCategory(category: Category): Promise<Category> {
+         const path = `/api/v2/teams/${category.teamID}/categories`
+         const body = JSON.stringify(category)
+-        return fetch(this.getBaseURL() + path, {
++        const response = await fetch(this.getBaseURL() + path, {
+             method: 'POST',
+             headers: this.headers(),
+             body,
+         })
++
++        return await response.json() as Category
+     }
+ 
+     async deleteSidebarCategory(teamID: string, categoryID: string): Promise<Response> {
