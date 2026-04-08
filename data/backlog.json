@@ -917,11 +917,11 @@
       "summary": "Fix SCSS for switch component: corrects outer switch height and inner switch transition styling",
       "test_hint": "Visually verify toggle switch renders correctly and animates smoothly in all states (on/off/hover)"
     },
-    "status": "open",
+    "status": "in-progress",
     "assigned_to": null,
     "fork_issue_number": 28,
-    "attempts": 1,
-    "last_attempt": "2026-04-08T22:55:15Z"
+    "attempts": 2,
+    "last_attempt": "2026-04-08T23:01:14Z"
   },
   {
     "body": "A message starting with `/me` just effects in slightly graying out the message text (barely noticable). From ye olde IRC days I'd mainly expect it to be displayed without colons after the name.\n\nE.g. the message `/me liked IRC` \ncurrently renders as `Tabis Kabis: liked IRC`\nexpected: `Tabis Kabis liked IRC`\n",
