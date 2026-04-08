@@ -28,9 +28,56 @@ type Props = {
 const Comment: FC<Props> = (props: Props) => {
     const {comment, userId, userImageUrl} = props
     const intl = useIntl()
-    const html = Utils.htmlFromMarkdown(comment.title)
     const user = useAppSelector(getUser(userId))
     const date = new Date(comment.createAt)
+
+    const isAction = comment.title.trim().startsWith('/me ')
+    const displayTitle = isAction ? comment.title.trim().slice(4) : comment.title
+    const html = Utils.htmlFromMarkdown(displayTitle)
+    // Strip outer <p>...</p> so action text renders inline with the username
+    const actionHtml = isAction ? (html || '').replace(/^<p>([\s\S]*)<\/p>$/, '$1') : ''
+
+    const optionsMenu = !props.readonly && (
+        <MenuWrapper>
+            <IconButton icon={<OptionsIcon/>}/>
+            <Menu position='left'>
+                <Menu.Text
+                    icon={<DeleteIcon/>}
+                    id='delete'
+                    name={intl.formatMessage({id: 'Comment.delete', defaultMessage: 'Delete'})}
+                    onClick={() => mutator.deleteBlock(comment)}
+                />
+            </Menu>
+        </MenuWrapper>
+    )
+
+    if (isAction) {
+        return (
+            <div
+                key={comment.id}
+                className='Comment comment comment-action'
+            >
+                <div className='comment-header'>
+                    <img
+                        className='comment-avatar'
+                        src={userImageUrl}
+                    />
+                    <GuestBadge show={user?.is_guest}/>
+                    <Tooltip title={Utils.displayDateTime(date, intl)}>
+                        <div className='comment-date'>
+                            {Utils.relativeDisplayDateTime(date, intl)}
+                        </div>
+                    </Tooltip>
+                    {optionsMenu}
+                </div>
+                <div className='comment-text comment-action-text'>
+                    <span className='comment-username'>{user?.username}</span>
+                    {' '}
+                    <span dangerouslySetInnerHTML={{__html: actionHtml}}/>
+                </div>
+            </div>
+        )
+    }
 
     return (
         <div
@@ -51,19 +98,7 @@ const Comment: FC<Props> = (props: Props) => {
                     </div>
                 </Tooltip>
 
-                {!props.readonly && (
-                    <MenuWrapper>
-                        <IconButton icon={<OptionsIcon/>}/>
-                        <Menu position='left'>
-                            <Menu.Text
-                                icon={<DeleteIcon/>}
-                                id='delete'
-                                name={intl.formatMessage({id: 'Comment.delete', defaultMessage: 'Delete'})}
-                                onClick={() => mutator.deleteBlock(comment)}
-                            />
-                        </Menu>
-                    </MenuWrapper>
-                )}
+                {optionsMenu}
             </div>
             <div
                 className='comment-text'

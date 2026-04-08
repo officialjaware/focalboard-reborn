@@ -945,11 +945,11 @@
       "summary": "The /me command renders with a colon after the username (e.g. 'Tabis Kabis: liked IRC') instead of the expected IRC-style format without colon (e.g. 'Tabis Kabis liked IRC').",
       "test_hint": "Write a unit/integration test that renders a message starting with /me and asserts the username is displayed without a trailing colon."
     },
-    "status": "open",
+    "status": "in-progress",
     "assigned_to": null,
     "fork_issue_number": 29,
-    "attempts": 0,
-    "last_attempt": null
+    "attempts": 1,
+    "last_attempt": "2026-04-08T23:01:08Z"
   },
   {
     "body": "## Steps to reproduce the behavior\n\ngit clone and docker-compose up\n\n## Expected behavior\n\ndocker image builds\n\n## Screenshots (optional)\n\n```\nStep 10/23 : RUN EXCLUDE_PLUGIN=true EXCLUDE_SERVER=true EXCLUDE_ENTERPRISE=true make server-docker os=${TARGETOS} arch=${TARGETARCH}\n ---> Running in 000df3241198\nmkdir -p bin/docker\ncd server; env GOOS= GOARCH= go build -ldflags '-X \"github.com/mattermost/focalboard/server/model.BuildNumber=dev\" -X \"github.com/mattermost/focalboard/server/model.BuildDate=n/a\" -X \"github.com/mattermost/focalboard/server/model.BuildHash=de5e5cc4141f14f69bf0e5666383997b81f851d6\" -X \"github.com/mattermost/focalboard/server/model.Edition=linux\"' -tags 'json1 sqlite3' -o ../bin/docker/focalboard-server ./main\ngo: errors parsing go.mod:\n/go/src/focalboard/server/go.mod:5: unknown directive: toolchain\nmake: *** [Makefile:66: server-docker] Error 1\nERROR: Service 'app' failed to build: The command '/bin/sh -c EXCLUDE_PLUGIN=true EXCLUDE_SERVER=true EXCLUDE_ENTERPRISE=true make server-docker os=${TARGETOS} arch=${TARGETARCH}' returned a non-zero code: 2\n```\n\n## Additional context (optional)\n\nWorkaround: Seems like the hardcoded go version in the Dockerfile needs to be updated. When changing to `FROM golang:latest AS gobuild` and updating debian to `FROM debian:stable` it works fine.\n\n",

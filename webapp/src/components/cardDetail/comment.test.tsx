@@ -152,4 +152,33 @@ describe('components/cardDetail/comment', () => {
         expect(mockedMutator.deleteBlock).toBeCalledTimes(1)
         expect(mockedMutator.deleteBlock).toBeCalledWith(comment)
     })
+
+    test('/me action comment renders username without trailing colon', () => {
+        const meComment = {...comment, title: '/me liked IRC'}
+        const {container} = render(wrapIntl(
+            <ReduxProvider store={store}>
+                <Comment
+                    comment={meComment}
+                    userId={comment.modifiedBy}
+                    userImageUrl={userImageUrl}
+                    readonly={false}
+                />
+            </ReduxProvider>,
+        ))
+
+        // The action text should appear without the /me prefix
+        expect(container.textContent).toContain('liked IRC')
+        expect(container.textContent).not.toContain('/me')
+
+        // The username should be present but NOT followed by a colon
+        const usernameEl = container.querySelector('.comment-username')
+        expect(usernameEl).toBeTruthy()
+        expect(usernameEl!.textContent).toBe('username_1')
+        expect(usernameEl!.textContent).not.toMatch(/username_1\s*:/)
+
+        // The full rendered text should not contain "username_1:" (username with colon)
+        expect(container.textContent).not.toMatch(/username_1\s*:/)
+
+        expect(container).toMatchSnapshot()
+    })
 })

@@ -65,4 +65,17 @@
     .comment-text * {
         user-select: text;
     }
+
+    &.comment-action {
+        .comment-action-text {
+            padding-left: 32px;
+            color: rgb(var(--center-channel-color-rgb));
+            overflow-wrap: anywhere;
+
+            .comment-username {
+                font-weight: bold;
+                margin: 0;
+            }
+        }
+    }
 }

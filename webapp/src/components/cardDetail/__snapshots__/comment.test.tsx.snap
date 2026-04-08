@@ -1,5 +1,59 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`components/cardDetail/comment /me action comment renders username without trailing colon 1`] = `
+<div>
+  <div
+    class="Comment comment comment-action"
+  >
+    <div
+      class="comment-header"
+    >
+      <img
+        class="comment-avatar"
+        src="data:image/svg+xml"
+      />
+      <div
+        class="octo-tooltip tooltip-top"
+        data-tooltip="October 01, 2020 at 12:00 AM"
+      >
+        <div
+          class="comment-date"
+        >
+          a day ago
+        </div>
+      </div>
+      <div
+        aria-label="menuwrapper"
+        class="MenuWrapper"
+        role="button"
+      >
+        <button
+          class="IconButton"
+          type="button"
+        >
+          <i
+            class="CompassIcon icon-dots-horizontal OptionsIcon"
+          />
+        </button>
+      </div>
+    </div>
+    <div
+      class="comment-text comment-action-text"
+    >
+      <span
+        class="comment-username"
+      >
+        username_1
+      </span>
+       
+      <span>
+        liked IRC
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`components/cardDetail/comment return comment 1`] = `
 <div>
   <div
