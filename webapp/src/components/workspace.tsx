@@ -119,8 +119,10 @@ function CenterContent(props: Props) {
 
     if (board && !isBoardHidden() && activeView) {
         let property = groupByProperty
-        if ((!property || !propsRegistry.get(property.type).canGroup) && activeView.fields.viewType === 'board') {
-            property = board?.cardProperties.find((o) => propsRegistry.get(o.type).canGroup)
+        if (!property || !propsRegistry.get(property.type).canGroup) {
+            if (activeView.fields.viewType === 'board' || activeView.fields.viewType === 'table') {
+                property = board?.cardProperties.find((o) => propsRegistry.get(o.type).canGroup)
+            }
         }
 
         let displayProperty = dateDisplayProperty
