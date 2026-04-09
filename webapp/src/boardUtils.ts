@@ -7,7 +7,7 @@ function groupCardsByOptions(cards: Card[], optionIds: string[], groupByProperty
     const groups = []
     for (const optionId of optionIds) {
         if (optionId) {
-            const option = groupByProperty?.options.find((o) => o.id === optionId)
+            const option = groupByProperty?.options?.find((o) => o.id === optionId)
             if (option) {
                 const c = cards.filter((o) => optionId === o.fields?.properties[groupByProperty!.id])
                 const group: BoardGroup = {
@@ -22,7 +22,7 @@ function groupCardsByOptions(cards: Card[], optionIds: string[], groupByProperty
             // Empty group
             const emptyGroupCards = cards.filter((card) => {
                 const groupByOptionId = card.fields.properties[groupByProperty?.id || '']
-                return !groupByOptionId || !groupByProperty?.options.find((option) => option.id === groupByOptionId)
+                return !groupByOptionId || !groupByProperty?.options?.find((option) => option.id === groupByOptionId)
             })
             const group: BoardGroup = {
                 option: {id: '', value: `No ${groupByProperty?.name}`, color: ''},
@@ -37,7 +37,7 @@ function groupCardsByOptions(cards: Card[], optionIds: string[], groupByProperty
 function getOptionGroups(cards: Card[], visibleOptionIds: string[], hiddenOptionIds: string[], groupByProperty?: IPropertyTemplate): {visible: BoardGroup[], hidden: BoardGroup[]} {
     let unassignedOptionIds: string[] = []
     if (groupByProperty) {
-        unassignedOptionIds = groupByProperty.options.
+        unassignedOptionIds = (groupByProperty.options ?? []).
             filter((o: IPropertyOption) => !visibleOptionIds.includes(o.id) && !hiddenOptionIds.includes(o.id)).
             map((o: IPropertyOption) => o.id)
     }
