@@ -9,7 +9,7 @@ import {History} from 'history'
 
 import TelemetryClient from './telemetry/telemetryClient'
 
-import {getMessages} from './i18n'
+import {getMessages, toLocale} from './i18n'
 import {FlashMessages} from './components/flashMessages'
 import NewVersionBanner from './components/newVersionBanner'
 import {Utils} from './utils'
@@ -44,7 +44,7 @@ const App = (props: Props): JSX.Element => {
 
     return (
         <IntlProvider
-            locale={language.split(/[_]/)[0]}
+            locale={toLocale(language)}
             messages={getMessages(language)}
         >
             <DndProvider backend={Utils.isMobile() ? TouchBackend : HTML5Backend}>
