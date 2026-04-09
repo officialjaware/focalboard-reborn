@@ -74,6 +74,18 @@ export function getCurrentLanguage(): string {
     return lang
 }
 
+// toLocale converts an internal language code to a valid BCP 47 locale tag
+// accepted by the Intl APIs. Bare language codes (e.g. 'en', 'de') are
+// returned unchanged. Codes with a region suffix use a hyphen separator and
+// an uppercase region subtag (e.g. 'pt-br' → 'pt-BR', 'zh-cn' → 'zh-CN').
+export function toLocale(language: string): string {
+    const parts = language.split(/[-_]/)
+    if (parts.length === 1) {
+        return parts[0]
+    }
+    return `${parts[0]}-${parts[1].toUpperCase()}`
+}
+
 export function storeLanguage(lang: string): void {
     UserSettings.language = lang
 }
