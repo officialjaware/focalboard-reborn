@@ -56,11 +56,4 @@ function createBoardView(block?: Block): BoardView {
     }
 }
 
-function sortBoardViewsAlphabetically(views: BoardView[]): BoardView[] {
-    // Strip leading emoji to prevent unintuitive results
-    return views.map((v) => {
-        return {view: v, title: v.title.replace(/^\p{Emoji}*\s*/u, '')}
-    }).sort((v1, v2) => v1.title.localeCompare(v2.title)).map((v) => v.view)
-}
-
-export {BoardView, IViewType, ISortOption, sortBoardViewsAlphabetically, createBoardView, KanbanCalculationFields}
+export {BoardView, IViewType, ISortOption, createBoardView, KanbanCalculationFields}
