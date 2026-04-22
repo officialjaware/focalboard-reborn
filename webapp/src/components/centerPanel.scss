@@ -71,6 +71,8 @@
     > div:nth-child(2) {
         padding: 0 0 0 1px;
         margin-left: 32px;
+        margin-bottom: 5px;
+        margin-right: 5px;
 
         @media (max-width: 768px) {
             margin-left: 0;
